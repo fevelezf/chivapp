@@ -10,7 +10,8 @@ def pagina_inicio():
     destino = st.selectbox("Destino:", ciudades)
     personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
 
-    return origen, destino, personas
+    if st.button("Ir a Reservas"):
+        return origen, destino, personas
 
 def pagina_reserva(origen, destino, personas):
     st.header("Reserva para personas:")
@@ -21,15 +22,17 @@ def pagina_reserva(origen, destino, personas):
         correo = st.text_input(f"Correo de la persona {i + 1}")
 
 def main():
-    opcion = st.sidebar.selectbox("Navegación", ["Inicio", "Reserva"])
+    opcion = st.selectbox("Navegación", ["Inicio", "Reservas"])
 
     if opcion == "Inicio":
-        origen, destino, personas = pagina_inicio()
-        st.session_state.origen = origen
-        st.session_state.destino = destino
-        st.session_state.personas = personas
+        viaje_info = pagina_inicio()
+        if viaje_info:
+            origen, destino, personas = viaje_info
+            st.session_state.origen = origen
+            st.session_state.destino = destino
+            st.session_state.personas = personas
 
-    if opcion == "Reserva":
+    if opcion == "Reservas":
         if 'origen' in st.session_state and 'destino' in st.session_state and 'personas' in st.session_state:
             pagina_reserva(st.session_state.origen, st.session_state.destino, st.session_state.personas)
         else:
