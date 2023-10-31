@@ -29,7 +29,10 @@ def main():
         st.session_state.destino = destino
         st.session_state.personas = personas
         if st.button('Reverva Right Now'):
-            opcion == "Reserva"
+            if 'origen' in st.session_state and 'destino' in st.session_state and 'personas' in st.session_state:
+                pagina_reserva(st.session_state.origen, st.session_state.destino, st.session_state.personas)
+            else:
+                st.warning("Primero selecciona el origen, destino y número de personas en la página de Inicio.")
 
     if opcion == "Reserva":
         if 'origen' in st.session_state and 'destino' in st.session_state and 'personas' in st.session_state:
