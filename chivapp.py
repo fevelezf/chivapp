@@ -16,9 +16,7 @@ def pagina_inicio():
             
         else:
             st.success(f"Buscando vuelos desde {origen} a {destino}. ¡Pronto tendrás opciones disponibles!")
-            pagina_reserva(origen, destino, personas)
             return origen, destino, personas
-        return None, None, None
             
 
 def pagina_reserva(origen, destino, personas):
@@ -34,6 +32,7 @@ def main():
 
     if opcion == "Inicio":
         origen, destino, personas = pagina_inicio()
+        pagina_reserva(origen, destino, personas)
         
     elif opcion == "Reserva":
         pagina_reserva(origen, destino, personas)
