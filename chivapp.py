@@ -13,6 +13,7 @@ def pagina_inicio():
     if st.button("Busca Tu Viaje"):
         if origen == destino:
             st.warning("El origen y el destino no pueden ser iguales. Por favor, selecciona ciudades diferentes.")
+            return None, None, None
         else:
             st.success(f"Buscando vuelos desde {origen} a {destino}. ¡Pronto tendrás opciones disponibles!")
             pagina_reserva(origen, destino, personas)
