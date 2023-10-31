@@ -12,8 +12,9 @@ def pagina_inicio():
 
     return origen, destino, personas
 
-def pagina_reserva(origen, destino, personas):
+def pagina_reserva():
     st.header("Reserva para personas:")
+    personas = st.session_state.personas
     for i in range(personas):
         st.subheader(f"Datos de la persona {i + 1}")
         nombre = st.text_input(f"Nombre de la persona {i + 1}")
@@ -21,21 +22,19 @@ def pagina_reserva(origen, destino, personas):
         correo = st.text_input(f"Correo de la persona {i + 1}")
 
 def main():
-    opcion = st.sidebar.selectbox("Navegación", ["Inicio", "Reserva"])
-
-    if opcion == "Inicio":
+    st.session_state.pagina_actual = "Inicio"
+    
+    if st.session_state.pagina_actual == "Inicio":
         origen, destino, personas = pagina_inicio()
         st.session_state.origen = origen
         st.session_state.destino = destino
         st.session_state.personas = personas
-        if st.button('Reverva Right Now'):
+        
+        if st.button('Reserva Right Now'):
             st.session_state.pagina_actual = "Reserva"
 
-    if opcion == "Reserva":
-        if 'origen' in st.session_state and 'destino' in st.session_state and 'personas' in st.session_state:
-            pagina_reserva(st.session_state.origen, st.session_state.destino, st.session_state.personas)
-        else:
-            st.warning("Primero selecciona el origen, destino y número de personas en la página de Inicio.")
+    if st.session_state.pagina_actual == "Reserva":
+        pagina_reserva()
 
 if __name__ == "__main__":
     main()
