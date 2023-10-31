@@ -31,7 +31,10 @@ def main():
         st.session_state.personas = personas
         
         if st.button('Reserva Right Now'):
-            st.session_state.pagina_actual = "Reserva"
+            if st.session_state.origen != st.session_state.destino:
+                st.session_state.pagina_actual = "Reserva"
+            else:
+                st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
 
     if st.session_state.pagina_actual == "Reserva":
         pagina_reserva()
