@@ -16,6 +16,7 @@ def pagina_inicio():
         else:
             st.success(f"Buscando vuelos desde {origen} a {destino}. ¡Pronto tendrás opciones disponibles!")
             pagina_reserva(origen, destino, personas)
+            return origen, destino, personas
             
 
 def pagina_reserva(origen, destino, personas):
@@ -27,7 +28,7 @@ def pagina_reserva(origen, destino, personas):
         correo = st.text_input(f"Correo de la persona {i + 1}")
 
 def main():
-    opcion = st.sidebar.radio("Navegación", ["Inicio", "Reserva"])
+    opcion = st.selectbox("Navegación", ["Inicio", "Reserva"])
 
     if opcion == "Inicio":
         origen, destino, personas = pagina_inicio()
