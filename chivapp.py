@@ -15,10 +15,23 @@ def busqueda_de_viajes():
     return origen, destino, personas, fecha
 
 def inicio_de_sesion():
+    st.title("Inicio de sesión")
+
     usuario = st.text_input("Ingrese su usuario:")
     contraseña = st.text_input("Ingrese su contraseña:")
 
     return usuario, contraseña
+
+def registro():
+    st.title("Registrarse")
+
+    nombre = st.text_input("Ingrese su nombre:")
+    apellidos = st.text_input("Ingrese sus apellidos:")
+    usuario = st.text_input("Ingrese su usuario:")
+    contraseña = st.text_input("Ingrese su contraseña:")
+    correo = st.text_input("Ingrese su correo:")
+
+    return nombre, apellidos, usuario, contraseña, correo
 
 def pagina_reserva():
     st.header("Reserva para personas:")
@@ -63,7 +76,7 @@ selected_option = st.sidebar.selectbox(
 if selected_option == 'Inicio de sesion':
     usuario, contraseña = inicio_de_sesion()
 
-    if st.button('RIngresar'):
+    if st.button('Ingresar'):
             if True:
                 st.success("Ingreso correcto")
             else:
@@ -73,7 +86,15 @@ if selected_option == 'Inicio de sesion':
     
 
 elif selected_option == 'Registrarse':
-    st.write("registro pa")
+    nombre, apellidos, usuario, contraseña, correo = registro()
+
+    if st.button('Registrarse'):
+            if True:
+                st.success("Registro Valido")
+            else:
+                st.warning("Credenciales incorrectos")
+
+
     
     
 
