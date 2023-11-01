@@ -27,7 +27,7 @@ def main():
     st.session_state.pagina_actual = "Busqueda_de_viajes"
     
     if st.session_state.pagina_actual == "Busqueda_de_viajes":
-        origen, destino, personas = busqueda_de_viajes()
+        origen, destino, personas, fecha = busqueda_de_viajes()
         st.session_state.origen = origen
         st.session_state.destino = destino
         st.session_state.personas = personas
@@ -42,8 +42,8 @@ def main():
         pagina_reserva()
 
 
-if __name__ == "__main__":
-    main()
+'''if __name__ == "__main__":
+    main()'''
 
 # Crear una barra lateral para la tabla de contenidos
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes' ]
