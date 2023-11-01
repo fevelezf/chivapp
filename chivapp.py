@@ -9,10 +9,23 @@ def busqueda_de_viajes():
     origen = st.selectbox("Origen:", ciudades)
     destino = st.selectbox("Destino:", ciudades)
     personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
-    fecha = st.selectbox("¿Tipo de viaje?", ["Chiva Rumbera", "Chiva de Turismo"] )
     fecha = st.date_input("Selecciona la fecha:")
 
     return origen, destino, personas, fecha
+
+def busqueda_de_chiva_rumbera():
+    salida = ['Mall de la Mota' , 'CC La Central', 'Carlos E']
+    recorridos = ["Las Palmas", "San Antonio de Pereira", "Alumbrados del Río", "Guatapé"]
+
+    st.title("¡Bienvenido a tu Agencia de Viajes!")
+    st.write("Selecciona el lugar de salida y tu ruta para tu chiva rumbera.")
+
+    salida = st.selectbox("Salida:", salida)
+    ruta = st.selectbox("Selecciona la ruta", recorridos)
+    personas = st.number_input("¿Cuántas personas viajan?", min_value=15, max_value=30, step=1)
+    fecha = st.date_input("Selecciona la fecha:")
+
+    return salida, ruta, personas, fecha
 
 def inicio_de_sesion():
     st.title("Inicio de sesión")
@@ -43,6 +56,9 @@ def pagina_reserva():
         correo = st.text_input(f"Correo de la persona {i + 1}")
         equipaje = st.selectbox(f"¿Lleva equipaje?", ["Si", "No"])
 
+    if st.button('Seguir con el pago'):
+        st.write('melo')
+
 def main():
     st.session_state.pagina_actual = "Busqueda_de_viajes"
     
@@ -67,7 +83,7 @@ def main():
 #    main()
 
 # Crear una barra lateral para la tabla de contenidos
-opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes' ]
+opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
 
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
@@ -82,8 +98,6 @@ if selected_option == 'Inicio de sesion':
             else:
                 st.warning("Verifique su usuario y su contraseña")
     
-    
-    
 
 elif selected_option == 'Registrarse':
     nombre, apellidos, usuario, contraseña, correo = registro()
@@ -95,10 +109,24 @@ elif selected_option == 'Registrarse':
                 st.warning("Credenciales incorrectos")
 
 
+elif selected_option == 'Busqueda de viajes':
+    origen, destino, personas, fecha = busqueda_de_viajes()
+    st.session_state.origen = origen
+    st.session_state.destino = destino
+    st.session_state.personas = personas
+    st.session_state.fecha = fecha
     
+    if st.button('Reserva Right Now'):
+        if st.session_state.origen != st.session_state.destino:
+            st.session_state.pagina_actual = "Reserva"
+        else:
+            st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
+
+    if st.session_state.pagina_actual == "Reserva":
+        pagina_reserva()
+
     
 
-elif selected_option == 'Busqueda de viajes':
+elif selected_option == 'Busqueda de chiva Rumbera':
     
-    main()
-    
+    st.write("wepa")
