@@ -9,6 +9,7 @@ def pagina_inicio():
     origen = st.selectbox("Origen:", ciudades)
     destino = st.selectbox("Destino:", ciudades)
     personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
+    fecha = st.date_input("Selecciona la fecha:")
 
     return origen, destino, personas
 
