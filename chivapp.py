@@ -75,8 +75,6 @@ def pagina_reserva(personas):
         correo = st.text_input(f"Correo de la persona {i + 1}")
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
-
-
 def pago():
     st.header("Pago con codigo QR")
     st.title("Recuerda que si no cargas una foto, Se intuye que pagaras en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
@@ -89,11 +87,17 @@ def pago():
 
     if uploaded_file is not None:
         st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-        st.button("Confirmación del viaje")
+    st.button("Confirmación del viaje")
+
+def conductor():
+    st.markdown('<h2 style="text-align: left; color: Black;">Revisar viajes</h2>',\
+             unsafe_allow_html=True)
+
+    if st.button('Cargar itinerario'):
+        
 
 
-
-opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
+opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ]
 
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
@@ -123,3 +127,6 @@ elif selected_option == 'Busqueda de chiva Rumbera':
 
     if st.button('Pagar'):
         pago()
+
+elif selected_option == 'Conductor':
+    st.header('Sección de conductor')
