@@ -1,5 +1,7 @@
 import streamlit as st
 
+global show_pago
+
 def busqueda_de_viajes():
     ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
 
