@@ -98,6 +98,12 @@ opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda d
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
     'Selecciona una opción:', opciones)
+if selected_option == 'Inicio de sesion':
+    inicio_de_sesion()
+
+if selected_option == 'Registrarse':
+    registro()
+
 
 if selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
