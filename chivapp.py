@@ -50,19 +50,13 @@ def pagina_reserva():
     st.header("Reserva para personas:")
     personas = st.session_state.personas
 
-    # Divide la página en dos columnas
-    col1, col2 = st.columns(2)
-
     for i in range(personas):
         # Muestra los datos de las personas en las dos columnas
-        st.write(f"Datos de la persona {i + 1}")
-        with col1:
-            nombre = st.text_input(f"Nombre de la persona {i + 1}")
-            cedula = st.text_input(f"Cédula de la persona {i + 1}")
-
-        with col2:
-            correo = st.text_input(f"Correo de la persona {i + 1}")
-            equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+        st.write(f"Datos de la persona {i + 1}")       
+        nombre = st.text_input(f"Nombre de la persona {i + 1}")
+        cedula = st.text_input(f"Cédula de la persona {i + 1}")
+        correo = st.text_input(f"Correo de la persona {i + 1}")
+        equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
     if st.button('Seguir con el pago'):
         st.write('melo')
