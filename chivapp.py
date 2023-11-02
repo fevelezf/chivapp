@@ -49,8 +49,11 @@ def registro():
     nombre = st.text_input("Ingrese su nombre:")
     apellidos = st.text_input("Ingrese sus apellidos:")
     usuario = st.text_input("Ingrese su usuario:")
-    contraseña = st.text_input("Ingrese su contraseña:")
+    contraseña = st.text_input("Ingrese su contraseña:", type = 'pasword' )
     correo = st.text_input("Ingrese su correo:")
+
+    if st.button('Registrarse'):
+        st.success('Registro exitoso!')
 
     return nombre, apellidos, usuario, contraseña, correo
 
@@ -100,7 +103,7 @@ def conductor():
              unsafe_allow_html=True)
 
     if st.button('Cargar itinerario'):
-        st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
+        st.image("Ruta.png",caption="Esta es su ruta: Medellín-Abejorral", use_column_width=True)
         st.title('Carga de Imágenes')
 
         uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
