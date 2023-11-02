@@ -75,32 +75,22 @@ def pagina_reserva(personas):
         correo = st.text_input(f"Correo de la persona {i + 1}")
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
-        st.button('Seguir con el pago', on_click=pago)
 
 
-def qr():
-    st.image("Qr_ChivApp.jpeg", caption="Consigna el valor de tu viaje aquí", use_column_width=True)
+def pago():
+    st.header("Pago con codigo QR")
+    st.title("Recuerda que si no cargas una foto, Se intuye que pagaras en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
+
+
+    st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
     st.title('Carga de Imágenes')
+
     uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+
     if uploaded_file is not None:
         st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
         st.button("Confirmación del viaje")
 
-def efectivo():
-    st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
-
-def pago():
-    st.header("Pago")
-    
-    st.title("Selecciona un método de pago")
-    
-    col1, col2 = st.columns(2)
-    
-    if col1.button("Qr", on_click = qr):
-        qr()
-    
-    if col2.button("Efectivo",on_click = efectivo):
-        efectivo()
 
 
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
@@ -121,6 +111,7 @@ elif selected_option == 'Busqueda de viajes':
         st.success("Selección de origen y destino correcta")
         if st.button('Reserva Right Now'):
             pagina_reserva(personas)
+            st.button('Pagar',on_click=pago)
     else:
         st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
 
