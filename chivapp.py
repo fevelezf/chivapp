@@ -172,6 +172,6 @@ elif selected_option == 'Conductor':
     if col2.button('Cargar incapacidad'):
         conductor()
 
-elif selected_option == 'Inicio de sesion':
+elif selected_option == 'Administrar chivas':
     st.header('ASIGNACIONES')
     administrar_chivas()
