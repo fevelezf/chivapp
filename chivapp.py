@@ -96,11 +96,19 @@ def pago():
 
     if uploaded_file is not None:
         st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-    st.button("Confirmación del viaje")
+    
+    
+    st.button("Confirmación del viaje",on_click=confirmacion)
+
+
+def confirmacion():
+    st.title('Viaje confirmado con destino a Abejorral')
+    st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
+    st.success('FELIZ VIAJE')
 
 def conductor():
     st.markdown('<h2 style="text-align: left; color: Black;">Revisar viajes</h2>',\
-             unsafe_allow_html=True)
+            unsafe_allow_html=True)
 
     if st.button('Cargar itinerario'):
         st.image("Ruta.png",caption="Esta es su ruta: Medellín-Abejorral", use_column_width=True)
