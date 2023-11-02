@@ -140,6 +140,12 @@ elif selected_option == 'Busqueda de viajes':
     if st.session_state.pagina_actual == "Reserva":
         pagina_reserva()
 
+    if st.button('Pagar'):
+        st.session_state.pagina_actual = "Pago"
+
+    if st.session_state.pagina_actual == "Pago":
+        pago()
+
     
 
 elif selected_option == 'Busqueda de chiva Rumbera':
@@ -154,4 +160,10 @@ elif selected_option == 'Busqueda de chiva Rumbera':
 
     if st.session_state.pagina_actual == "Reserva":
         pagina_reserva()
+
+    if st.button('Pagar'):
+        st.session_state.pagina_actual = "Pago"
+
+    if st.session_state.pagina_actual == "Pago":
+        pago()
     
