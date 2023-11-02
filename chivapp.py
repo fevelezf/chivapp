@@ -190,12 +190,14 @@ elif selected_option == 'Administrar chivas':
     st.header('ASIGNACIONES')
     administrar_chivas()
 
-<<<<<<< HEAD
+
 elif selected_option == 'Verificar pagos':
     st.header('PAGOS')
     administrar_pagos()
-=======
+
+
 elif selected_option == 'Administrar viajes':
     st.header('ASIGNACIONES')
     administrar_viajes()
->>>>>>> 8f6f85624bb07169ea8d50a8668c4db0e675ccd6
+
+    
