@@ -66,7 +66,7 @@ def pago():
     metodo = st.selectbox("¿Lleva equipaje la persona?", ["Qr", "Efectivo"])
 
     if metodo == "Qr":
-        st.image("Qr_ChivApp",caption="Consigna el valor de tu viaje aquí", use_column_width=True)
+        st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí", use_column_width=True)
         st.title('Carga de Imágenes')
 
         uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
