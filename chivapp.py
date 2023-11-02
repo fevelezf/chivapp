@@ -119,6 +119,16 @@ def conductor():
         st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
     st.button("Incapacidad recibida")
         
+def administrar_chivas():
+        st.header("Administrar chivas y conductores")
+        with st.form("registrar_gasto_form"):
+            # Cambiar el campo de texto por un menú desplegable para la categoría
+            vehiculos = st.selectbox("Seleccione la chiva:", ["ABC123", "DEF456", "GHI789", "JKL012", "MNO345", "PQR678", "STU901", "VWX234", "YZA567"])
+            conductores = st.selectbox("Seleccione el conductor:",
+    ["Don Ramón", "Chapulín Colorado", "La Chilindrina", "El Chavo del 8", "Doña Florinda", "El Profesor Jirafales", "Quico", "Ñoño"]
+)
+            if st.form_submit_button("Registrar"):
+                st.success("Asigancion exitosa.")
 
 
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ]
