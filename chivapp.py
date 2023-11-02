@@ -75,9 +75,6 @@ def pagina_reserva(personas):
         correo = st.text_input(f"Correo de la persona {i + 1}")
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
-    if st.button("Seguir al pago"):
-        pago()
-
 
 
 def pago():
@@ -114,7 +111,7 @@ elif selected_option == 'Busqueda de viajes':
         st.success("Selección de origen y destino correcta")
         if st.button('Reserva Right Now'):
             pagina_reserva(personas)
-            #st.button('Pagar',on_click=pago)
+            st.button('Pagar',on_click=pago)
     else:
         st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
 
