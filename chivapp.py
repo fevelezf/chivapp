@@ -59,7 +59,7 @@ def pagina_reserva():
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
     if st.button('Seguir con el pago'):
-        st.write('melo')
+        pago()
 
 def pago():
     st.header("Pago")
@@ -111,9 +111,6 @@ elif selected_option == 'Busqueda de viajes':
             pagina_reserva()
         else:
             st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-
-    if st.button('Pagar'):
-        pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
