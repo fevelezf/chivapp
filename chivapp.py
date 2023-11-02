@@ -35,6 +35,8 @@ def inicio_de_sesion():
     usuario = st.text_input("Ingrese su usuario:")
     contraseña = st.text_input("Ingrese su contraseña:")
 
+    st.button('Iniciar sesión')
+
     return usuario, contraseña
 
 def registro():
