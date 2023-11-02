@@ -46,6 +46,19 @@ def registro():
 
     return nombre, apellidos, usuario, contraseña, correo
 
+def busqueda_de_viajes():
+    ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
+
+    st.title("¡Bienvenido a tu Agencia de Viajes!")
+    st.write("Selecciona tu origen y destino para encontrar tu próximo viaje.")
+
+    origen = st.selectbox("Origen:", ciudades)
+    destino = st.selectbox("Destino:", ciudades)
+    personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
+    fecha = st.date_input("Selecciona la fecha:")
+
+    return origen, destino, personas, fecha
+
 def pagina_reserva():
     st.header("Reserva para personas:")
     personas = st.session_state.personas
@@ -78,6 +91,8 @@ def pago():
     else:
         st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
+show_pago = False
+
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
 
 st.sidebar.title('Tabla de Contenido')
@@ -89,14 +104,13 @@ if selected_option == 'Busqueda de viajes':
 
     if origen != destino:
         st.success("Selección de origen y destino correcta")
-        st.session_state.show_pago = True
+        if st.button('Reserva Right Now'):
+            pagina_reserva()
+
     else:
         st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
 
-    if st.button('Reserva Right Now'):
-        pagina_reserva()
-
-    if st.session_state.show_pago and st.button('Pagar'):
+    if show_pago:
         pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
