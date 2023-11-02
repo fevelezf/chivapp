@@ -34,9 +34,10 @@ def inicio_de_sesion():
 
     usuario = st.text_input("Ingrese su usuario:")
     contraseña = st.text_input("Ingrese su contraseña:")
-
     if st.button('Iniciar sesión'):
         st.succes('Inicio de sesión exitoso')
+        st.audio('corneta.mp3', format='audio/mp3', start_time=0)
+
 
     return usuario, contraseña
 
