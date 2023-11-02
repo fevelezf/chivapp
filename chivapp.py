@@ -59,10 +59,9 @@ def busqueda_de_viajes():
 
     return origen, destino, personas, fecha
 
-def pagina_reserva():
+def pagina_reserva(personas):
     st.header("Reserva para personas:")
-    personas = st.session_state.personas
-
+    
     for i in range(personas):
         # Muestra los datos de las personas en las dos columnas
         st.write(f"Datos de la persona {i + 1}")       
@@ -111,7 +110,7 @@ if selected_option == 'Busqueda de viajes':
     if origen != destino:
         st.success("Selección de origen y destino correcta")
         if st.button('Reserva Right Now'):
-            pagina_reserva()
+            pagina_reserva(personas)
 
     else:
         st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
