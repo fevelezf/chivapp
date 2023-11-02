@@ -61,7 +61,7 @@ def busqueda_de_viajes():
 
 def pagina_reserva(personas):
     st.header("Reserva para personas:")
-    
+
     for i in range(personas):
         # Muestra los datos de las personas en las dos columnas
         st.write(f"Datos de la persona {i + 1}")       
@@ -71,7 +71,9 @@ def pagina_reserva(personas):
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
     if st.button('Seguir con el pago'):
-        st.session_state.show_pago = True
+        show_pago = True
+
+    return show_pago
 
 def pago():
     st.header("Pago")
