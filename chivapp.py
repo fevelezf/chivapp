@@ -75,8 +75,6 @@ def pagina_reserva(personas):
         correo = st.text_input(f"Correo de la persona {i + 1}")
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
-    if st.button('Seguir con el pago'):
-        show_pago = True
 
 
 def pago():
@@ -96,7 +94,6 @@ def pago():
     else:
         st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
-show_pago = False
 
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
 
@@ -110,19 +107,16 @@ if selected_option == 'Registrarse':
     registro()
 
 
-if selected_option == 'Busqueda de viajes':
+elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
-
     if origen != destino:
         st.success("Selección de origen y destino correcta")
         if st.button('Reserva Right Now'):
             pagina_reserva(personas)
-
+            if st.button('Pagar'):
+                pago()
     else:
         st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-
-    if show_pago:
-        pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
