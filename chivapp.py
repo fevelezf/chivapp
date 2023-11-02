@@ -87,7 +87,7 @@ def qr():
         st.button("Confirmación del viaje")
 
 def efectivo():
-    st.success("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
+    st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
 def pago():
     st.header("Pago")
@@ -96,10 +96,10 @@ def pago():
     
     col1, col2 = st.columns(2)
     
-    with col1:
+    if col1.button("Qr", on_click = qr):
         qr()
-
-    with col2:
+    
+    if col2.button("Efectivo",on_click = efectivo):
         efectivo()
 
 
@@ -132,9 +132,3 @@ elif selected_option == 'Busqueda de chiva Rumbera':
 
     if st.button('Pagar'):
         pago()
-
-
-
-
-
-# me gusta el nepe
