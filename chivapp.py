@@ -78,6 +78,16 @@ def pagina_reserva(personas):
         st.button('Seguir con el pago', on_click=pago)
 
 
+def qr():
+    st.image("Qr_ChivApp.jpeg", caption="Consigna el valor de tu viaje aquí", use_column_width=True)
+    st.title('Carga de Imágenes')
+    uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+        st.button("Confirmación del viaje")
+
+def efectivo():
+    st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
 def pago():
     st.header("Pago")
@@ -86,16 +96,11 @@ def pago():
     
     col1, col2 = st.columns(2)
     
-    if col1.button("Qr"):
-        st.image("Qr_ChivApp.jpeg", caption="Consigna el valor de tu viaje aquí", use_column_width=True)
-        st.title('Carga de Imágenes')
-        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
-        if uploaded_file is not None:
-            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-            st.button("Confirmación del viaje")
+    if col1.button("Qr", on_click = qr):
+        qr()
     
-    if col2.button("Efectivo"):
-        st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
+    if col2.button("Efectivo",on_click = efectivo):
+        efectivo()
 
 
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
