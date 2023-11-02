@@ -130,8 +130,19 @@ def administrar_chivas():
             if st.form_submit_button("Registrar"):
                 st.success("Asigancion exitosa.")
 
+def administrar_viajes():
+        st.header("Administrar viajes")
+        with st.form("registrar_gasto_form"):
+            # Cambiar el campo de texto por un menú desplegable para la categoría
+            origen = st.selectbox("Seleccione el origen:", ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"])
+            destino = st.selectbox("Seleccione el destino:",
+    ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
+)
+            if st.form_submit_button("Registrar"):
+                st.success("Asigancion exitosa.")
 
-opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ,'Administrar chivas']
+
+opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ,'Administrar chivas', 'Administrar viajes']
 
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
@@ -175,3 +186,7 @@ elif selected_option == 'Conductor':
 elif selected_option == 'Administrar chivas':
     st.header('ASIGNACIONES')
     administrar_chivas()
+
+elif selected_option == 'Administrar viajes':
+    st.header('ASIGNACIONES')
+    administrar_viajes()
