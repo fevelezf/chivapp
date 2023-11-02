@@ -78,25 +78,6 @@ def pago():
     if metodo == "Efectivo":
         st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
-def main():
-    st.session_state.pagina_actual = "Busqueda_de_viajes"
-    
-    if st.session_state.pagina_actual == "Busqueda_de_viajes":
-        origen, destino, personas, fecha = busqueda_de_viajes()
-        st.session_state.origen = origen
-        st.session_state.destino = destino
-        st.session_state.personas = personas
-        st.session_state.fecha = fecha
-        
-        if st.button('Reserva Right Now'):
-            if st.session_state.origen != st.session_state.destino:
-                st.session_state.pagina_actual = "Reserva"
-            else:
-                st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-
-    if st.session_state.pagina_actual == "Reserva":
-        pagina_reserva()
-
 
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
 
@@ -124,34 +105,20 @@ elif selected_option == 'Registrarse':
 
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
-    st.session_state.origen = origen
-    st.session_state.destino = destino
-    st.session_state.personas = personas
-    st.session_state.fecha = fecha
     
     if st.button('Reserva Right Now'):
-        if st.session_state.origen != st.session_state.destino:
-            st.session_state.pagina_actual = "Reserva"
+        if origen != destino:
+            pagina_reserva()
         else:
             st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-
-    if st.session_state.pagina_actual == "Reserva":
-        pagina_reserva()
 
     if st.button('Pagar'):
         pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
-    st.session_state.salida = salida
-    st.session_state.ruta = ruta
-    st.session_state.personas = personas
-    st.session_state.fecha = fecha
     
     if st.button('Reserva Right Now'):
-        st.session_state.pagina_actual = "Reserva"
-
-    if st.session_state.pagina_actual == "Reserva":
         pagina_reserva()
 
     if st.button('Pagar'):
