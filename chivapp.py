@@ -55,7 +55,7 @@ def pagina_reserva():
 
     for i in range(personas):
         # Muestra los datos de las personas en las dos columnas
-        st.subheader(f"Datos de la persona {i + 1}")
+        st.write(f"Datos de la persona {i + 1}")
         with col1:
             nombre = st.text_input(f"Nombre de la persona {i + 1}")
             cedula = st.text_input(f"Cédula de la persona {i + 1}")
