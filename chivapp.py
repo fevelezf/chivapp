@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 global show_pago
 
@@ -107,7 +108,9 @@ def confirmacion():
     st.success('FELIZ VIAJE')
 
 def administrar_pagos():
-    st.write('datos.csv')
+    user_data = pd.read_csv('datos.csv')
+    df = pd.DataFrame(user_data)
+    st.write(df)
 
 
 def cargar_ruta():
