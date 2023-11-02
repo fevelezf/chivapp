@@ -94,6 +94,14 @@ def conductor():
              unsafe_allow_html=True)
 
     if st.button('Cargar itinerario'):
+        st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
+        st.title('Carga de Imágenes')
+
+        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+
+        if uploaded_file is not None:
+            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+        st.button("Confirmación del viaje")
         
 
 
