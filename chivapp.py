@@ -22,7 +22,7 @@ def busqueda_de_chiva_rumbera():
 
     salida = st.selectbox("Salida:", salida)
     ruta = st.selectbox("Selecciona la ruta", recorridos)
-    personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
+    personas = st.number_input("¿Cuántas personas viajan?", min_value=15, max_value=30, step=1)
     fecha = st.date_input("Selecciona la fecha:")
 
     return salida, ruta, personas, fecha
@@ -49,12 +49,20 @@ def registro():
 def pagina_reserva():
     st.header("Reserva para personas:")
     personas = st.session_state.personas
+
+    # Divide la página en dos columnas
+    col1, col2 = st.columns(2)
+
     for i in range(personas):
-        st.subheader(f"Datos de la persona {i + 1}")
-        nombre = st.text_input(f"Nombre de la persona {i + 1}")
-        cedula = st.text_input(f"Cédula de la persona {i + 1}")
-        correo = st.text_input(f"Correo de la persona {i + 1}")
-        equipaje = st.selectbox(f"¿Lleva equipaje la persona{i + 1}?", ["Si", "No"])
+        # Muestra los datos de las personas en las dos columnas
+        with col1:
+            st.subheader(f"Datos de la persona {i + 1}")
+            nombre = st.text_input(f"Nombre de la persona {i + 1}")
+
+        with col2:
+            cedula = st.text_input(f"Cédula de la persona {i + 1}")
+            correo = st.text_input(f"Correo de la persona {i + 1}")
+            equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
     if st.button('Seguir con el pago'):
         st.write('melo')
@@ -79,10 +87,6 @@ def main():
         pagina_reserva()
 
 
-#if __name__ == "__main__":
-#    main()
-
-# Crear una barra lateral para la tabla de contenidos
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
 
 st.sidebar.title('Tabla de Contenido')
