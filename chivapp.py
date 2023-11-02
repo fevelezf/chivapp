@@ -145,7 +145,7 @@ def administrar_viajes():
                 st.success("Asigancion exitosa.")
 
 
-opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ,'Administrar chivas', 'Administrar viajes']
+opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ,'Administrar chivas', 'Administrar viajes','Verificar pagos']
 
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
@@ -200,4 +200,4 @@ elif selected_option == 'Administrar viajes':
     st.header('ASIGNACIONES')
     administrar_viajes()
 
-    
+
