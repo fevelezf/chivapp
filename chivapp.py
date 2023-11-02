@@ -61,6 +61,23 @@ def pagina_reserva():
     if st.button('Seguir con el pago'):
         st.write('melo')
 
+def pago():
+    st.header("Pago")
+    metodo = st.selectbox("¿Lleva equipaje la persona?", ["Qr", "Efectivo"])
+
+    if metodo == "Qr":
+        st.image("Qr_ChivApp",caption="Consigna el valor de tu viaje aquí", use_column_width=True)
+        st.title('Carga de Imágenes')
+
+        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+
+        if uploaded_file is not None:
+            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+            st.button("Confirmación del viaje")
+
+    if metodo == "Efectivo":
+        st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
+
 def main():
     st.session_state.pagina_actual = "Busqueda_de_viajes"
     
