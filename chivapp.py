@@ -106,19 +106,18 @@ def confirmacion():
     st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
     st.success('FELIZ VIAJE')
 
-def conductor():
+
+def cargar_ruta():
     st.markdown('<h2 style="text-align: left; color: Black;">Revisar viajes</h2>',\
-            unsafe_allow_html=True)
+        unsafe_allow_html=True)
+    st.image("Ruta.png",caption="Esta es su ruta: Medellín-Abejorral", use_column_width=True)
+    
+def conductor():
+    uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
 
-    if st.button('Cargar itinerario'):
-        st.image("Ruta.png",caption="Esta es su ruta: Medellín-Abejorral", use_column_width=True)
-        st.title('Presentar incapacidad:')
-
-        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
-
-        if uploaded_file is not None:
-            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-        st.button("Incapacidad recibida")
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+    st.button("Incapacidad recibida")
         
 
 
@@ -155,5 +154,10 @@ elif selected_option == 'Busqueda de chiva Rumbera':
 
 elif selected_option == 'Conductor':
     st.header('Sección de conductor')
-    if st.button('Ver itinerario'):
+    col1,col2 = st.columns(2)
+
+    if col1.button('Ver itinerario'):
+        cargar_ruta()
+
+    if col2.button('Cargar incapacidad'):
         conductor()
