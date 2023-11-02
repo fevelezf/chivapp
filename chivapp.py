@@ -106,6 +106,9 @@ def confirmacion():
     st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
     st.success('FELIZ VIAJE')
 
+def administrar_pagos():
+    st.write('datos.csv')
+
 
 def cargar_ruta():
     st.markdown('<h2 style="text-align: left; color: Black;">Revisar viajes</h2>',\
@@ -175,3 +178,7 @@ elif selected_option == 'Conductor':
 elif selected_option == 'Administrar chivas':
     st.header('ASIGNACIONES')
     administrar_chivas()
+
+elif selected_option == 'Verificar pagos':
+    st.header('PAGOS')
+    administrar_pagos()
