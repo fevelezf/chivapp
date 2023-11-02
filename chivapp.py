@@ -111,18 +111,16 @@ if selected_option == 'Inicio de sesion':
             if True:
                 st.success("Ingreso correcto")
             else:
-                st.warning("Verifique su usuario y su contraseña")
-    
+                st.warning("Verifique su usuario y su contraseña")    
 
 elif selected_option == 'Registrarse':
     nombre, apellidos, usuario, contraseña, correo = registro()
 
     if st.button('Registrarse'):
-            if True:
-                st.success("Registro Valido")
-            else:
-                st.warning("Credenciales incorrectos")
-
+        if True:
+            st.success("Registro Valido")
+        else:
+            st.warning("Credenciales incorrectos")
 
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
@@ -141,12 +139,7 @@ elif selected_option == 'Busqueda de viajes':
         pagina_reserva()
 
     if st.button('Pagar'):
-        st.session_state.pagina_actual = "Pago"
-
-    if st.session_state.pagina_actual == "Pago":
         pago()
-
-    
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
@@ -162,8 +155,4 @@ elif selected_option == 'Busqueda de chiva Rumbera':
         pagina_reserva()
 
     if st.button('Pagar'):
-        st.session_state.pagina_actual = "Pago"
-
-    if st.session_state.pagina_actual == "Pago":
         pago()
-    
