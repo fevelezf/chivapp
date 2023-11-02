@@ -113,7 +113,8 @@ elif selected_option == 'Busqueda de viajes':
         st.success("Selección de origen y destino correcta")
         if st.button('Reserva Right Now'):
             if pagina_reserva(personas):
-                pago()
+                if st.button('Pagar'):
+                    pago()
     else:
         st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
 
