@@ -49,6 +49,8 @@ def registro():
     return nombre, apellidos, usuario, contraseña, correo
 
 def busqueda_de_viajes():
+    
+
     ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
 
     st.title("¡Bienvenido a tu Agencia de Viajes!")
@@ -62,6 +64,7 @@ def busqueda_de_viajes():
     return origen, destino, personas, fecha
 
 def pagina_reserva(personas):
+    global show_pago
     st.header("Reserva para personas:")
 
     for i in range(personas):
@@ -75,7 +78,6 @@ def pagina_reserva(personas):
     if st.button('Seguir con el pago'):
         show_pago = True
 
-    return show_pago
 
 def pago():
     st.header("Pago")
