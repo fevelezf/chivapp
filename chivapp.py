@@ -22,7 +22,7 @@ def busqueda_de_chiva_rumbera():
 
     salida = st.selectbox("Salida:", salida)
     ruta = st.selectbox("Selecciona la ruta", recorridos)
-    personas = st.number_input("¿Cuántas personas viajan?", min_value=15, max_value=30, step=1)
+    personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
     fecha = st.date_input("Selecciona la fecha:")
 
     return salida, ruta, personas, fecha
