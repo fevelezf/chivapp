@@ -91,15 +91,8 @@ def pago():
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
             st.button("Confirmación del viaje")
 
-    elif metodo == "Efectivo":
-        st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí", use_column_width=True)
-        st.title('Carga de guevas')
-
-        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
-
-        if uploaded_file is not None:
-            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-            st.button("Confirmación del viaje")
+    else:
+        st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
 
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
