@@ -1,5 +1,7 @@
 import streamlit as st
 
+global show_pago
+
 def busqueda_de_viajes():
     ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
 
@@ -46,9 +48,24 @@ def registro():
 
     return nombre, apellidos, usuario, contraseña, correo
 
-def pagina_reserva():
+def busqueda_de_viajes():
+    
+
+    ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
+
+    st.title("¡Bienvenido a tu Agencia de Viajes!")
+    st.write("Selecciona tu origen y destino para encontrar tu próximo viaje.")
+
+    origen = st.selectbox("Origen:", ciudades)
+    destino = st.selectbox("Destino:", ciudades)
+    personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
+    fecha = st.date_input("Selecciona la fecha:")
+
+    return origen, destino, personas, fecha
+
+def pagina_reserva(personas):
+    global show_pago
     st.header("Reserva para personas:")
-    personas = st.session_state.personas
 
     for i in range(personas):
         # Muestra los datos de las personas en las dos columnas
@@ -58,44 +75,32 @@ def pagina_reserva():
         correo = st.text_input(f"Correo de la persona {i + 1}")
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
-    if st.button('Seguir con el pago'):
-        st.write('melo')
+        st.button('Seguir con el pago', on_click=pago)
+
+
+def qr():
+    st.image("Qr_ChivApp.jpeg", caption="Consigna el valor de tu viaje aquí", use_column_width=True)
+    st.title('Carga de Imágenes')
+    uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+        st.button("Confirmación del viaje")
+
+def efectivo():
+    st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
 def pago():
     st.header("Pago")
-    metodo = st.selectbox("¿Lleva equipaje la persona?", ["Qr", "Efectivo"])
-
-    if metodo == "Qr":
-        st.image("Qr_ChivApp",caption="Consigna el valor de tu viaje aquí", use_column_width=True)
-        st.title('Carga de Imágenes')
-
-        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
-
-        if uploaded_file is not None:
-            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-            st.button("Confirmación del viaje")
-
-    if metodo == "Efectivo":
-        st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
-
-def main():
-    st.session_state.pagina_actual = "Busqueda_de_viajes"
     
-    if st.session_state.pagina_actual == "Busqueda_de_viajes":
-        origen, destino, personas, fecha = busqueda_de_viajes()
-        st.session_state.origen = origen
-        st.session_state.destino = destino
-        st.session_state.personas = personas
-        st.session_state.fecha = fecha
-        
-        if st.button('Reserva Right Now'):
-            if st.session_state.origen != st.session_state.destino:
-                st.session_state.pagina_actual = "Reserva"
-            else:
-                st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-
-    if st.session_state.pagina_actual == "Reserva":
-        pagina_reserva()
+    st.title("Selecciona un método de pago")
+    
+    col1, col2 = st.columns(2)
+    
+    if col1.button("Qr", on_click = qr):
+        qr()
+    
+    if col2.button("Efectivo",on_click = efectivo):
+        efectivo()
 
 
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
@@ -103,55 +108,26 @@ opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda d
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
     'Selecciona una opción:', opciones)
-
 if selected_option == 'Inicio de sesion':
-    usuario, contraseña = inicio_de_sesion()
+    inicio_de_sesion()
 
-    if st.button('Ingresar'):
-            if True:
-                st.success("Ingreso correcto")
-            else:
-                st.warning("Verifique su usuario y su contraseña")    
+if selected_option == 'Registrarse':
+    registro()
 
-elif selected_option == 'Registrarse':
-    nombre, apellidos, usuario, contraseña, correo = registro()
-
-    if st.button('Registrarse'):
-        if True:
-            st.success("Registro Valido")
-        else:
-            st.warning("Credenciales incorrectos")
 
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
-    st.session_state.origen = origen
-    st.session_state.destino = destino
-    st.session_state.personas = personas
-    st.session_state.fecha = fecha
-    
-    if st.button('Reserva Right Now'):
-        if st.session_state.origen != st.session_state.destino:
-            st.session_state.pagina_actual = "Reserva"
-        else:
-            st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-
-    if st.session_state.pagina_actual == "Reserva":
-        pagina_reserva()
-
-    if st.button('Pagar'):
-        pago()
+    if origen != destino:
+        st.success("Selección de origen y destino correcta")
+        if st.button('Reserva Right Now'):
+            pagina_reserva(personas)
+    else:
+        st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
-    st.session_state.salida = salida
-    st.session_state.ruta = ruta
-    st.session_state.personas = personas
-    st.session_state.fecha = fecha
     
     if st.button('Reserva Right Now'):
-        st.session_state.pagina_actual = "Reserva"
-
-    if st.session_state.pagina_actual == "Reserva":
         pagina_reserva()
 
     if st.button('Pagar'):
