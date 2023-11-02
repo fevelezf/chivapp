@@ -80,7 +80,7 @@ def pagina_reserva(personas):
 def pago():
     st.header("Pago")
     opciones = ["Qr", "Efectivo"]
-    metodo = st.multiselect("Selecciona una opción de pago :", opciones)
+    metodo = st.radio("Selecciona una opción de pago :", opciones)
 
     if metodo == "Qr":
         st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí", use_column_width=True)
