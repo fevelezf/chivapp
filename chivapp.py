@@ -75,7 +75,7 @@ def pago():
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
             st.button("Confirmación del viaje")
 
-    elif metodo == "Efectivo":
+    else:
         st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
 
