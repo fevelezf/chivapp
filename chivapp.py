@@ -79,7 +79,7 @@ def pagina_reserva(personas):
 
 def pago():
     st.header("Pago")
-    metodo = st.selectbox("¿Lleva equipaje la persona?", ["","Qr", "Efectivo"])
+    metodo = st.selectbox("¿Lleva equipaje la persona?", ["Qr", "Efectivo"])
 
     if metodo == "Qr":
         st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí", use_column_width=True)
