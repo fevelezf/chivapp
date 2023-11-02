@@ -104,13 +104,13 @@ def conductor():
 
     if st.button('Cargar itinerario'):
         st.image("Ruta.png",caption="Esta es su ruta: Medellín-Abejorral", use_column_width=True)
-        st.title('Carga de Imágenes')
+        st.title('Presentar incapacidad:')
 
         uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
 
         if uploaded_file is not None:
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-        st.button("Confirmación del viaje")
+        st.button("Incapacidad recibida")
         
 
 
@@ -147,3 +147,5 @@ elif selected_option == 'Busqueda de chiva Rumbera':
 
 elif selected_option == 'Conductor':
     st.header('Sección de conductor')
+    if st.button('Ver itinerario'):
+        conductor()
