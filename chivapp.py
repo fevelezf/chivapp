@@ -131,7 +131,7 @@ def administrar_chivas():
                 st.success("Asigancion exitosa.")
 
 
-opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ]
+opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ,'Administrar chivas']
 
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
@@ -171,3 +171,7 @@ elif selected_option == 'Conductor':
 
     if col2.button('Cargar incapacidad'):
         conductor()
+
+if selected_option == 'Inicio de sesion':
+    st.header('ASIGNACIONES')
+    administrar_chivas()
