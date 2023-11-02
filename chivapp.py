@@ -58,6 +58,9 @@ def pagina_reserva():
         correo = st.text_input(f"Correo de la persona {i + 1}")
         equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
+    if st.button('Seguir con el pago'):
+        st.session_state.show_pago = True
+
 def pago():
     st.header("Pago")
     metodo = st.selectbox("¿Lleva equipaje la persona?", ["Qr", "Efectivo"])
@@ -75,41 +78,26 @@ def pago():
     else:
         st.write("Dirígete al punto de pago de nuestras oficinas 2 horas antes del viaje")
 
-
 opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera' ]
 
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
     'Selecciona una opción:', opciones)
 
-if selected_option == 'Inicio de sesion':
-    usuario, contraseña = inicio_de_sesion()
-
-    if st.button('Ingresar'):
-            if True:
-                st.success("Ingreso correcto")
-            else:
-                st.warning("Verifique su usuario y su contraseña")    
-
-elif selected_option == 'Registrarse':
-    nombre, apellidos, usuario, contraseña, correo = registro()
-
-    if st.button('Registrarse'):
-        if True:
-            st.success("Registro Valido")
-        else:
-            st.warning("Credenciales incorrectos")
-
-elif selected_option == 'Busqueda de viajes':
+if selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
-    
+
+    if origen != destino:
+        st.success("Selección de origen y destino correcta")
+        st.session_state.show_pago = True
+    else:
+        st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
+
     if st.button('Reserva Right Now'):
-        if origen != destino:
-            pagina_reserva()
-            if st.button('Seguir con el pago'):
-                pago()
-        else:
-            st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
+        pagina_reserva()
+
+    if st.session_state.show_pago and st.button('Pagar'):
+        pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
