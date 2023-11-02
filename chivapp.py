@@ -96,10 +96,10 @@ def pago():
     
     col1, col2 = st.columns(2)
     
-    if col1.button("Qr", on_click = qr):
+    with col1:
         qr()
-    
-    if col2.button("Efectivo",on_click = efectivo):
+
+    with col2:
         efectivo()
 
 
