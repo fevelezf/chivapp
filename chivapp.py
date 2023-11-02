@@ -54,7 +54,7 @@ def pagina_reserva():
         nombre = st.text_input(f"Nombre de la persona {i + 1}")
         cedula = st.text_input(f"Cédula de la persona {i + 1}")
         correo = st.text_input(f"Correo de la persona {i + 1}")
-        equipaje = st.selectbox(f"¿Lleva equipaje?", ["Si", "No"])
+        equipaje = st.selectbox(f"¿Lleva equipaje la persona{i + 1}?", ["Si", "No"])
 
     if st.button('Seguir con el pago'):
         st.write('melo')
