@@ -91,14 +91,15 @@ def efectivo():
 
 def pago():
     st.header("Pago")
-
-    qr_container = st.container()
-    efectivo_container = st.container()
-
-    with qr_container:
+    
+    st.title("Selecciona un método de pago")
+    
+    col1, col2 = st.columns(2)
+    
+    if col1.button("Qr", on_click = qr):
         qr()
-
-    with efectivo_container:
+    
+    if col2.button("Efectivo",on_click = efectivo):
         efectivo()
 
 
