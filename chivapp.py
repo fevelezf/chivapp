@@ -49,7 +49,7 @@ def registro():
     nombre = st.text_input("Ingrese su nombre:")
     apellidos = st.text_input("Ingrese sus apellidos:")
     usuario = st.text_input("Ingrese su usuario:")
-    contraseña = st.text_input("Ingrese su contraseña:", type = 'pasword' )
+    contraseña = st.text_input("Ingrese su contraseña:", type = 'password' )
     correo = st.text_input("Ingrese su correo:")
 
     if st.button('Registrarse'):
