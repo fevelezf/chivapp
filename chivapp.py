@@ -93,26 +93,15 @@ def busqueda_de_viajes():
 
 
             
-def pagina_reserva():
-    with st.form('reserva'):
-        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-        if st.form_submit_button('Buscar'):
-            try:
-                # Fetch the data
-                response = db_reservas.get(numero)
-                # Access the fields using the keys
-                correo = response['correo']
-                origen = response['origen']
-                destino = response['destino']
-                personas = int(response['personas'])
-                viajeros = response['viajeros']
-                costo = response['costo']
-
-
-            except Exception as e:
-                st.warning(f'Error: {e}')
-        st.header("Reserva para personas:")
-
+def pagina_reserva(numero,personas,origen,destino,correo_r):
+    global show_pago
+    st.header("Reserva para personas:")
+    reserva_data = db_reservas.get(numero)
+    # Verifica que 'personas' sea un número antes de continuar
+    if not isinstance(personas, int):
+        st.error("Error: El número de personas no es válido.")
+        return
+    with st.expander('reserva'):
         per = []
         for i in range(personas):
             res=[]
@@ -128,14 +117,13 @@ def pagina_reserva():
             res.append(equipaje)
 
             per.append(res)
-
         cost = pagar(origen,destino)
         pago = cost*personas
-        if st.form_submit_button('Guardar Reserva'):
+        if st.button('Guardar Reserva'):
             db_reservas.update({'viajeros': per}, key=numero)
             db_reservas.update({'costo': pago}, key=numero)
             
-            numero_reserva = response['key']
+            numero_reserva = reserva_data['key']
 
             st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
             st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
@@ -427,7 +415,23 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        pagina_reserva()
+        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+        if st.button('Buscar'):
+            try:
+                # Fetch the data
+                response = db_reservas.get(numero)
+                # Access the fields using the keys
+                correo = response['correo']
+                origen = response['origen']
+                destino = response['destino']
+                personas = int(response['personas'])
+                viajeros = response['viajeros']
+                costo = response['costo']
+
+                pagina_reserva(numero, personas, origen, destino, correo)
+
+            except Exception as e:
+                st.warning(f'Error: {e}')
 
     elif menu_option == 'Busqueda de chiva Rumbera':
         salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
