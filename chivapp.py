@@ -81,8 +81,8 @@ def busqueda_de_viajes():
                 per=[]
                 st.success("Viaje seleccionado con exito")
                 reservas = db_reservas.put({'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
-                
-                st.success(f'Reserva Guardada con exito con el numero {reservas['key']}')
+                numero = reservas['key']
+                st.success(f'Reserva Guardada con exito con el numero {numero}')
                 st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
                 st.warning('Recuerda ir a la seccion de Detalles de la reserva para acceder a los detalles de esta')
                 return origen, destino, personas, fecha,correo_r
