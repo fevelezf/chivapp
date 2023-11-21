@@ -67,7 +67,7 @@ def busqueda_de_viajes():
 
 
             
-def pagina_reserva(personas):
+def pagina_reserva(personas,origen,destino):
     global show_pago
     st.header("Reserva para personas:")
 
@@ -88,12 +88,13 @@ def pagina_reserva(personas):
 
         if st.form_submit_button('Pagar'):
             reserva = True
+            pago(origen,destino)
             return reserva
     
     return reserva
             
 
-def pago():
+def pago(origen,destino):
 
     with st.form('pago'):
         st.header("Pago con codigo QR")
@@ -110,13 +111,15 @@ def pago():
         
         
         if st.form_submit_button("Confirmación del viaje"):
-            confirmacion()
+            confirmacion(origen,destino)
 
 
-def confirmacion():
-    st.title('Viaje confirmado con destino a Abejorral')
+def confirmacion(origen, destino):
+    st.title(f'Viaje confirmado desde{origen} con destino a {destino}')
     st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
     st.success('FELIZ VIAJE')
+
+
 
 def administrar_pagos():
     user_data = pd.read_csv('datos.csv')
@@ -176,9 +179,8 @@ elif selected_option == 'Busqueda de viajes':
 
     if origen is not None:
         # Realizar acciones adicionales o llamar a otras funciones según sea necesario
-        pagina_reserva(personas)
-    if pagina_reserva:
-        pago()
+        pagina_reserva(personas,origen,destino)
+
     else:
         # Manejar el caso en el que no se selecciona un viaje
         st.warning("Por favor, selecciona un viaje antes de continuar.")
