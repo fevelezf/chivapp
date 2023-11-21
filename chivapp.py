@@ -443,7 +443,7 @@ if get_current_user() is not None:
                 personas = int(response['personas'])
                 viajeros = response['viajeros']
                 costo = response['costo']
-                pago(personas,origen.destino)
+                pago(personas,origen,destino)
 
             except Exception as e:
                 st.warning(f'Error: {e}')
