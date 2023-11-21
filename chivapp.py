@@ -93,20 +93,15 @@ def busqueda_de_viajes():
 
 
             
-def pagina_reserva():
-    username = st.session_state.username
-    user_data = db_reservas.fetch({"username": username})
-
-    # Convierte los datos en un DataFrame de pandas
-    df = pd.DataFrame(user_data.items)
-
-    # Muestra el DataFrame en forma de tabla
-    st.write(df)
+def pagina_reserva(numero, personas, origen, destino, correo_r):
     st.header("Reserva para personas:")
-    #reserva_data = db_reservas.get(numero)
+    reserva_data = db_reservas.get(numero)
     # Verifica que 'personas' sea un número antes de continuar
+    if not isinstance(personas, int):
+        st.error("Error: El número de personas no es válido.")
+        return
 
-    '''per = []
+    per = []
     for i in range(personas):
         res = []
         # Muestra los datos de las personas en las dos columnas
@@ -142,7 +137,7 @@ def pagina_reserva():
     # Verificar si el formulario fue enviado
     if st.form_submit_button('Guardar Reserva'):
         # Guardar automáticamente cuando se envía el formulario
-        db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)'''
+        db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)
             
 def pagar(origen,destino):
     if origen == "Medellin":
@@ -432,8 +427,7 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        pagina_reserva()
-        '''numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
         if st.button('Buscar'):
             try:
                 # Fetch the data
@@ -449,7 +443,7 @@ if get_current_user() is not None:
                 pagina_reserva(numero, personas, origen, destino, correo)
 
             except Exception as e:
-                st.warning(f'Error: {e}')'''
+                st.warning(f'Error: {e}')
 
     elif menu_option == 'Pagar Reservas':
         numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
