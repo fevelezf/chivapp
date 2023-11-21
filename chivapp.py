@@ -88,20 +88,23 @@ def pagina_reserva(personas):
             pago()
 
 def pago():
-    st.header("Pago con codigo QR")
-    st.title("Recuerda que si no cargas una foto, Se intuye que pagaras en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
+
+    with st.form('pago'):
+        st.header("Pago con codigo QR")
+        st.title("Recuerda que si no cargas una foto, Se intuye que pagaras en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
 
 
-    st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
-    st.title('Carga de Imágenes')
+        st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
+        st.title('Carga de Imágenes')
 
-    uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
 
-    if uploaded_file is not None:
-        st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-    
-    
-    st.button("Confirmación del viaje",on_click=confirmacion)
+        if uploaded_file is not None:
+            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+        
+        
+        if st.form_submit_button("Confirmación del viaje"):
+            confirmacion()
 
 
 def confirmacion():
