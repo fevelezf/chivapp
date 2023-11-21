@@ -249,7 +249,14 @@ def conductor():
     if uploaded_file is not None:
         st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
     st.button("Incapacidad recibida")
-        
+
+# Obtener el nombre de usuario actual después del inicio de sesión
+def get_current_user():
+    '''Esta funcion obtiene el nombre del usuario actual despues
+    del inicio de sesion
+    '''
+    return st.session_state.username
+
 def administrar_chivas():
         st.header("Administrar chivas y conductores")
         with st.form("registrar_gasto_form"):
@@ -273,31 +280,47 @@ def administrar_viajes():
                 st.success("Asigancion exitosa.")
 
 
-opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda de chiva Rumbera', 'Conductor' ,'Administrar chivas', 'Administrar viajes','Verificar pagos']
+if get_current_user() is not None:
+    # Sidebar menu options for logged-in users
+    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal", "Registrar Gasto",
+                                                "Registrar Ingreso", "Mostrar Gastos e Ingresos",
+                                                "Crear Fondo Común", "Fondos comunes",
+                                                "Descargar Gastos e Ingresos", "Cerrar Sesión",
+                                                "Calculadora de Préstamos"])
+else:
+    # Sidebar menu options for non-logged-in users
+    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "Registro","Conversion de Moneda",
+                                                "Calculadora de Préstamos"])
 
-st.sidebar.title('Tabla de Contenido')
-selected_option = st.sidebar.selectbox(
-    'Selecciona una opción:', opciones)
-    # Inicio de sesión
-if selected_option == "Inicio de sesion":
-    st.write("Bienvenido al inicio de la aplicación.")
+# Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
+if menu_option == "Cerrar Sesión":
+    st.session_state.username = None
+    st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
-    # Campos de inicio de sesión
-    username = st.text_input("Nickname:")
-    password = st.text_input("Contraseña:", type="password")
-    
-    colum1, colum2 = st.columns(2)
-    if colum1.button("Iniciar Sesión"):
-        login_successful, message = verificar_credenciales(username, password)
-        if login_successful:
-            st.success(message)
-            # Almacenar el nombre de usuario en la sesión
-            st.session_state.username = username  
+# Si el usuario ya ha iniciado sesión, mostrar los botones
+if get_current_user() is not None:
+    username = st.session_state.username
 
-        elif not login_successful:
-            st.error(message)
+    if menu_option == "Pagina Principal":
+        st.write(f'<h4 style="font-size: 26px; font-weight: bold; text-align: center;">Hola {username}!</h4>', unsafe_allow_html=True)
+        st.write("Bienvenido al inicio de la aplicación.")
 
-elif selected_option == "Registrarse":
+        # Campos de inicio de sesión
+        username = st.text_input("Nickname:")
+        password = st.text_input("Contraseña:", type="password")
+        
+        colum1, colum2 = st.columns(2)
+        if colum1.button("Iniciar Sesión"):
+            login_successful, message = verificar_credenciales(username, password)
+            if login_successful:
+                st.success(message)
+                # Almacenar el nombre de usuario en la sesión
+                st.session_state.username = username  
+
+            elif not login_successful:
+                st.error(message)
+
+elif menu_option == "Registro":
     st.write("Registro de Usuario")
 
     # Campos de registro,
