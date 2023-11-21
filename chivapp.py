@@ -202,12 +202,12 @@ def pago(personas,origen,destino):
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
         
         
-        if st.form_submit_button("Confirmación del viaje"):
-            confirmacion(origen,destino)
+        st.form_submit_button("Confirmación del viaje",on_click=confirmacion(origen,destino))
+            
 
 
 def confirmacion(origen, destino):
-    st.title(f'Viaje confirmado desde{origen} con destino a {destino}')
+    st.title(f'Viaje confirmado desde {origen} con destino a {destino}')
     st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
     st.success('FELIZ VIAJE')
 
@@ -273,9 +273,6 @@ elif selected_option == 'Busqueda de viajes':
         # Realizar acciones adicionales o llamar a otras funciones según sea necesario
         pagina_reserva(personas,origen,destino)
         pago(personas,origen,destino)
-
-        confirmacion(origen,destino)
-
 
     else:
         # Manejar el caso en el que no se selecciona un viaje
