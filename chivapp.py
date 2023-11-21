@@ -18,8 +18,7 @@ db_reservas = deta.Base("reservas")
 db_admin = deta.Base("db_admin")
 db_condu = deta.Base("db_condu")
 
-db_admin.put({'username': 'Fernan', 'password': '5patodos'})
-db_condu.put({'username': 'Fercho', 'password': 'brum'})
+
 
 def busqueda_de_chiva_rumbera():
     salida = ['Mall de la Mota' , 'CC La Central', 'Carlos E']
