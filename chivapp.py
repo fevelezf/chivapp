@@ -61,12 +61,10 @@ def busqueda_de_viajes():
             fecha = st.date_input("Selecciona la fecha:")
             st.success("Selección de origen y destino correcta")
         if st.form_submit_button('Reserva Right Now'):
-            pagina_reserva(personas)
+            return origen, destino, personas, fecha
+
         else:
             st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-
-    return origen, destino, personas, fecha
-
 def pagina_reserva(personas):
     global show_pago
     st.header("Reserva para personas:")
@@ -158,6 +156,7 @@ if selected_option == 'Registrarse':
 
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
+    pagina_reserva(personas)
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
