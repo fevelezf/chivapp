@@ -60,26 +60,21 @@ def busqueda_de_viajes():
             if origen != destino:
                 st.success("Viaje seleccionado con exito")
                 return origen, destino, personas, fecha
-            
             else:
                 st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
     return None, None, None, None
 
-
-            
 def pagina_reserva(personas):
-    global show_pago
     st.header("Reserva para personas:")
 
-    # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
-        return
+        return False
 
+    reserva = False
     with st.form('reserva'):
         per = {}
         for i in range(personas):
-            # Muestra los datos de las personas en las dos columnas
             st.write(f"Datos de la persona {i + 1}")       
             nombre = st.text_input(f"Nombre de la persona {i + 1}")
             cedula = st.text_input(f"Cédula de la persona {i + 1}")
@@ -87,29 +82,24 @@ def pagina_reserva(personas):
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
         if st.form_submit_button('Pagar'):
-            return True
-    
-    return False
-            
+            reserva = True
+
+    return reserva
 
 def pago():
+    st.header("Pago con codigo QR")
+    st.title("Recuerda que si no cargas una foto, se intuye que pagarás en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
 
-    with st.form('pago'):
-        st.header("Pago con codigo QR")
-        st.title("Recuerda que si no cargas una foto, Se intuye que pagaras en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
+    st.image("Qr_ChivApp.jpeg", caption="Consigna el valor de tu viaje aquí, Numero de cuenta: 912-210-16-772", use_column_width=True)
+    st.title('Carga de Imágenes')
 
+    uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
 
-        st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
-        st.title('Carga de Imágenes')
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
 
-        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
-
-        if uploaded_file is not None:
-            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-        
-        
-        if st.form_submit_button("Confirmación del viaje"):
-            confirmacion()
+    if st.form_submit_button("Confirmación del viaje"):
+        confirmacion()
 
 
 def confirmacion():
@@ -173,19 +163,11 @@ if selected_option == 'Registrarse':
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
 
-    reserva = False
-    
     if origen is not None:
-        # Realizar acciones adicionales o llamar a otras funciones según sea necesario
         reserva = pagina_reserva(personas)
 
-    else:
-        # Manejar el caso en el que no se selecciona un viaje
-        st.warning("Por favor, selecciona un viaje antes de continuar.")
-
-    if reserva is True:
-        pago()
-
+        if reserva:
+            pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
