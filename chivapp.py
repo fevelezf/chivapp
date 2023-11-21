@@ -215,7 +215,7 @@ def pagina_reserva(numero,personas,origen,destino,correo_r):
             db_reservas.update({'viajeros': per}, key=numero)
             db_reservas.update({'costo': pago}, key=numero)
             
-            numero_reserva = reserva_data['numero_reserva']
+            numero_reserva = reserva_data['key']
 
             st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
             st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
@@ -413,7 +413,7 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        numero = st.number_input('Ingrese el número de la reserva tal y como se le dio',step=1)
+        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
         if st.button('Buscar'):
             try:
                 # Fetch the data
