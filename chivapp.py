@@ -416,14 +416,27 @@ if get_current_user() is not None:
         numero = st.text_input('Ingerese el numero de la reserva tal y como se le dio')
         if st.button('Buscar'):
             try:
-                rese = db_reservas.fetch({'key': numero})
-                correo = rese['correo']
-                origen = rese['origen']
-                destino = rese['destino']
-                personas = int(rese['personas'])
-                viajeros = rese['viajeros']
-                costo = int(rese['costo'])
-                pagina_reserva(numero,personas,origen,destino,correo)
+                # Fetch the data
+                response = db_reservas.fetch({'key': numero})
+
+                # Check if there are any items in the response
+                if response.count > 0:
+                    # Access the first item (assuming only one item is fetched)
+                    item = response.items().next()
+
+                    # Access the fields using the keys
+                    correo = item['correo']
+                    origen = item['origen']
+                    destino = item['destino']
+                    personas = int(item['personas'])
+                    viajeros = item['viajeros']
+                    costo = int(item['costo'])
+
+                    # Call the function with the fetched data
+                    pagina_reserva(numero, personas, origen, destino, correo)
+                else:
+                    st.warning('No se encontró la reserva con el número proporcionado.')
+
             except Exception as e:
                 st.warning(f'Error: {e}')
 
