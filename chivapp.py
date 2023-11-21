@@ -112,7 +112,7 @@ def pagina_reserva():
             except Exception as e:
                 st.warning(f'Error: {e}')
         st.header("Reserva para personas:")
-        reserva_data = db_reservas.get(numero)
+
         per = []
         for i in range(personas):
             res=[]
@@ -135,7 +135,7 @@ def pagina_reserva():
             db_reservas.update({'viajeros': per}, key=numero)
             db_reservas.update({'costo': pago}, key=numero)
             
-            numero_reserva = reserva_data['key']
+            numero_reserva = response['key']
 
             st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
             st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
