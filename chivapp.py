@@ -54,16 +54,18 @@ def busqueda_de_viajes():
     with st.form('busqueda'):
         origen = st.selectbox("Origen:", ciudades)
         destino = st.selectbox("Destino:", ciudades)
-        if origen != destino:
-            personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
-            fecha = st.date_input("Selecciona la fecha:")
-            st.success("Selección de origen y destino correcta")
+        personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
+        fecha = st.date_input("Selecciona la fecha:")
         if st.form_submit_button('Reserva Right Now'):
-            return origen, destino, personas, fecha
-        else:
-            st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-            # Agrega una declaración de retorno aquí para manejar el caso en que el formulario no se envía
-            return None, None, None, None
+            if origen == destino:
+                st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
+                return None, None, None, None
+
+            else:
+                st.success("Viaje seleccionado con exito")
+                return origen, destino, personas, fecha
+
+            
 
 def pagina_reserva(personas):
     global show_pago
