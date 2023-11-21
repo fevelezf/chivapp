@@ -173,6 +173,8 @@ if selected_option == 'Registrarse':
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
 
+    reserva = False
+    
     if origen is not None:
         # Realizar acciones adicionales o llamar a otras funciones según sea necesario
         reserva = pagina_reserva(personas)
