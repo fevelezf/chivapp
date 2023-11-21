@@ -200,10 +200,13 @@ def pago(personas,origen,destino):
 
         if uploaded_file is not None:
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+            st.success(f'Viaje confirmado desde {origen} con destino a {destino}')
+            st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
+            st.success('FELIZ VIAJE')
         
         
         if st.form_submit_button("Confirmación del viaje"):
-            st.form_submit_button('Confirmar',on_click=confirmacion(origen,destino))
+            st.success('confirmado')
             
 
 
