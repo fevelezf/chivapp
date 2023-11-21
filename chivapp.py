@@ -286,7 +286,7 @@ if selected_option == 'Inicio de sesion':
 elif selected_option == "Registrarse":
     st.write("Registro de Usuario")
 
-    # Campos de registro
+    # Campos de registro,
     first_name = st.text_input("Nombre del Usuario:")
     last_name = st.text_input("Apellidos del Usuario:")
     email = st.text_input("Correo electronico del Usuario:")
