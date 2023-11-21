@@ -171,7 +171,8 @@ elif selected_option == 'Busqueda de viajes':
         nombre = pagina_reserva(personas)
 
         if nombre is not None:
-            pago = pago()
+            if st.button('paga YA'):
+                pago = pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
