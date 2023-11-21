@@ -283,7 +283,7 @@ selected_option = st.sidebar.selectbox(
 if selected_option == 'Inicio de sesion':
     inicio_de_sesion()
 
-elif selected_option == "Registro":
+elif selected_option == "Registrarse":
     st.write("Registro de Usuario")
 
     # Campos de registro
