@@ -203,13 +203,13 @@ def pago(personas,origen,destino):
         
         
         if st.form_submit_button("Confirmación del viaje"):
-            confirmacion(origen,destino)
+            st.success(f'Viaje confirmado desde{origen} con destino a {destino}')
+            st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
+            st.success('FELIZ VIAJE')
 
 
 def confirmacion(origen, destino):
-    st.title(f'Viaje confirmado desde{origen} con destino a {destino}')
-    st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
-    st.success('FELIZ VIAJE')
+
 
 
 
