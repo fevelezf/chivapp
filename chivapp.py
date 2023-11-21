@@ -445,8 +445,6 @@ if get_current_user() is not None:
                 costo = response['costo']
                 pago(personas,origen.destino)
 
-                pagina_reserva(numero, personas, origen, destino, correo)
-
             except Exception as e:
                 st.warning(f'Error: {e}')
 
