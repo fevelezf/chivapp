@@ -105,11 +105,8 @@ def pagina_reserva():
     st.header("Reserva para personas:")
     #reserva_data = db_reservas.get(numero)
     # Verifica que 'personas' sea un número antes de continuar
-    if not isinstance(personas, int):
-        st.error("Error: El número de personas no es válido.")
-        return
 
-    per = []
+    '''per = []
     for i in range(personas):
         res = []
         # Muestra los datos de las personas en las dos columnas
@@ -145,7 +142,7 @@ def pagina_reserva():
     # Verificar si el formulario fue enviado
     if st.form_submit_button('Guardar Reserva'):
         # Guardar automáticamente cuando se envía el formulario
-        db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)
+        db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)'''
             
 def pagar(origen,destino):
     if origen == "Medellin":
