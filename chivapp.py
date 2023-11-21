@@ -97,7 +97,7 @@ def busqueda_de_viajes():
 def pagina_reserva(numero,personas,origen,destino,correo_r):
     global show_pago
     st.header("Reserva para personas:")
-    reserva_data = db_reservas.get({'numero_reserva': numero})
+    reserva_data = db_reservas.fetch({'numero_reserva': numero})
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
