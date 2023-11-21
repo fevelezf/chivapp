@@ -203,9 +203,15 @@ def pago(personas,origen,destino):
         
         
         if st.form_submit_button("Confirmación del viaje"):
-            st.success(f'Viaje confirmado desde{origen} con destino a {destino}')
-            st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
-            st.success('FELIZ VIAJE')
+            confirmacion(origen,destino)
+
+
+def confirmacion(origen, destino):
+    st.title(f'Viaje confirmado desde{origen} con destino a {destino}')
+    st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
+    st.success('FELIZ VIAJE')
+
+
 
 def administrar_pagos():
     user_data = pd.read_csv('datos.csv')
@@ -268,9 +274,13 @@ elif selected_option == 'Busqueda de viajes':
         pagina_reserva(personas,origen,destino)
         pago(personas,origen,destino)
 
+        confirmacion(origen,destino)
+
+
     else:
         # Manejar el caso en el que no se selecciona un viaje
         st.warning("Por favor, selecciona un viaje antes de continuar.")
+    
 
 
 elif selected_option == 'Busqueda de chiva Rumbera':
