@@ -287,6 +287,56 @@ if get_current_user() is not None:
                                                 "Crear Fondo Común", "Fondos comunes",
                                                 "Descargar Gastos e Ingresos", "Cerrar Sesión",
                                                 "Calculadora de Préstamos"])
+    
+
+    if menu_option == 'Busqueda de viajes':
+        origen, destino, personas, fecha = busqueda_de_viajes()
+
+        if origen is not None:
+            # Realizar acciones adicionales o llamar a otras funciones según sea necesario
+            pagina_reserva(personas,origen,destino)
+            pago(personas,origen,destino)
+
+        else:
+            # Manejar el caso en el que no se selecciona un viaje
+            st.warning("Por favor, selecciona un viaje antes de continuar.")
+    
+
+
+    elif menu_option == 'Busqueda de chiva Rumbera':
+        salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
+        
+        if st.button('Reserva Right Now'):
+            pagina_reserva()
+
+        if st.button('Pagar'):
+            pago()
+
+    elif menu_option == 'Conductor':
+        st.header('Sección de conductor')
+        col1,col2 = st.columns(2)
+
+        if col1.button('Ver itinerario'):
+            cargar_ruta()
+
+        if col2.button('Cargar incapacidad'):
+            conductor()
+
+    elif menu_option == 'Administrar chivas':
+        st.header('ASIGNACIONES')
+        administrar_chivas()
+
+
+    elif menu_option == 'Verificar pagos':
+        st.header('PAGOS')
+        administrar_pagos()
+
+
+    elif menu_option == 'Administrar viajes':
+        st.header('ASIGNACIONES')
+        administrar_viajes()
+    
+
 else:
     # Sidebar menu options for non-logged-in users
     menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "Registro","Conversion de Moneda",
@@ -301,7 +351,7 @@ if menu_option == "Cerrar Sesión":
 if get_current_user() is not None:
     username = st.session_state.username
 
-    if menu_option == "Pagina Principal":
+    if menu_option == "Inicio de Sesion":
         st.write(f'<h4 style="font-size: 26px; font-weight: bold; text-align: center;">Hola {username}!</h4>', unsafe_allow_html=True)
         st.write("Bienvenido al inicio de la aplicación.")
 
@@ -320,97 +370,91 @@ if get_current_user() is not None:
             elif not login_successful:
                 st.error(message)
 
-elif menu_option == "Registro":
-    st.write("Registro de Usuario")
+else:
+    if menu_option == "Inicio de Sesion":
+        st.write("Bienvenido al inicio de la aplicación.")
 
-    # Campos de registro,
-    first_name = st.text_input("Nombre del Usuario:")
-    last_name = st.text_input("Apellidos del Usuario:")
-    email = st.text_input("Correo electronico del Usuario:")
-    new_username = st.text_input("Nickname:")
-    new_password = st.text_input("Nueva Contraseña:", type = "password")
-    confirm_password = st.text_input("Confirmar contraseña:", type = "password")
+        # Campos de inicio de sesión
+        username = st.text_input("Nickname:")
+        password = st.text_input("Contraseña:", type="password")
+        
+        colum1, colum2 = st.columns(2)
+        if colum1.button("Iniciar Sesión"):
+            login_successful, message = verificar_credenciales(username, password)
+            if login_successful:
+                st.success(message)
+                # Almacenar el nombre de usuario en la sesión
+                st.session_state.username = username  
 
-    # Crear dos columnas para los botones
-    col1, col2 = st.columns(2)
-    # Casilla de verificación para aceptar la política de datos personales
-    # Inicializa la variable aceptar_politica
-    
-    # Variable de estado para rastrear si el usuario ha visto la política
-    if 'politica_vista' not in st.session_state:
-        st.session_state.politica_vista = False
+            elif not login_successful:
+                st.error(message)
+        
+        elif colum2.button("Olvidaste la contraseña"):
+            try:
+                if username is not None:
+                    #user_info = db_users.get(User.username == username)
 
-    # Botón para abrir la ventana emergente en la segunda columna
-    if col2.button("Ver Política de Tratamiento de Datos"):
-        with open("politica_datos.txt", "r") as archivo:
-            politica = archivo.read()
-            with st.expander("Política de Tratamiento de Datos",expanded=True):
-                st.write(politica)
-                st.session_state.politica_vista = True
-            # Casilla de verificación para aceptar la política
-    aceptar_politica = st.checkbox("Acepta la política de datos personales")
+                    #email_recuperar = user_info['email']
+                    #contraseña_recuperar = user_info['password']
+                    #nombre = user_info['first_name']
+                    #destinatario = email_recuperar  
+                    #asunto = 'Recuperacion de Contraseña'
+                    #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
 
-    # Botón de registro de usuario en la primera columna
-    if col1.button("Registrarse") and aceptar_politica and st.session_state.politica_vista:
-        registration_successful, message = registro(new_username, new_password, first_name, last_name, email, confirm_password)
-        if registration_successful:
-            st.success(message)
-            
-        else:
-            st.error(message)
+                    st.success('Mensaje enviado con exito al correo registrado')
 
-    if not aceptar_politica:
-        st.warning("Por favor, acepta la política de datos personales antes de registrarte.")
+            except:
+                if username is None:
+                    st.warning('Ingresa el nombre del usuario')
 
-    if not st.session_state.politica_vista:
-        st.warning("Por favor, ve la política de datos personales antes de registrarte.")
+                else:
+                    st.warning('Debes registrarte')
 
+    elif menu_option == "Registro":
+        st.write("Registro de Usuario")
 
-elif selected_option == 'Busqueda de viajes':
-    origen, destino, personas, fecha = busqueda_de_viajes()
+        # Campos de registro,
+        first_name = st.text_input("Nombre del Usuario:")
+        last_name = st.text_input("Apellidos del Usuario:")
+        email = st.text_input("Correo electronico del Usuario:")
+        new_username = st.text_input("Nickname:")
+        new_password = st.text_input("Nueva Contraseña:", type = "password")
+        confirm_password = st.text_input("Confirmar contraseña:", type = "password")
 
-    if origen is not None:
-        # Realizar acciones adicionales o llamar a otras funciones según sea necesario
-        pagina_reserva(personas,origen,destino)
-        pago(personas,origen,destino)
+        # Crear dos columnas para los botones
+        col1, col2 = st.columns(2)
+        # Casilla de verificación para aceptar la política de datos personales
+        # Inicializa la variable aceptar_politica
+        
+        # Variable de estado para rastrear si el usuario ha visto la política
+        if 'politica_vista' not in st.session_state:
+            st.session_state.politica_vista = False
 
-    else:
-        # Manejar el caso en el que no se selecciona un viaje
-        st.warning("Por favor, selecciona un viaje antes de continuar.")
-    
+        # Botón para abrir la ventana emergente en la segunda columna
+        if col2.button("Ver Política de Tratamiento de Datos"):
+            with open("politica_datos.txt", "r") as archivo:
+                politica = archivo.read()
+                with st.expander("Política de Tratamiento de Datos",expanded=True):
+                    st.write(politica)
+                    st.session_state.politica_vista = True
+                # Casilla de verificación para aceptar la política
+        aceptar_politica = st.checkbox("Acepta la política de datos personales")
 
+        # Botón de registro de usuario en la primera columna
+        if col1.button("Registrarse") and aceptar_politica and st.session_state.politica_vista:
+            registration_successful, message = registro(new_username, new_password, first_name, last_name, email, confirm_password)
+            if registration_successful:
+                st.success(message)
+                
+            else:
+                st.error(message)
 
-elif selected_option == 'Busqueda de chiva Rumbera':
-    salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
-    
-    if st.button('Reserva Right Now'):
-        pagina_reserva()
+        if not aceptar_politica:
+            st.warning("Por favor, acepta la política de datos personales antes de registrarte.")
 
-    if st.button('Pagar'):
-        pago()
-
-elif selected_option == 'Conductor':
-    st.header('Sección de conductor')
-    col1,col2 = st.columns(2)
-
-    if col1.button('Ver itinerario'):
-        cargar_ruta()
-
-    if col2.button('Cargar incapacidad'):
-        conductor()
-
-elif selected_option == 'Administrar chivas':
-    st.header('ASIGNACIONES')
-    administrar_chivas()
-
-
-elif selected_option == 'Verificar pagos':
-    st.header('PAGOS')
-    administrar_pagos()
+        if not st.session_state.politica_vista:
+            st.warning("Por favor, ve la política de datos personales antes de registrarte.")
 
 
-elif selected_option == 'Administrar viajes':
-    st.header('ASIGNACIONES')
-    administrar_viajes()
 
 
