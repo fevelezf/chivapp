@@ -75,9 +75,10 @@ def busqueda_de_viajes():
         correo_r = st.text_input("Correo de quien Reserva")
         if st.form_submit_button('Reserva Right Now'):
             if origen != destino:
+                pago = 0
                 per=[]
                 st.success("Viaje seleccionado con exito")
-                resultado = db_reservas.put({'correo':str(correo_r), 'personas': str(personas), 'viajeros': list(per), 'costo':str(pago)})
+                resultado = db_reservas.put({'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
                 numero_reserva = resultado['key']
                 st.success(f'Reserva Guardada con exito con el numero {numero_reserva}')
                 st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
@@ -90,15 +91,14 @@ def busqueda_de_viajes():
 
 
             
-def pagina_reserva(personas,origen,destino,correo_r):
+def pagina_reserva(numero,personas,origen,destino,correo_r):
     global show_pago
     st.header("Reserva para personas:")
-
+    reserva_data = db_reservas.get({'key': numero})
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
         return
-    reserva = False
     with st.form('reserva'):
         per = []
         for i in range(personas):
@@ -209,16 +209,13 @@ def pagina_reserva(personas,origen,destino,correo_r):
                 pagar= 32000
         pago = pagar*personas
         if st.form_submit_button('Guardar Reserva'):
-            resultado = db_reservas.put({'correo':str(correo_r), 'personas': str(personas), 'viajeros': list(per), 'costo':str(pago)})
+            db_reservas.update({'viajeros': per}, key=numero)
+            db_reservas.update({'costo': pago}, key=numero)
             
-            numero_reserva = resultado['key']
+            numero_reserva = reserva_data['key']
 
-            st.success(f'Reserva Guardada con exito con el numero {numero_reserva}')
+            st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
             st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
-            reserva = True
-            return reserva
-    
-    return reserva
             
 
 def pago(personas,origen,destino):
@@ -394,7 +391,7 @@ def administrar_viajes():
 
 if get_current_user() is not None:
     # Sidebar menu options for logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal", 'Busqueda de viajes',
+    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Detalles de la reserva', 'Busqueda de viajes',
                                                 'Busqueda de chiva Rumbera', 'Conductor',
                                                 'Administrar chivas', 'Verificar pagos',
                                                 'Administrar viajes'])
@@ -412,6 +409,16 @@ if get_current_user() is not None:
             #st.warning("Por favor, selecciona un viaje antes de continuar.")
     
 
+    elif menu_option == 'Detalles de la reserva':
+        numero = st.text_input('Ingerese el numero de la reserva tal y como se le dio')
+        rese = db_reservas.get({'key': str(numero)})
+        correo = rese['correo']
+        origen = rese['origen']
+        destino = rese['destino']
+        personas = int(rese['personas'])
+        viajeros = rese['viajeros']
+        costo = int(rese['costo'])
+        pagina_reserva(numero,personas,origen,destino,correo)
 
     elif menu_option == 'Busqueda de chiva Rumbera':
         salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
