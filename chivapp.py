@@ -88,7 +88,6 @@ def pagina_reserva(personas,origen,destino):
 
         if st.form_submit_button('Pagar'):
             reserva = True
-            pago(origen,destino)
             return reserva
     
     return reserva
@@ -180,6 +179,7 @@ elif selected_option == 'Busqueda de viajes':
     if origen is not None:
         # Realizar acciones adicionales o llamar a otras funciones según sea necesario
         pagina_reserva(personas,origen,destino)
+        pago(origen,destino)
 
     else:
         # Manejar el caso en el que no se selecciona un viaje
