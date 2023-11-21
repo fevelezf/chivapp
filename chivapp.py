@@ -100,121 +100,122 @@ def pagina_reserva():
     if st.button('Reserva Right Now'):
         if origen != destino:
             st.success("Viaje seleccionado con exito")
-            per = []
-            for i in range(personas):
-                res=[]
-                # Muestra los datos de las personas en las dos columnas
-                st.write(f"Datos de la persona {i + 1}")       
-                nombre = st.text_input(f"Nombre de la persona {i + 1}")
-                res.append(nombre)
-                cedula = st.text_input(f"Cédula de la persona {i + 1}")
-                res.append(cedula)
-                correo = st.text_input(f"Correo de la persona {i + 1}")
-                res.append(correo)
-                equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
-                res.append(equipaje)
+            with st.form('Reserva'):
+                per = []
+                for i in range(personas):
+                    res=[]
+                    # Muestra los datos de las personas en las dos columnas
+                    st.write(f"Datos de la persona {i + 1}")       
+                    nombre = st.text_input(f"Nombre de la persona {i + 1}")
+                    res.append(nombre)
+                    cedula = st.text_input(f"Cédula de la persona {i + 1}")
+                    res.append(cedula)
+                    correo = st.text_input(f"Correo de la persona {i + 1}")
+                    res.append(correo)
+                    equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+                    res.append(equipaje)
 
-                per.append(res)
-                
-            if origen == "Medellin":
-                if destino == "San Pedro":
-                    pagar= 13000
-                elif destino == "Concepcion":
-                    pagar= 12500
-                elif destino == "Abejorral":
-                    pagar= 20000
-                elif destino == "La Ceja":
-                    pagar= 12000
-                elif destino == "Venecia":
-                    pagar= 12000
-                elif destino == "Rionegro": 
-                    pagar= 12000
-            elif origen == "San Pedro":
-                if destino == "Medellin":
-                    pagar= 13000
-                elif destino == "Concepcion":
-                    pagar= 32000
-                elif destino == "Abejorral":
-                    pagar= 20000
-                elif destino == "La Ceja":
-                    pagar= 32000
-                elif destino == "Venecia":
-                    pagar= 50000
-                elif destino == "Rionegro": 
-                    pagar= 30000
-            elif origen == "Concepcion":
-                if destino == "San Pedro":
-                    pagar= 32000
-                elif destino == "Medellin":
-                    pagar= 13000
-                elif destino == "Abejorral":
-                    pagar= 34000
-                elif destino == "La Ceja":
-                    pagar= 20000
-                elif destino == "Venecia":
-                    pagar= 34000
-                elif destino == "Rionegro": 
-                    pagar= 12000
-            elif origen == "Abejorral":
-                if destino == "San Pedro":
-                    pagar= 30000
-                elif destino == "Concepcion":
-                    pagar= 12000
-                elif destino == "Medellin":
-                    pagar= 13000
-                elif destino == "La Ceja":
-                    pagar= 12700
-                elif destino == "Venecia":
-                    pagar= 23200
-                elif destino == "Rionegro": 
-                    pagar= 14750
-            elif origen =="La Ceja" :
-                if destino == "San Pedro":
-                    pagar= 22340
-                elif destino == "Concepcion":
-                    pagar= 15450
-                elif destino == "Abejorral":
-                    pagar= 12000
-                elif destino == "Medellin":
-                    pagar= 23000
-                elif destino == "Venecia":
-                    pagar= 11000
-                elif destino == "Rionegro": 
-                    pagar= 12300
-            elif origen =="Venecia":
-                if destino == "San Pedro":
-                    pagar= 12400
-                elif destino == "Concepcion":
-                    pagar= 15000
-                elif destino == "Abejorral":
-                    pagar= 25000
-                elif destino == "La Ceja":
-                    pagar= 23000
-                elif destino == "Medellin":
-                    pagar= 23000
-                elif destino == "Rionegro": 
-                    pagar= 12000
-            elif origen == "Rionegro":
-                if destino == "San Pedro":
-                    pagar= 12000
-                elif destino == "Concepcion":
-                    pagar= 13000
-                elif destino == "Abejorral":
-                    pagar= 12000
-                elif destino == "La Ceja":
-                    pagar= 24000
-                elif destino == "Venecia":
-                    pagar= 34000
-                elif destino == "Medellin": 
-                    pagar= 32000
-            pago = pagar*personas
-            if st.button('Guardar Reserva'):
-                resultado = db_reservas.put({'correo':correo_r, 'personas': personas, 'viajeros': per, 'costo':pago})
-                
-                numero_reserva = resultado['key']
+                    per.append(res)
+                    
+                if origen == "Medellin":
+                    if destino == "San Pedro":
+                        pagar= 13000
+                    elif destino == "Concepcion":
+                        pagar= 12500
+                    elif destino == "Abejorral":
+                        pagar= 20000
+                    elif destino == "La Ceja":
+                        pagar= 12000
+                    elif destino == "Venecia":
+                        pagar= 12000
+                    elif destino == "Rionegro": 
+                        pagar= 12000
+                elif origen == "San Pedro":
+                    if destino == "Medellin":
+                        pagar= 13000
+                    elif destino == "Concepcion":
+                        pagar= 32000
+                    elif destino == "Abejorral":
+                        pagar= 20000
+                    elif destino == "La Ceja":
+                        pagar= 32000
+                    elif destino == "Venecia":
+                        pagar= 50000
+                    elif destino == "Rionegro": 
+                        pagar= 30000
+                elif origen == "Concepcion":
+                    if destino == "San Pedro":
+                        pagar= 32000
+                    elif destino == "Medellin":
+                        pagar= 13000
+                    elif destino == "Abejorral":
+                        pagar= 34000
+                    elif destino == "La Ceja":
+                        pagar= 20000
+                    elif destino == "Venecia":
+                        pagar= 34000
+                    elif destino == "Rionegro": 
+                        pagar= 12000
+                elif origen == "Abejorral":
+                    if destino == "San Pedro":
+                        pagar= 30000
+                    elif destino == "Concepcion":
+                        pagar= 12000
+                    elif destino == "Medellin":
+                        pagar= 13000
+                    elif destino == "La Ceja":
+                        pagar= 12700
+                    elif destino == "Venecia":
+                        pagar= 23200
+                    elif destino == "Rionegro": 
+                        pagar= 14750
+                elif origen =="La Ceja" :
+                    if destino == "San Pedro":
+                        pagar= 22340
+                    elif destino == "Concepcion":
+                        pagar= 15450
+                    elif destino == "Abejorral":
+                        pagar= 12000
+                    elif destino == "Medellin":
+                        pagar= 23000
+                    elif destino == "Venecia":
+                        pagar= 11000
+                    elif destino == "Rionegro": 
+                        pagar= 12300
+                elif origen =="Venecia":
+                    if destino == "San Pedro":
+                        pagar= 12400
+                    elif destino == "Concepcion":
+                        pagar= 15000
+                    elif destino == "Abejorral":
+                        pagar= 25000
+                    elif destino == "La Ceja":
+                        pagar= 23000
+                    elif destino == "Medellin":
+                        pagar= 23000
+                    elif destino == "Rionegro": 
+                        pagar= 12000
+                elif origen == "Rionegro":
+                    if destino == "San Pedro":
+                        pagar= 12000
+                    elif destino == "Concepcion":
+                        pagar= 13000
+                    elif destino == "Abejorral":
+                        pagar= 12000
+                    elif destino == "La Ceja":
+                        pagar= 24000
+                    elif destino == "Venecia":
+                        pagar= 34000
+                    elif destino == "Medellin": 
+                        pagar= 32000
+                pago = pagar*personas
+                if st.button('Guardar Reserva'):
+                    resultado = db_reservas.put({'correo':correo_r, 'personas': personas, 'viajeros': per, 'costo':pago})
+                    
+                    numero_reserva = resultado['key']
 
-                st.success(f'Reserva Guardada con exito con el numero {numero_reserva}')
-                st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')               
+                    st.success(f'Reserva Guardada con exito con el numero {numero_reserva}')
+                    st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')               
         else:
             st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
 
