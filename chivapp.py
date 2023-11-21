@@ -75,7 +75,7 @@ def pagina_reserva(personas):
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
         return
-
+    reserva = False
     with st.form('reserva'):
         per = {}
         for i in range(personas):
@@ -87,9 +87,10 @@ def pagina_reserva(personas):
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
         if st.form_submit_button('Pagar'):
-            return True
+            reserva = True
+            return reserva
     
-    return False
+    return reserva
             
 
 def pago():
@@ -172,7 +173,7 @@ if selected_option == 'Registrarse':
 
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
-    pagina_reserva = False
+
     if origen is not None:
         # Realizar acciones adicionales o llamar a otras funciones según sea necesario
         pagina_reserva(personas)
