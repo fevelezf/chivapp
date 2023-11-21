@@ -57,13 +57,14 @@ def busqueda_de_viajes():
         personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
         fecha = st.date_input("Selecciona la fecha:")
         if st.form_submit_button('Reserva Right Now'):
-            if origen == destino:
+            if origen != destino:
+                st.success("Viaje seleccionado con exito")
+                return origen, destino, personas, fecha
+            
+            else:
                 st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
                 return None, None, None, None
 
-            else:
-                st.success("Viaje seleccionado con exito")
-                return origen, destino, personas, fecha
 
             
 def pagina_reserva(personas):
@@ -83,8 +84,8 @@ def pagina_reserva(personas):
             cedula = st.text_input(f"Cédula de la persona {i + 1}")
             correo = st.text_input(f"Correo de la persona {i + 1}")
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
-            if st.form_submit_button('Pagar'):
-                pago()
+        if st.form_submit_button('Pagar'):
+            pago()
 
 def pago():
     st.header("Pago con codigo QR")
