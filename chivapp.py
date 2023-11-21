@@ -403,21 +403,21 @@ if get_current_user() is not None:
     if menu_option == 'Busqueda de viajes':
         origen, destino, personas, fecha, correo_r = busqueda_de_viajes()
 
-        if origen is not None:
+        #if origen is not None:
             # Realizar acciones adicionales o llamar a otras funciones según sea necesario
-            pagina_reserva(personas,origen,destino,correo_r)
+            #pagina_reserva(personas,origen,destino,correo_r)
 
-        else:
+        #else:
             # Manejar el caso en el que no se selecciona un viaje
-            st.warning("Por favor, selecciona un viaje antes de continuar.")
+            #st.warning("Por favor, selecciona un viaje antes de continuar.")
     
 
 
     elif menu_option == 'Busqueda de chiva Rumbera':
         salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
         
-        if st.button('Reserva Right Now'):
-            pagina_reserva()
+        #if st.button('Reserva Right Now'):
+            #pagina_reserva()
 
         if st.button('Pagar'):
             pago()
