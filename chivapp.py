@@ -85,7 +85,8 @@ def pagina_reserva(personas):
             correo = st.text_input(f"Correo de la persona {i + 1}")
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
         if st.form_submit_button('Pagar'):
-            pago()
+            return nombre, cedula, correo, equipaje
+            
 
 def pago():
 
@@ -171,6 +172,7 @@ elif selected_option == 'Busqueda de viajes':
     if origen is not None:
         # Realizar acciones adicionales o llamar a otras funciones según sea necesario
         pagina_reserva(personas)
+        pago()
     else:
         # Manejar el caso en el que no se selecciona un viaje
         st.warning("Por favor, selecciona un viaje antes de continuar.")
