@@ -103,7 +103,7 @@ def pagina_reserva():
     # Muestra el DataFrame en forma de tabla
     st.write(df)
     st.header("Reserva para personas:")
-    reserva_data = db_reservas.get(numero)
+    #reserva_data = db_reservas.get(numero)
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
