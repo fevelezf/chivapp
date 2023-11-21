@@ -420,25 +420,23 @@ if get_current_user() is not None:
                 response = db_reservas.get(numero)
                 st.write(response)
                 
-                # Check if there are any items in the response
-                if response.count > 0:
-                    st.write('LO ENCONTRÉ')
-                    # Access the first item (assuming only one item is fetched)
-                    item = response[0]
 
-                    # Access the fields using the keys
-                    correo = item['correo']
-                    origen = item['origen']
-                    destino = item['destino']
-                    personas = int(item['personas'])
-                    viajeros = item['viajeros']
-                    costo = int(item['costo'])
+                st.write('LO ENCONTRÉ')
+                # Access the first item (assuming only one item is fetched)
+                item = response[0]
 
-                    st.write('PASÉ')
-                    # Call the function with the fetched data
-                    # pagina_reserva(numero, personas, origen, destino, correo)
-                else:
-                    st.warning('No se encontró la reserva con el número proporcionado.')
+                # Access the fields using the keys
+                correo = item['correo']
+                origen = item['origen']
+                destino = item['destino']
+                personas = int(item['personas'])
+                viajeros = item['viajeros']
+                costo = int(item['costo'])
+
+                st.write('PASÉ')
+                # Call the function with the fetched data
+                # pagina_reserva(numero, personas, origen, destino, correo)
+
             except Exception as e:
                 st.warning(f'Error: {e}')
 
