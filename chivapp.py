@@ -96,7 +96,7 @@ def busqueda_de_viajes():
 def pagina_reserva():
     with st.form('reserva'):
         numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-        if st.button('Buscar'):
+        if st.form_submit_button('Buscar'):
             try:
                 # Fetch the data
                 response = db_reservas.get(numero)
@@ -128,6 +128,7 @@ def pagina_reserva():
             res.append(equipaje)
 
             per.append(res)
+
         cost = pagar(origen,destino)
         pago = cost*personas
         if st.form_submit_button('Guardar Reserva'):
