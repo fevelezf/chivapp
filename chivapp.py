@@ -63,7 +63,7 @@ def busqueda_de_viajes():
             
             else:
                 st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-                return None, None, None, None
+    return None, None, None, None
 
 
             
@@ -164,7 +164,14 @@ if selected_option == 'Registrarse':
 
 elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
-    pagina_reserva(personas)
+
+    if origen is not None:
+        # Realizar acciones adicionales o llamar a otras funciones según sea necesario
+        pagina_reserva(personas)
+    else:
+        # Manejar el caso en el que no se selecciona un viaje
+        st.warning("Por favor, selecciona un viaje antes de continuar.")
+
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
