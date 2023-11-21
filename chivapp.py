@@ -421,19 +421,18 @@ if get_current_user() is not None:
                 st.write('LO ENCONTRE')
                 # Check if there are any items in the response
                 if response.count > 0:
-                    # Access the first item (assuming only one item is fetched)
-                    item = next(response.items())
 
                     # Access the fields using the keys
-                    correo = item['correo']
-                    origen = item['origen']
-                    destino = item['destino']
-                    personas = int(item['personas'])
-                    viajeros = item['viajeros']
-                    costo = int(item['costo'])
+                    correo = response['correo']
+                    origen = response['origen']
+                    destino = response['destino']
+                    personas = int(response['personas'])
+                    viajeros = response['viajeros']
+                    costo = int(response['costo'])  
 
+                    st.write('PASE')
                     # Call the function with the fetched data
-                    pagina_reserva(numero, personas, origen, destino, correo)
+                    #pagina_reserva(numero, personas, origen, destino, correo)
                 else:
                     st.warning('No se encontró la reserva con el número proporcionado.')
 
