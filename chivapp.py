@@ -282,11 +282,10 @@ def administrar_viajes():
 
 if get_current_user() is not None:
     # Sidebar menu options for logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal", "Registrar Gasto",
-                                                "Registrar Ingreso", "Mostrar Gastos e Ingresos",
-                                                "Crear Fondo Común", "Fondos comunes",
-                                                "Descargar Gastos e Ingresos", "Cerrar Sesión",
-                                                "Calculadora de Préstamos"])
+    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal", 'Busqueda de viajes',
+                                                'Busqueda de chiva Rumbera', 'Conductor',
+                                                'Administrar chivas', 'Verificar pagos',
+                                                'Administrar viajes'])
     
 
     if menu_option == 'Busqueda de viajes':
