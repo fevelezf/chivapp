@@ -413,10 +413,10 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        numero = st.text_input('Ingerese el numero de la reserva tal y como se le dio')
+        numero = st.number_input('Ingerese el numero de la reserva tal y como se le dio')
         if st.button('Buscar'):
             try:
-                rese = next(db_reservas.fetch({'numero_reserva': numero}), None)
+                rese = db_reservas.fetch({'numero_reserva': numero})
                 correo = rese['correo']
                 origen = rese['origen']
                 destino = rese['destino']
