@@ -415,23 +415,7 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-        if st.button('Buscar'):
-            try:
-                # Fetch the data
-                response = db_reservas.get(numero)
-                # Access the fields using the keys
-                correo = response['correo']
-                origen = response['origen']
-                destino = response['destino']
-                personas = int(response['personas'])
-                viajeros = response['viajeros']
-                costo = response['costo']
-
-                pagina_reserva(numero, personas, origen, destino, correo)
-
-            except Exception as e:
-                st.warning(f'Error: {e}')
+        pagina_reserva()
 
     elif menu_option == 'Busqueda de chiva Rumbera':
         salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
