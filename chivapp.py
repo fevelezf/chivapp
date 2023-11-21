@@ -33,7 +33,7 @@ def busqueda_de_chiva_rumbera():
 def inicio_de_sesion():
     st.title("Inicio de sesión")
 
-    with st.forms:
+    with st.form("inicio"):
         usuario = st.text_input("Ingrese su usuario:")
         contraseña = st.text_input("Ingrese su contraseña:",type='password')
         if st.button('Iniciar sesión'):
