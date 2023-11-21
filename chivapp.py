@@ -101,123 +101,123 @@ def pagina_reserva(numero,personas,origen,destino,correo_r):
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
         return
-    with st.form('reserva'):
-        per = []
-        for i in range(personas):
-            res=[]
-            # Muestra los datos de las personas en las dos columnas
-            st.write(f"Datos de la persona {i + 1}")       
-            nombre = st.text_input(f"Nombre de la persona {i + 1}")
-            res.append(nombre)
-            cedula = st.text_input(f"Cédula de la persona {i + 1}")
-            res.append(cedula)
-            correo = st.text_input(f"Correo de la persona {i + 1}")
-            res.append(correo)
-            equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
-            res.append(equipaje)
 
-            per.append(res)
-            
-        if origen == "Medellin":
-            if destino == "San Pedro":
-                pagar= 13000
-            elif destino == "Concepcion":
-                pagar= 12500
-            elif destino == "Abejorral":
-                pagar= 20000
-            elif destino == "La Ceja":
-                pagar= 12000
-            elif destino == "Venecia":
-                pagar= 12000
-            elif destino == "Rionegro": 
-                pagar= 12000
-        elif origen == "San Pedro":
-            if destino == "Medellin":
-                pagar= 13000
-            elif destino == "Concepcion":
-                pagar= 32000
-            elif destino == "Abejorral":
-                pagar= 20000
-            elif destino == "La Ceja":
-                pagar= 32000
-            elif destino == "Venecia":
-                pagar= 50000
-            elif destino == "Rionegro": 
-                pagar= 30000
-        elif origen == "Concepcion":
-            if destino == "San Pedro":
-                pagar= 32000
-            elif destino == "Medellin":
-                pagar= 13000
-            elif destino == "Abejorral":
-                pagar= 34000
-            elif destino == "La Ceja":
-                pagar= 20000
-            elif destino == "Venecia":
-                pagar= 34000
-            elif destino == "Rionegro": 
-                pagar= 12000
-        elif origen == "Abejorral":
-            if destino == "San Pedro":
-                pagar= 30000
-            elif destino == "Concepcion":
-                pagar= 12000
-            elif destino == "Medellin":
-                pagar= 13000
-            elif destino == "La Ceja":
-                pagar= 12700
-            elif destino == "Venecia":
-                pagar= 23200
-            elif destino == "Rionegro": 
-                pagar= 14750
-        elif origen =="La Ceja" :
-            if destino == "San Pedro":
-                pagar= 22340
-            elif destino == "Concepcion":
-                pagar= 15450
-            elif destino == "Abejorral":
-                pagar= 12000
-            elif destino == "Medellin":
-                pagar= 23000
-            elif destino == "Venecia":
-                pagar= 11000
-            elif destino == "Rionegro": 
-                pagar= 12300
-        elif origen =="Venecia":
-            if destino == "San Pedro":
-                pagar= 12400
-            elif destino == "Concepcion":
-                pagar= 15000
-            elif destino == "Abejorral":
-                pagar= 25000
-            elif destino == "La Ceja":
-                pagar= 23000
-            elif destino == "Medellin":
-                pagar= 23000
-            elif destino == "Rionegro": 
-                pagar= 12000
-        elif origen == "Rionegro":
-            if destino == "San Pedro":
-                pagar= 12000
-            elif destino == "Concepcion":
-                pagar= 13000
-            elif destino == "Abejorral":
-                pagar= 12000
-            elif destino == "La Ceja":
-                pagar= 24000
-            elif destino == "Venecia":
-                pagar= 34000
-            elif destino == "Medellin": 
-                pagar= 32000
-        pago = pagar*personas
-        if st.form_submit_button('Guardar Reserva'):
-            db_reservas.update({'viajeros': per}, key=numero)
-            db_reservas.update({'costo': pago}, key=numero)
-            
-            numero_reserva = reserva_data['key']
+    per = []
+    for i in range(personas):
+        res=[]
+        # Muestra los datos de las personas en las dos columnas
+        st.write(f"Datos de la persona {i + 1}")       
+        nombre = st.text_input(f"Nombre de la persona {i + 1}")
+        res.append(nombre)
+        cedula = st.text_input(f"Cédula de la persona {i + 1}")
+        res.append(cedula)
+        correo = st.text_input(f"Correo de la persona {i + 1}")
+        res.append(correo)
+        equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+        res.append(equipaje)
 
-            st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
-            st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
+        per.append(res)
+        
+    if origen == "Medellin":
+        if destino == "San Pedro":
+            pagar= 13000
+        elif destino == "Concepcion":
+            pagar= 12500
+        elif destino == "Abejorral":
+            pagar= 20000
+        elif destino == "La Ceja":
+            pagar= 12000
+        elif destino == "Venecia":
+            pagar= 12000
+        elif destino == "Rionegro": 
+            pagar= 12000
+    elif origen == "San Pedro":
+        if destino == "Medellin":
+            pagar= 13000
+        elif destino == "Concepcion":
+            pagar= 32000
+        elif destino == "Abejorral":
+            pagar= 20000
+        elif destino == "La Ceja":
+            pagar= 32000
+        elif destino == "Venecia":
+            pagar= 50000
+        elif destino == "Rionegro": 
+            pagar= 30000
+    elif origen == "Concepcion":
+        if destino == "San Pedro":
+            pagar= 32000
+        elif destino == "Medellin":
+            pagar= 13000
+        elif destino == "Abejorral":
+            pagar= 34000
+        elif destino == "La Ceja":
+            pagar= 20000
+        elif destino == "Venecia":
+            pagar= 34000
+        elif destino == "Rionegro": 
+            pagar= 12000
+    elif origen == "Abejorral":
+        if destino == "San Pedro":
+            pagar= 30000
+        elif destino == "Concepcion":
+            pagar= 12000
+        elif destino == "Medellin":
+            pagar= 13000
+        elif destino == "La Ceja":
+            pagar= 12700
+        elif destino == "Venecia":
+            pagar= 23200
+        elif destino == "Rionegro": 
+            pagar= 14750
+    elif origen =="La Ceja" :
+        if destino == "San Pedro":
+            pagar= 22340
+        elif destino == "Concepcion":
+            pagar= 15450
+        elif destino == "Abejorral":
+            pagar= 12000
+        elif destino == "Medellin":
+            pagar= 23000
+        elif destino == "Venecia":
+            pagar= 11000
+        elif destino == "Rionegro": 
+            pagar= 12300
+    elif origen =="Venecia":
+        if destino == "San Pedro":
+            pagar= 12400
+        elif destino == "Concepcion":
+            pagar= 15000
+        elif destino == "Abejorral":
+            pagar= 25000
+        elif destino == "La Ceja":
+            pagar= 23000
+        elif destino == "Medellin":
+            pagar= 23000
+        elif destino == "Rionegro": 
+            pagar= 12000
+    elif origen == "Rionegro":
+        if destino == "San Pedro":
+            pagar= 12000
+        elif destino == "Concepcion":
+            pagar= 13000
+        elif destino == "Abejorral":
+            pagar= 12000
+        elif destino == "La Ceja":
+            pagar= 24000
+        elif destino == "Venecia":
+            pagar= 34000
+        elif destino == "Medellin": 
+            pagar= 32000
+    pago = pagar*personas
+    if st.button('Guardar Reserva'):
+        db_reservas.update({'viajeros': per}, key=numero)
+        db_reservas.update({'costo': pago}, key=numero)
+        
+        numero_reserva = reserva_data['key']
+
+        st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
+        st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
             
 
 def pago(personas,origen,destino):
