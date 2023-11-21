@@ -424,7 +424,7 @@ if get_current_user() is not None:
         salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
         
         #if st.button('Reserva Right Now'):
-            #pagina_reserva()
+            #pagina_reserva()c
 
         if st.button('Pagar'):
             pago()
