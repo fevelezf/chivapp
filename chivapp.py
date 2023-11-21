@@ -15,6 +15,11 @@ deta = Deta(DETA_KEY)
 # y fondos comunes
 db_users = deta.Base("usuarios")
 db_reservas = deta.Base("reservas")
+db_admin = deta.Base("db_admin")
+db_condu = deta.Base("db_condu")
+
+db_admin.put({'username': 'Fernan', 'password': '5patodos'})
+db_condu.put({'username': 'Fercho', 'password': 'brum'})
 
 def busqueda_de_chiva_rumbera():
     salida = ['Mall de la Mota' , 'CC La Central', 'Carlos E']
@@ -29,6 +34,31 @@ def busqueda_de_chiva_rumbera():
     fecha = st.date_input("Selecciona la fecha:")
 
     return salida, ruta, personas, fecha
+
+def verificar_credenciales_admin(username, password):
+    '''Esta funcion recibe como argumento el username y el password y verifica que
+    sean inguales para permitir el ingreso al sistema
+    '''
+    # Busca el usuario en la base de datos
+    user = db_admin.fetch({"username": username, "password": password})
+    
+    if user.count > 0:
+        return True, "Inicio de sesión exitoso."
+    else:
+        return False, "Credenciales incorrectas. Por favor, verifique su nombre de usuario y contraseña."
+
+
+def verificar_credenciales_condu(username, password):
+    '''Esta funcion recibe como argumento el username y el password y verifica que
+    sean inguales para permitir el ingreso al sistema
+    '''
+    # Busca el usuario en la base de datos
+    user = db_condu.fetch({"username": username, "password": password})
+    
+    if user.count > 0:
+        return True, "Inicio de sesión exitoso."
+    else:
+        return False, "Credenciales incorrectas. Por favor, verifique su nombre de usuario y contraseña."
 
 # Función para verificar credenciales
 def verificar_credenciales(username, password):
@@ -351,13 +381,10 @@ def pago(personas,origen,destino):
             st.success('confirmado')
 ###db_data.put({'username': username, 'Fecha': str(fecha), 'Tipo': 'Gasto', 'Categoría': categoria_gastos, 'Monto': monto})
 
-
 def confirmacion(origen, destino):
     st.title(f'Viaje confirmado desde {origen} con destino a {destino}')
     st.write('Acercate a nuestras taquillas para Recibir tus tiquetes')
     st.success('FELIZ VIAJE')
-
-
 
 def administrar_pagos():
     user_data = pd.read_csv('datos.csv')
