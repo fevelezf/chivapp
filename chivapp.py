@@ -423,7 +423,7 @@ if get_current_user() is not None:
                 # Check if there are any items in the response
                 if response.count > 0:
                     # Access the first item (assuming only one item is fetched)
-                    item = next(response.items())
+                    item = response.items()[0]
 
                     # Access the fields using the keys
                     correo = item['correo']
