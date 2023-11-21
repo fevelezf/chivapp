@@ -413,28 +413,33 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        numero = st.text_input('Ingerese el numero de la reserva tal y como se le dio')
+        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
         if st.button('Buscar'):
             try:
                 # Fetch the data
-                response = db_reservas.fetch({'key': numero})[0]
-                st.write('LO ENCONTRE')
+                response = db_reservas.fetch({'key': numero})
+                st.write('LO ENCONTRÉ')
+                
                 # Check if there are any items in the response
                 if response.count > 0:
+                    # Access the first item (assuming only one item is fetched)
+                    item = next(response.items())
 
                     # Access the fields using the keys
-                    correo = response['correo']
-                    origen = response['origen']
-                    destino = response['destino']
-                    personas = int(response['personas'])
-                    viajeros = response['viajeros']
-                    costo = int(response['costo'])  
+                    correo = item['correo']
+                    origen = item['origen']
+                    destino = item['destino']
+                    personas = int(item['personas'])
+                    viajeros = item['viajeros']
+                    costo = int(item['costo'])
 
-                    st.write('PASE')
+                    st.write('PASÉ')
                     # Call the function with the fetched data
-                    #pagina_reserva(numero, personas, origen, destino, correo)
+                    # pagina_reserva(numero, personas, origen, destino, correo)
                 else:
                     st.warning('No se encontró la reserva con el número proporcionado.')
+            except Exception as e:
+                st.warning(f'Error: {e}')
 
             except Exception as e:
                 st.warning(f'Error: {e}')
