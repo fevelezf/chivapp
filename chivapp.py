@@ -359,10 +359,9 @@ def conductor():
 
 # Obtener el nombre de usuario actual después del inicio de sesión
 def get_current_user():
-    '''Esta funcion obtiene el nombre del usuario actual despues
-    del inicio de sesion
+    '''Esta funcion obtiene el nombre del usuario actual despues del inicio de sesion
     '''
-    return st.session_state.username
+    return st.session_state.get('username', None)
 
 def administrar_chivas():
         st.header("Administrar chivas y conductores")
