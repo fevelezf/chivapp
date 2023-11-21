@@ -422,16 +422,14 @@ if get_current_user() is not None:
                 
 
                 st.write('LO ENCONTRÉ')
-                # Access the first item (assuming only one item is fetched)
-                item = response[0]
 
                 # Access the fields using the keys
-                correo = item['correo']
-                origen = item['origen']
-                destino = item['destino']
-                personas = int(item['personas'])
-                viajeros = item['viajeros']
-                costo = int(item['costo'])
+                correo = response['correo']
+                origen = response['origen']
+                destino = response['destino']
+                personas = response['personas']
+                viajeros = response['viajeros']
+                costo = response['costo']
 
                 st.write('PASÉ')
                 # Call the function with the fetched data
