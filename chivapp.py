@@ -176,11 +176,13 @@ elif selected_option == 'Busqueda de viajes':
     if origen is not None:
         # Realizar acciones adicionales o llamar a otras funciones según sea necesario
         pagina_reserva(personas)
-        #if pagina_reserva:
-        #    pago()
+
     else:
         # Manejar el caso en el que no se selecciona un viaje
         st.warning("Por favor, selecciona un viaje antes de continuar.")
+
+    if pagina_reserva:
+        pago()
 
 
 elif selected_option == 'Busqueda de chiva Rumbera':
