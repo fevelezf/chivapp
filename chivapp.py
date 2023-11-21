@@ -105,14 +105,18 @@ def pagina_reserva(numero, personas, origen, destino, correo_r):
     for i in range(personas):
         res = []
         # Muestra los datos de las personas en las dos columnas
-        st.write(f"Datos de la persona {i + 1}")
-        nombre = st.text_input(f"Nombre de la persona {i + 1}")
+        col1, col2 = st.columns(2)
+        
+        col1.write(f"Datos de la persona {i + 1}")
+        nombre = col1.text_input("Nombre", key=f"nombre_{i}")
         res.append(nombre)
-        cedula = st.text_input(f"Cédula de la persona {i + 1}")
+        cedula = col1.text_input("Cédula", key=f"cedula_{i}")
         res.append(cedula)
-        correo = st.text_input(f"Correo de la persona {i + 1}")
+
+        col2.write(f"Datos adicionales de la persona {i + 1}")
+        correo = col2.text_input("Correo", key=f"correo_{i}")
         res.append(correo)
-        equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+        equipaje = col2.selectbox(f"¿Lleva equipaje?", ["Si", "No"], key=f"equipaje_{i}")
         res.append(equipaje)
 
         per.append(res)
