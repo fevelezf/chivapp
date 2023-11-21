@@ -66,7 +66,6 @@ def busqueda_de_viajes():
                 return origen, destino, personas, fecha
 
             
-
 def pagina_reserva(personas):
     global show_pago
     st.header("Reserva para personas:")
@@ -84,7 +83,7 @@ def pagina_reserva(personas):
             cedula = st.text_input(f"Cédula de la persona {i + 1}")
             correo = st.text_input(f"Correo de la persona {i + 1}")
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
-            if st.button('Pagar'):
+            if st.form_submit_button('Pagar'):
                 pago()
 
 def pago():
