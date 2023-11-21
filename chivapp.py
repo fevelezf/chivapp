@@ -106,7 +106,7 @@ def pagina_reserva(numero, personas, origen, destino, correo_r):
         res = []
         # Muestra los datos de las personas en las dos columnas
         col1, col2 = st.columns(2)
-        
+
         col1.write(f"Datos de la persona {i + 1}")
         nombre = col1.text_input("Nombre", key=f"nombre_{i}")
         res.append(nombre)
@@ -129,11 +129,15 @@ def pagina_reserva(numero, personas, origen, destino, correo_r):
     cost = pagar(origen, destino)
     pago = cost * personas
 
-    # Guardar automáticamente cuando se ingresan los datos
-    db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)
+    # Utilizar st.form_submit_button en lugar de st.form
+    with st.form(key='my_form'):
+        st.success(f'Reserva Guardada con éxito con el número {numero} , por un costo de {pago}')
+        st.warning('Conserva el número de la reserva, en caso de perderlo, deberás contactarte con el área técnica')
 
-    st.success(f'Reserva Guardada con éxito con el número {numero} , por un costo de {pago}')
-    st.warning('Conserva el número de la reserva, en caso de perderlo, deberás contactarte con el área técnica')
+    # Verificar si el formulario fue enviado
+    if st.form_submit_button('Guardar Reserva'):
+        # Guardar automáticamente cuando se envía el formulario
+        db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)
             
 def pagar(origen,destino):
     if origen == "Medellin":
