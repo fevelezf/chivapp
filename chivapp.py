@@ -315,14 +315,10 @@ elif selected_option == "Registrarse":
 
     # Botón de registro de usuario en la primera columna
     if col1.button("Registrarse") and aceptar_politica and st.session_state.politica_vista:
-        registration_successful, message = registrar_usuario(new_username, new_password, first_name, last_name, email, confirm_password)
+        registration_successful, message = registro(new_username, new_password, first_name, last_name, email, confirm_password)
         if registration_successful:
             st.success(message)
-            destinatario = email  
-            asunto = 'Registro Exitoso Finanzapp'
-            cuerpo = (f'Hola {first_name} ,  Te damos la bienvenida a finanzapp\n Estamos muy felices de que estes con nostros, Ahora podras registrar tus gastos e ingresos, podras verificar graficos y mucho mas...\n Tu Usuario es: {new_username} \n Tu contrasena es: {new_password} \n Es un placer que estes con nostros, Recuerda que ahorrando con Finanzapp, te rinde mas el dinero... ')
-
-            enviar_correo(destinatario, asunto, cuerpo)
+            
         else:
             st.error(message)
 
