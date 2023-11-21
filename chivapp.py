@@ -66,11 +66,11 @@ def busqueda_de_viajes():
 
     st.title("¡Bienvenido a tu Agencia de Viajes!")
     st.write("Selecciona tu origen y destino para encontrar tu próximo viaje.")
-
-    origen = st.selectbox("Origen:", ciudades)
-    destino = st.selectbox("Destino:", ciudades)
-    personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
-    fecha = st.date_input("Selecciona la fecha:")
+    with st.form('busqueda'):
+        origen = st.selectbox("Origen:", ciudades)
+        destino = st.selectbox("Destino:", ciudades)
+        personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
+        fecha = st.date_input("Selecciona la fecha:")
 
     return origen, destino, personas, fecha
 
