@@ -418,7 +418,7 @@ if get_current_user() is not None:
             try:
                 # Fetch the data
                 response = db_reservas.fetch({'key': numero})
-                st.write(response)
+                st.write(response.items())
                 
                 # Check if there are any items in the response
                 if response.count > 0:
