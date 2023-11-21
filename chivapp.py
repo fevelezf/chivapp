@@ -112,10 +112,6 @@ def pagina_reserva():
             st.warning(f'Error: {e}')
     st.header("Reserva para personas:")
     reserva_data = db_reservas.get(numero)
-    # Verifica que 'personas' sea un número antes de continuar
-    if not isinstance(personas, int):
-        st.error("Error: El número de personas no es válido.")
-        return
     with st.form('reserva'):
         per = []
         for i in range(personas):
