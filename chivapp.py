@@ -12,6 +12,7 @@ deta = Deta(DETA_KEY)
 # Inicializa la base de datos para usuarios, gastos e ingresos
 # y fondos comunes
 db_users = deta.Base("usuarios")
+db_reservas = deta.Base("reservas")
 
 def busqueda_de_chiva_rumbera():
     salida = ['Mall de la Mota' , 'CC La Central', 'Carlos E']
@@ -71,10 +72,11 @@ def busqueda_de_viajes():
         destino = st.selectbox("Destino:", ciudades)
         personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
         fecha = st.date_input("Selecciona la fecha:")
+        correo_r = st.write("Correo de quien Reserva")
         if st.form_submit_button('Reserva Right Now'):
             if origen != destino:
                 st.success("Viaje seleccionado con exito")
-                return origen, destino, personas, fecha
+                return origen, destino, personas, fecha,correo_r
             
             else:
                 st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
@@ -82,7 +84,7 @@ def busqueda_de_viajes():
 
 
             
-def pagina_reserva(personas,origen,destino):
+def pagina_reserva(personas,origen,destino,correo_r):
     global show_pago
     st.header("Reserva para personas:")
 
@@ -92,16 +94,121 @@ def pagina_reserva(personas,origen,destino):
         return
     reserva = False
     with st.form('reserva'):
-        per = {}
+        per = []
         for i in range(personas):
+            res=[]
             # Muestra los datos de las personas en las dos columnas
             st.write(f"Datos de la persona {i + 1}")       
             nombre = st.text_input(f"Nombre de la persona {i + 1}")
+            res.append(nombre)
             cedula = st.text_input(f"Cédula de la persona {i + 1}")
+            res.append(cedula)
             correo = st.text_input(f"Correo de la persona {i + 1}")
+            res.append(correo)
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+            res.append(equipaje)
 
-        if st.form_submit_button('Pagar'):
+            per.append(res)
+            
+        if origen == "Medellin":
+            if destino == "San Pedro":
+                pagar= 13000
+            elif destino == "Concepcion":
+                pagar= 12500
+            elif destino == "Abejorral":
+                pagar= 20000
+            elif destino == "La Ceja":
+                pagar= 12000
+            elif destino == "Venecia":
+                pagar= 12000
+            elif destino == "Rionegro": 
+                pagar= 12000
+        elif origen == "San Pedro":
+            if destino == "Medellin":
+                pagar= 13000
+            elif destino == "Concepcion":
+                pagar= 32000
+            elif destino == "Abejorral":
+                pagar= 20000
+            elif destino == "La Ceja":
+                pagar= 32000
+            elif destino == "Venecia":
+                pagar= 50000
+            elif destino == "Rionegro": 
+                pagar= 30000
+        elif origen == "Concepcion":
+            if destino == "San Pedro":
+                pagar= 32000
+            elif destino == "Medellin":
+                pagar= 13000
+            elif destino == "Abejorral":
+                pagar= 34000
+            elif destino == "La Ceja":
+                pagar= 20000
+            elif destino == "Venecia":
+                pagar= 34000
+            elif destino == "Rionegro": 
+                pagar= 12000
+        elif origen == "Abejorral":
+            if destino == "San Pedro":
+                pagar= 30000
+            elif destino == "Concepcion":
+                pagar= 12000
+            elif destino == "Medellin":
+                pagar= 13000
+            elif destino == "La Ceja":
+                pagar= 12700
+            elif destino == "Venecia":
+                pagar= 23200
+            elif destino == "Rionegro": 
+                pagar= 14750
+        elif origen =="La Ceja" :
+            if destino == "San Pedro":
+                pagar= 22340
+            elif destino == "Concepcion":
+                pagar= 15450
+            elif destino == "Abejorral":
+                pagar= 12000
+            elif destino == "Medellin":
+                pagar= 23000
+            elif destino == "Venecia":
+                pagar= 11000
+            elif destino == "Rionegro": 
+                pagar= 12300
+        elif origen =="Venecia":
+            if destino == "San Pedro":
+                pagar= 12400
+            elif destino == "Concepcion":
+                pagar= 15000
+            elif destino == "Abejorral":
+                pagar= 25000
+            elif destino == "La Ceja":
+                pagar= 23000
+            elif destino == "Medellin":
+                pagar= 23000
+            elif destino == "Rionegro": 
+                pagar= 12000
+        elif origen == "Rionegro":
+            if destino == "San Pedro":
+                pagar= 12000
+            elif destino == "Concepcion":
+                pagar= 13000
+            elif destino == "Abejorral":
+                pagar= 12000
+            elif destino == "La Ceja":
+                pagar= 24000
+            elif destino == "Venecia":
+                pagar= 34000
+            elif destino == "Medellin": 
+                pagar= 32000
+        pago = pagar*personas
+        if st.form_submit_button('Guardar Reserva'):
+            resultado = db_reservas.put({'correo':correo_r, 'personas': personas, 'viajeros': per, 'costo':pago})
+            
+            numero_reserva = resultado['key']
+
+            st.success(f'Reserva Guardada con exito con el numero {numero_reserva}')
+            st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
             reserva = True
             return reserva
     
@@ -289,12 +396,11 @@ if get_current_user() is not None:
     
 
     if menu_option == 'Busqueda de viajes':
-        origen, destino, personas, fecha = busqueda_de_viajes()
+        origen, destino, personas, fecha, correo_r = busqueda_de_viajes()
 
         if origen is not None:
             # Realizar acciones adicionales o llamar a otras funciones según sea necesario
-            pagina_reserva(personas,origen,destino)
-            pago(personas,origen,destino)
+            pagina_reserva(personas,origen,destino,correo_r)
 
         else:
             # Manejar el caso en el que no se selecciona un viaje
