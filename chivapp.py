@@ -68,6 +68,12 @@ def busqueda_de_viajes():
 def pagina_reserva(personas):
     global show_pago
     st.header("Reserva para personas:")
+
+    # Verifica que 'personas' sea un número antes de continuar
+    if not isinstance(personas, int):
+        st.error("Error: El número de personas no es válido.")
+        return
+
     with st.form('reserva'):
         for i in range(personas):
             # Muestra los datos de las personas en las dos columnas
