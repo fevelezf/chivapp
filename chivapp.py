@@ -101,23 +101,34 @@ def pagina_reserva(numero,personas,origen,destino,correo_r):
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
         return
+    with st.form('reserva'):
+        per = []
+        for i in range(personas):
+            res=[]
+            # Muestra los datos de las personas en las dos columnas
+            st.write(f"Datos de la persona {i + 1}")       
+            nombre = st.text_input(f"Nombre de la persona {i + 1}")
+            res.append(nombre)
+            cedula = st.text_input(f"Cédula de la persona {i + 1}")
+            res.append(cedula)
+            correo = st.text_input(f"Correo de la persona {i + 1}")
+            res.append(correo)
+            equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+            res.append(equipaje)
 
-    per = []
-    for i in range(personas):
-        res=[]
-        # Muestra los datos de las personas en las dos columnas
-        st.write(f"Datos de la persona {i + 1}")       
-        nombre = st.text_input(f"Nombre de la persona {i + 1}")
-        res.append(nombre)
-        cedula = st.text_input(f"Cédula de la persona {i + 1}")
-        res.append(cedula)
-        correo = st.text_input(f"Correo de la persona {i + 1}")
-        res.append(correo)
-        equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
-        res.append(equipaje)
+            per.append(res)
+        cost = pagar(origen,destino)
+        pago = cost*personas
+        if st.form_submit_button('Guardar Reserva'):
+            db_reservas.update({'viajeros': per}, key=numero)
+            db_reservas.update({'costo': pago}, key=numero)
+            
+            numero_reserva = reserva_data['key']
 
-        per.append(res)
-        
+            st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
+            st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
+            
+def pagar(origen,destino):
     if origen == "Medellin":
         if destino == "San Pedro":
             pagar= 13000
@@ -209,16 +220,8 @@ def pagina_reserva(numero,personas,origen,destino,correo_r):
             pagar= 34000
         elif destino == "Medellin": 
             pagar= 32000
-    pago = pagar*personas
-    if st.button('Guardar Reserva'):
-        db_reservas.update({'viajeros': per}, key=numero)
-        db_reservas.update({'costo': pago}, key=numero)
-        
-        numero_reserva = reserva_data['key']
-
-        st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
-        st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
-            
+    
+    return pagar
 
 def pago(personas,origen,destino):
 
