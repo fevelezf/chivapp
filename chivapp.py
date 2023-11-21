@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 from deta import Deta
+import numpy as np
+
 
 
 # Almacenamos la key de la base de datos en una constante
@@ -78,8 +80,9 @@ def busqueda_de_viajes():
                 pago = 0
                 per=[]
                 st.success("Viaje seleccionado con exito")
-                resultado = db_reservas.put({'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
-                numero_reserva = resultado['key']
+                numero_reserva = np.random.randint(10**7, 10**8)
+                db_reservas.put({'numero_reserva':numero_reserva,'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
+                
                 st.success(f'Reserva Guardada con exito con el numero {numero_reserva}')
                 st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
                 st.warning('Recuerda ir a la seccion de Detalles de la reserva para acceder a los detalles de esta')
@@ -94,7 +97,7 @@ def busqueda_de_viajes():
 def pagina_reserva(numero,personas,origen,destino,correo_r):
     global show_pago
     st.header("Reserva para personas:")
-    reserva_data = db_reservas.get({'key': numero})
+    reserva_data = db_reservas.get({'numero_reserva': numero})
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
@@ -212,7 +215,7 @@ def pagina_reserva(numero,personas,origen,destino,correo_r):
             db_reservas.update({'viajeros': per}, key=numero)
             db_reservas.update({'costo': pago}, key=numero)
             
-            numero_reserva = reserva_data['key']
+            numero_reserva = reserva_data['numero_reserva']
 
             st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
             st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
