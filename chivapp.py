@@ -209,7 +209,7 @@ def pagina_reserva():
                     elif destino == "Medellin": 
                         pagar= 32000
                 pago = pagar*personas
-                if st.button('Guardar Reserva'):
+                if st.form_submit_button('Guardar Reserva'):
                     resultado = db_reservas.put({'correo':correo_r, 'personas': personas, 'viajeros': per, 'costo':pago})
                     
                     numero_reserva = resultado['key']
