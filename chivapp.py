@@ -94,25 +94,25 @@ def busqueda_de_viajes():
 
             
 def pagina_reserva():
-    numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-    if st.button('Buscar'):
-        try:
-            # Fetch the data
-            response = db_reservas.get(numero)
-            # Access the fields using the keys
-            correo = response['correo']
-            origen = response['origen']
-            destino = response['destino']
-            personas = int(response['personas'])
-            viajeros = response['viajeros']
-            costo = response['costo']
-
-
-        except Exception as e:
-            st.warning(f'Error: {e}')
-    st.header("Reserva para personas:")
-    reserva_data = db_reservas.get(numero)
     with st.form('reserva'):
+        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+        if st.button('Buscar'):
+            try:
+                # Fetch the data
+                response = db_reservas.get(numero)
+                # Access the fields using the keys
+                correo = response['correo']
+                origen = response['origen']
+                destino = response['destino']
+                personas = int(response['personas'])
+                viajeros = response['viajeros']
+                costo = response['costo']
+
+
+            except Exception as e:
+                st.warning(f'Error: {e}')
+        st.header("Reserva para personas:")
+        reserva_data = db_reservas.get(numero)
         per = []
         for i in range(personas):
             res=[]
