@@ -1,7 +1,20 @@
 import streamlit as st
 import pandas as pd
-
+from deta import Deta
 global show_pago
+
+# Almacenamos la key de la base de datos en una constante
+DETA_KEY = "e06kr4x8fgt_kRLB6QgPJxeM13wUD3TXQzPmMfJHYuP6"
+
+# Creamos nuestro objeto deta para hacer la conexion a la DB
+deta = Deta(DETA_KEY)
+
+# Inicializa la base de datos para usuarios, gastos e ingresos
+# y fondos comunes
+db_users = deta.Base("usuarios")
+db_data = deta.Base("data")
+db_us_fon_com = TinyDB('us_fon_com.json')
+db_his_fon_com = TinyDB('db_his_fon_com.json')
 
 def busqueda_de_chiva_rumbera():
     salida = ['Mall de la Mota' , 'CC La Central', 'Carlos E']
@@ -207,7 +220,7 @@ def pago(personas,origen,destino):
         
         if st.form_submit_button("Confirmación del viaje"):
             st.success('confirmado')
-            
+###db_data.put({'username': username, 'Fecha': str(fecha), 'Tipo': 'Gasto', 'Categoría': categoria_gastos, 'Monto': monto})
 
 
 def confirmacion(origen, destino):

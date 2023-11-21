@@ -1,0 +1,54 @@
+Política de Datos de ChivApp
+
+Fecha de Entrada en Vigor: 1/enero/2023
+
+1. **Introducción**
+ChivApp reconoce la importancia de la privacidad y la protección de datos personales. Esta Política de Datos describe cómo recopilamos, utilizamos, divulgamos y protegemos la información personal de los usuarios de nuestra aplicación.
+
+2. **Datos Recopilados**
+ChivApp recopila la siguiente información:
+
+   a. **Información del Usuario:**
+      - Nombre
+      - Dirección de correo electrónico
+      - Número de teléfono
+      - Información de pago
+
+   b. **Información del Viaje:**
+      - Ubicación del punto de inicio y destino
+      - Historial de viajes
+      - Preferencias del usuario
+
+   c. **Información del Dispositivo:**
+      - Tipo de dispositivo
+      - Sistema operativo
+      - Identificadores únicos del dispositivo
+
+3. **Uso de la Información Recopilada**
+ChivApp utiliza la información recopilada para:
+
+   a. Proporcionar y mejorar nuestros servicios.
+   b. Personalizar la experiencia del usuario.
+   c. Procesar pagos y transacciones.
+   d. Enviar notificaciones relevantes.
+   e. Cumplir con las obligaciones legales y regulatorias.
+
+4. **Compartir Información**
+ChivApp puede compartir información con terceros, incluidos conductores y socios de servicios. Sin embargo, esta información se compartirá solo para fines relacionados con la prestación de servicios y se tomarán medidas para proteger la privacidad del usuario.
+
+5. **Seguridad de los Datos**
+ChivApp implementa medidas de seguridad técnicas y organizativas para proteger la información del usuario contra accesos no autorizados, divulgación, alteración y destrucción.
+
+6. **Derechos del Usuario**
+Los usuarios de ChivApp tienen derechos sobre sus datos personales, incluyendo el derecho a acceder, corregir, eliminar y oponerse al procesamiento. Estos derechos pueden ejercerse a través de las opciones proporcionadas en la aplicación.
+
+7. **Cookies y Tecnologías Similares**
+ChivApp utiliza cookies y tecnologías similares para mejorar la experiencia del usuario. Al utilizar la aplicación, el usuario acepta el uso de estas tecnologías.
+
+8. **Cambios en la Política de Datos**
+ChivApp se reserva el derecho de modificar esta Política de Datos en cualquier momento. Los cambios entrarán en vigor al ser publicados en la aplicación.
+
+9. **Consentimiento del Usuario**
+Al utilizar ChivApp, el usuario acepta los términos de esta Política de Datos y otorga su consentimiento para la recopilación y el procesamiento de sus datos personales según lo descrito.
+
+Esta Política de Datos busca garantizar la transparencia y protección de la privacidad de los usuarios de ChivApp. Cualquier pregunta o inquietud relacionada con la privacidad puede dirigirse al equipo de soporte de la aplicación.
