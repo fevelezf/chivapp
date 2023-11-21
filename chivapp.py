@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
 from deta import Deta
-global show_pago
+
 
 # Almacenamos la key de la base de datos en una constante
-DETA_KEY = "e06kr4x8fgt_kRLB6QgPJxeM13wUD3TXQzPmMfJHYuP6"
+DETA_KEY = "e0skmnn4jhv_2yYwrWbkXboW2WwmQw31yL71eUu63nS4"
 
 # Creamos nuestro objeto deta para hacer la conexion a la DB
 deta = Deta(DETA_KEY)
@@ -12,9 +12,6 @@ deta = Deta(DETA_KEY)
 # Inicializa la base de datos para usuarios, gastos e ingresos
 # y fondos comunes
 db_users = deta.Base("usuarios")
-db_data = deta.Base("data")
-db_us_fon_com = TinyDB('us_fon_com.json')
-db_his_fon_com = TinyDB('db_his_fon_com.json')
 
 def busqueda_de_chiva_rumbera():
     salida = ['Mall de la Mota' , 'CC La Central', 'Carlos E']
@@ -45,19 +42,26 @@ def inicio_de_sesion():
 
     return usuario, contraseña
 
-def registro():
-    st.title("Registrarse")
+# Función para registrar un nuevo usuario
+def registro(username, password, first_name, last_name, email, confirm_password):
+    '''Esta funcion usa la libreria tinydb para registrar un usuario en un archivo llamado
+    db_users
+    '''
+    # Verifica si el usuario ya existe en la base de datos
+    users = db_users.fetch({"username": username})
+    
+    # Si hay algún resultado, significa que el usuario ya existe
+    if users.count > 0:
+        return False, "El usuario ya existe. Por favor, elija otro nombre de usuario."
 
-    nombre = st.text_input("Ingrese su nombre:")
-    apellidos = st.text_input("Ingrese sus apellidos:")
-    usuario = st.text_input("Ingrese su usuario:")
-    contraseña = st.text_input("Ingrese su contraseña:", type = 'password' )
-    correo = st.text_input("Ingrese su correo:")
+    # Verifica si las contraseñas coinciden
+    if password != confirm_password:
+        return False, "Las contraseñas no coinciden. Por favor, vuelva a intentar."
 
-    if st.button('Registrarse'):
-        st.success('Registro exitoso!')
+    # Agrega el nuevo usuario a la base de datos
+    db_users.put({'username': username, 'password': password, 'first_name': first_name, 'last_name': last_name, 'email': email})
 
-    return nombre, apellidos, usuario, contraseña, correo
+    return True, "Registro exitoso. Ahora puede iniciar sesión."
 
 def busqueda_de_viajes():
     ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
@@ -279,8 +283,54 @@ selected_option = st.sidebar.selectbox(
 if selected_option == 'Inicio de sesion':
     inicio_de_sesion()
 
-if selected_option == 'Registrarse':
-    registro()
+elif selected_option == "Registro":
+    st.write("Registro de Usuario")
+
+    # Campos de registro
+    first_name = st.text_input("Nombre del Usuario:")
+    last_name = st.text_input("Apellidos del Usuario:")
+    email = st.text_input("Correo electronico del Usuario:")
+    new_username = st.text_input("Nickname:")
+    new_password = st.text_input("Nueva Contraseña:", type = "password")
+    confirm_password = st.text_input("Confirmar contraseña:", type = "password")
+
+    # Crear dos columnas para los botones
+    col1, col2 = st.columns(2)
+    # Casilla de verificación para aceptar la política de datos personales
+    # Inicializa la variable aceptar_politica
+    
+    # Variable de estado para rastrear si el usuario ha visto la política
+    if 'politica_vista' not in st.session_state:
+        st.session_state.politica_vista = False
+
+    # Botón para abrir la ventana emergente en la segunda columna
+    if col2.button("Ver Política de Tratamiento de Datos"):
+        with open("politica_datos.txt", "r") as archivo:
+            politica = archivo.read()
+            with st.expander("Política de Tratamiento de Datos",expanded=True):
+                st.write(politica)
+                st.session_state.politica_vista = True
+            # Casilla de verificación para aceptar la política
+    aceptar_politica = st.checkbox("Acepta la política de datos personales")
+
+    # Botón de registro de usuario en la primera columna
+    if col1.button("Registrarse") and aceptar_politica and st.session_state.politica_vista:
+        registration_successful, message = registrar_usuario(new_username, new_password, first_name, last_name, email, confirm_password)
+        if registration_successful:
+            st.success(message)
+            destinatario = email  
+            asunto = 'Registro Exitoso Finanzapp'
+            cuerpo = (f'Hola {first_name} ,  Te damos la bienvenida a finanzapp\n Estamos muy felices de que estes con nostros, Ahora podras registrar tus gastos e ingresos, podras verificar graficos y mucho mas...\n Tu Usuario es: {new_username} \n Tu contrasena es: {new_password} \n Es un placer que estes con nostros, Recuerda que ahorrando con Finanzapp, te rinde mas el dinero... ')
+
+            enviar_correo(destinatario, asunto, cuerpo)
+        else:
+            st.error(message)
+
+    if not aceptar_politica:
+        st.warning("Por favor, acepta la política de datos personales antes de registrarte.")
+
+    if not st.session_state.politica_vista:
+        st.warning("Por favor, ve la política de datos personales antes de registrarte.")
 
 
 elif selected_option == 'Busqueda de viajes':
