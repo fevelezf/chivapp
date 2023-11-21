@@ -417,12 +417,9 @@ if get_current_user() is not None:
             try:
                 # Fetch the data
                 response = db_reservas.get(numero)
-                st.write(response)
-                
-
-
                 # Access the fields using the keys
                 correo = response['correo']
+                st.write(correo)
                 origen = response['origen']
                 destino = response['destino']
                 personas = int(response['personas'])
