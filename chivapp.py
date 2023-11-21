@@ -77,6 +77,7 @@ def pagina_reserva(personas):
         return
 
     with st.form('reserva'):
+        per = {}
         for i in range(personas):
             # Muestra los datos de las personas en las dos columnas
             st.write(f"Datos de la persona {i + 1}")       
@@ -84,8 +85,11 @@ def pagina_reserva(personas):
             cedula = st.text_input(f"Cédula de la persona {i + 1}")
             correo = st.text_input(f"Correo de la persona {i + 1}")
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+
         if st.form_submit_button('Pagar'):
-            return True, nombre, cedula, correo, equipaje
+            return True
+    
+    return False
             
 
 def pago():
