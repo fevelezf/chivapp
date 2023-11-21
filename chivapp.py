@@ -202,7 +202,8 @@ def pago(personas,origen,destino):
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
         
         
-        st.form_submit_button("Confirmación del viaje",on_click=confirmacion(origen,destino))
+            if st.form_submit_button("Confirmación del viaje"):
+                st.form_submit_button('Confirmar',on_click=confirmacion(origen,destino))
             
 
 
