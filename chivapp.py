@@ -427,7 +427,7 @@ if get_current_user() is not None:
                 correo = response['correo']
                 origen = response['origen']
                 destino = response['destino']
-                personas = response['personas']
+                personas = int(response['personas'])
                 viajeros = response['viajeros']
                 costo = response['costo']
 
