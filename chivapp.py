@@ -413,7 +413,7 @@ if get_current_user() is not None:
         numero = st.text_input('Ingerese el numero de la reserva tal y como se le dio')
         if st.button('Buscar'):
             try:
-                rese = db_reservas.get({'key': str(numero)})
+                rese = db_reservas.get(numero)
                 correo = rese['correo']
                 origen = rese['origen']
                 destino = rese['destino']
@@ -421,8 +421,8 @@ if get_current_user() is not None:
                 viajeros = rese['viajeros']
                 costo = int(rese['costo'])
                 pagina_reserva(numero,personas,origen,destino,correo)
-            except:
-                st.warning('Reserva no encontrada, Revise el numero')
+            except Exception as e:
+                st.warning(f'Error: {e}')
 
     elif menu_option == 'Busqueda de chiva Rumbera':
         salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
