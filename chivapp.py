@@ -122,10 +122,7 @@ def pagina_reserva(numero,personas,origen,destino,correo_r):
         if st.button('Guardar Reserva'):
             db_reservas.update({'viajeros': per}, key=numero)
             db_reservas.update({'costo': pago}, key=numero)
-            
-            numero_reserva = reserva_data['key']
-
-            st.success(f'Reserva Guardada con exito con el numero {numero_reserva} , por un costo de {pago}')
+            st.success(f'Reserva Guardada con exito con el numero {numero} , por un costo de {pago}')
             st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
             
 def pagar(origen,destino):
