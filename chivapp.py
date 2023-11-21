@@ -209,7 +209,7 @@ def pagina_reserva(personas,origen,destino,correo_r):
                 pagar= 32000
         pago = pagar*personas
         if st.form_submit_button('Guardar Reserva'):
-            resultado = db_reservas.put({'correo':str(correo_r), 'personas': int(personas), 'viajeros': per, 'costo':int(pago)})
+            resultado = db_reservas.put({'correo':str(correo_r), 'personas': str(personas), 'viajeros': list(per), 'costo':str(pago)})
             
             numero_reserva = resultado['key']
 
