@@ -324,15 +324,16 @@ def pago(personas,origen,destino):
         st.title('Carga de Imágenes')
 
         uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+        st.success(f'Viaje confirmado desde {origen} con destino a {destino}')
+        st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
+        st.success('FELIZ VIAJE')
 
         if uploaded_file is not None:
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-            st.success(f'Viaje confirmado desde {origen} con destino a {destino}')
-            st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
-            st.success('FELIZ VIAJE')
+
         
         
-        if st.form_submit_button("Confirmación del viaje"):
+        elif st.form_submit_button("Confirmación del viaje"):
             st.success('confirmado')
 ###db_data.put({'username': username, 'Fecha': str(fecha), 'Tipo': 'Gasto', 'Categoría': categoria_gastos, 'Monto': monto})
 
