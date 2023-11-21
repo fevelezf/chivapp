@@ -27,20 +27,18 @@ def busqueda_de_chiva_rumbera():
 
     return salida, ruta, personas, fecha
 
-def inicio_de_sesion():
-    st.title("Inicio de sesión")
-
-    with st.form("inicio"):
-        usuario = st.text_input("Ingrese su usuario:")
-        contraseña = st.text_input("Ingrese su contraseña:",type='password')
-        if st.form_submit_button('Iniciar sesión'):
-            st.success('Inicio de sesión exitoso')
-            audio_path = "corneta.mp3"
-            audio_bytes = open(audio_path, "rb").read()
-            st.audio(audio_bytes, format='audio/mp3', start_time=0)
-
-
-    return usuario, contraseña
+# Función para verificar credenciales
+def verificar_credenciales(username, password):
+    '''Esta funcion recibe como argumento el username y el password y verifica que
+    sean inguales para permitir el ingreso al sistema
+    '''
+    # Busca el usuario en la base de datos
+    user = db_users.fetch({"username": username, "password": password})
+    
+    if user.count > 0:
+        return True, "Inicio de sesión exitoso."
+    else:
+        return False, "Credenciales incorrectas. Por favor, verifique su nombre de usuario y contraseña."
 
 # Función para registrar un nuevo usuario
 def registro(username, password, first_name, last_name, email, confirm_password):
@@ -280,8 +278,24 @@ opciones = ['Inicio de sesion', 'Registrarse', 'Busqueda de viajes', 'Busqueda d
 st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
     'Selecciona una opción:', opciones)
-if selected_option == 'Inicio de sesion':
-    inicio_de_sesion()
+    # Inicio de sesión
+if selected_option == "Inicio de Sesion":
+    st.write("Bienvenido al inicio de la aplicación.")
+
+    # Campos de inicio de sesión
+    username = st.text_input("Nickname:")
+    password = st.text_input("Contraseña:", type="password")
+    
+    colum1, colum2 = st.columns(2)
+    if colum1.button("Iniciar Sesión"):
+        login_successful, message = verificar_credenciales(username, password)
+        if login_successful:
+            st.success(message)
+            # Almacenar el nombre de usuario en la sesión
+            st.session_state.username = username  
+
+        elif not login_successful:
+            st.error(message)
 
 elif selected_option == "Registrarse":
     st.write("Registro de Usuario")
