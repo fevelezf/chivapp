@@ -72,7 +72,7 @@ def busqueda_de_viajes():
         destino = st.selectbox("Destino:", ciudades)
         personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
         fecha = st.date_input("Selecciona la fecha:")
-        correo_r = st.write("Correo de quien Reserva")
+        correo_r = st.text_input("Correo de quien Reserva")
         if st.form_submit_button('Reserva Right Now'):
             if origen != destino:
                 st.success("Viaje seleccionado con exito")
