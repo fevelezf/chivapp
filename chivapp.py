@@ -414,7 +414,6 @@ if get_current_user() is not None:
 
     elif menu_option == 'Detalles de la reserva':
         numero = st.text_input('Ingerese el numero de la reserva tal y como se le dio')
-        numero = int(numero)
         if st.button('Buscar'):
             try:
                 rese = db_reservas.fetch({'numero_reserva': int(numero)})
