@@ -419,7 +419,6 @@ if get_current_user() is not None:
                 response = db_reservas.get(numero)
                 # Access the fields using the keys
                 correo = response['correo']
-                st.write(correo)
                 origen = response['origen']
                 destino = response['destino']
                 personas = int(response['personas'])
@@ -427,9 +426,6 @@ if get_current_user() is not None:
                 costo = response['costo']
 
                 pagina_reserva(numero, personas, origen, destino, correo)
-
-            except Exception as e:
-                st.warning(f'Error: {e}')
 
             except Exception as e:
                 st.warning(f'Error: {e}')
