@@ -96,7 +96,7 @@ def busqueda_de_viajes():
 def pagina_reserva(numero,personas,origen,destino,correo_r):
     global show_pago
     st.header("Reserva para personas:")
-    reserva_data = db_reservas.fetch({'key': numero})
+    reserva_data = db_reservas.get(numero)
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
@@ -420,7 +420,6 @@ if get_current_user() is not None:
                 st.write(response)
                 
 
-                st.write('LO ENCONTRÉ')
 
                 # Access the fields using the keys
                 correo = response['correo']
@@ -430,9 +429,7 @@ if get_current_user() is not None:
                 viajeros = response['viajeros']
                 costo = response['costo']
 
-                st.write('PASÉ')
-                # Call the function with the fetched data
-                # pagina_reserva(numero, personas, origen, destino, correo)
+                pagina_reserva(numero, personas, origen, destino, correo)
 
             except Exception as e:
                 st.warning(f'Error: {e}')
