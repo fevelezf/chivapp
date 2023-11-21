@@ -279,7 +279,7 @@ st.sidebar.title('Tabla de Contenido')
 selected_option = st.sidebar.selectbox(
     'Selecciona una opción:', opciones)
     # Inicio de sesión
-if selected_option == "Inicio de Sesion":
+if selected_option == "Inicio de sesion":
     st.write("Bienvenido al inicio de la aplicación.")
 
     # Campos de inicio de sesión
