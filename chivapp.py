@@ -47,8 +47,6 @@ def registro():
     return nombre, apellidos, usuario, contraseña, correo
 
 def busqueda_de_viajes():
-    
-
     ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
 
     st.title("¡Bienvenido a tu Agencia de Viajes!")
@@ -62,9 +60,11 @@ def busqueda_de_viajes():
             st.success("Selección de origen y destino correcta")
         if st.form_submit_button('Reserva Right Now'):
             return origen, destino, personas, fecha
-
         else:
             st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
+            # Agrega una declaración de retorno aquí para manejar el caso en que el formulario no se envía
+            return None, None, None, None
+
 def pagina_reserva(personas):
     global show_pago
     st.header("Reserva para personas:")
