@@ -93,7 +93,15 @@ def busqueda_de_viajes():
 
 
             
-def pagina_reserva(numero, personas, origen, destino, correo_r):
+def pagina_reserva():
+    username = st.session_state.username
+    user_data = db_reservas.fetch({"username": username})
+
+    # Convierte los datos en un DataFrame de pandas
+    df = pd.DataFrame(user_data.items)
+
+    # Muestra el DataFrame en forma de tabla
+    st.write(df)
     st.header("Reserva para personas:")
     reserva_data = db_reservas.get(numero)
     # Verifica que 'personas' sea un número antes de continuar
@@ -427,7 +435,8 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+        pagina_reserva()
+        '''numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
         if st.button('Buscar'):
             try:
                 # Fetch the data
@@ -443,7 +452,7 @@ if get_current_user() is not None:
                 pagina_reserva(numero, personas, origen, destino, correo)
 
             except Exception as e:
-                st.warning(f'Error: {e}')
+                st.warning(f'Error: {e}')'''
 
     elif menu_option == 'Pagar Reservas':
         numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
