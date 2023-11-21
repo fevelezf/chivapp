@@ -393,8 +393,8 @@ def administrar_viajes():
 
 if get_current_user() is not None:
     # Sidebar menu options for logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Detalles de la reserva', 'Busqueda de viajes',
-                                                'Busqueda de chiva Rumbera', 'Conductor',
+    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
+                                                'Busqueda de chiva Rumbera','Pagar Reservas', 'Conductor',
                                                 'Administrar chivas', 'Verificar pagos',
                                                 'Administrar viajes'])
     
@@ -429,6 +429,27 @@ if get_current_user() is not None:
 
             except Exception as e:
                 st.warning(f'Error: {e}')
+
+    elif menu_option == 'Pagar Reservas':
+        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+        if st.button('Buscar'):
+            try:
+                # Fetch the data
+                response = db_reservas.get(numero)
+                # Access the fields using the keys
+                correo = response['correo']
+                origen = response['origen']
+                destino = response['destino']
+                personas = int(response['personas'])
+                viajeros = response['viajeros']
+                costo = response['costo']
+                pago(personas,origen.destino)
+
+                pagina_reserva(numero, personas, origen, destino, correo)
+
+            except Exception as e:
+                st.warning(f'Error: {e}')
+
 
     elif menu_option == 'Busqueda de chiva Rumbera':
         salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
