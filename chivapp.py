@@ -80,10 +80,9 @@ def busqueda_de_viajes():
                 pago = 0
                 per=[]
                 st.success("Viaje seleccionado con exito")
-                numero_reserva = np.random.randint(10**7, 10**8)
-                db_reservas.put({'numero_reserva':numero_reserva,'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
+                reservas = db_reservas.put({'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
                 
-                st.success(f'Reserva Guardada con exito con el numero {numero_reserva}')
+                st.success(f'Reserva Guardada con exito con el numero {reservas['key']}')
                 st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
                 st.warning('Recuerda ir a la seccion de Detalles de la reserva para acceder a los detalles de esta')
                 return origen, destino, personas, fecha,correo_r
