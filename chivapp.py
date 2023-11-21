@@ -207,12 +207,6 @@ def pago(personas,origen,destino):
             st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
             st.success('FELIZ VIAJE')
 
-
-def confirmacion(origen, destino):
-
-
-
-
 def administrar_pagos():
     user_data = pd.read_csv('datos.csv')
     df = pd.DataFrame(user_data)
