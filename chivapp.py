@@ -71,7 +71,7 @@ def pagina_reserva(personas):
         st.error("Error: El número de personas no es válido.")
         return False
 
-    reserva = False
+    
     with st.form('reserva'):
         per = {}
         for i in range(personas):
@@ -82,9 +82,10 @@ def pagina_reserva(personas):
             equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
 
         if st.form_submit_button('Pagar'):
-            reserva = True
+            return nombre
+            
 
-    return reserva
+    return None
 
 def pago():
     with st.form('pago'):
@@ -100,7 +101,9 @@ def pago():
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
 
         if st.form_submit_button("Confirmación del viaje"):
-            confirmacion()
+            return uploaded_file
+            
+    return None
 
 
 def confirmacion():
@@ -165,10 +168,10 @@ elif selected_option == 'Busqueda de viajes':
     origen, destino, personas, fecha = busqueda_de_viajes()
 
     if origen is not None:
-        reserva = pagina_reserva(personas)
+        nombre = pagina_reserva(personas)
 
-        if reserva:
-            pago()
+        if nombre is not None:
+            pago = pago()
 
 elif selected_option == 'Busqueda de chiva Rumbera':
     salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
