@@ -93,37 +93,43 @@ def busqueda_de_viajes():
 
 
             
-def pagina_reserva(numero,personas,origen,destino,correo_r):
-    global show_pago
+def pagina_reserva(numero, personas, origen, destino, correo_r):
     st.header("Reserva para personas:")
     reserva_data = db_reservas.get(numero)
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
         return
-    with st.expander('reserva'):
-        per = []
-        for i in range(personas):
-            res=[]
-            # Muestra los datos de las personas en las dos columnas
-            st.write(f"Datos de la persona {i + 1}")       
-            nombre = st.text_input(f"Nombre de la persona {i + 1}")
-            res.append(nombre)
-            cedula = st.text_input(f"Cédula de la persona {i + 1}")
-            res.append(cedula)
-            correo = st.text_input(f"Correo de la persona {i + 1}")
-            res.append(correo)
-            equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
-            res.append(equipaje)
 
-            per.append(res)
-        cost = pagar(origen,destino)
-        pago = cost*personas
-        if st.button('Guardar Reserva'):
-            db_reservas.update({'viajeros': per}, key=numero)
-            db_reservas.update({'costo': pago}, key=numero)
-            st.success(f'Reserva Guardada con exito con el numero {numero} , por un costo de {pago}')
-            st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
+    per = []
+    for i in range(personas):
+        res = []
+        # Muestra los datos de las personas en las dos columnas
+        st.write(f"Datos de la persona {i + 1}")
+        nombre = st.text_input(f"Nombre de la persona {i + 1}")
+        res.append(nombre)
+        cedula = st.text_input(f"Cédula de la persona {i + 1}")
+        res.append(cedula)
+        correo = st.text_input(f"Correo de la persona {i + 1}")
+        res.append(correo)
+        equipaje = st.selectbox(f"¿Lleva equipaje la persona {i + 1}?", ["Si", "No"])
+        res.append(equipaje)
+
+        per.append(res)
+
+    # Verificar si algún campo está vacío
+    if any(not all(persona) for persona in per):
+        st.warning("Por favor, completa todos los campos para cada persona antes de guardar la reserva.")
+        return
+
+    cost = pagar(origen, destino)
+    pago = cost * personas
+
+    # Guardar automáticamente cuando se ingresan los datos
+    db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)
+
+    st.success(f'Reserva Guardada con éxito con el número {numero} , por un costo de {pago}')
+    st.warning('Conserva el número de la reserva, en caso de perderlo, deberás contactarte con el área técnica')
             
 def pagar(origen,destino):
     if origen == "Medellin":
