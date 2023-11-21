@@ -80,7 +80,7 @@ def busqueda_de_viajes():
             
             else:
                 st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
-    return None, None, None, None
+    return None, None, None, None,None
 
 
             
