@@ -97,7 +97,7 @@ def busqueda_de_viajes():
 def pagina_reserva(numero,personas,origen,destino,correo_r):
     global show_pago
     st.header("Reserva para personas:")
-    reserva_data = db_reservas.get(numero)
+    reserva_data = db_reservas.fetch({'numero_reserva': numero})
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
         st.error("Error: El número de personas no es válido.")
@@ -413,10 +413,11 @@ if get_current_user() is not None:
     
 
     elif menu_option == 'Detalles de la reserva':
-        numero = st.number_input('Ingerese el numero de la reserva tal y como se le dio',step = 1)
+        numero = st.text_input('Ingerese el numero de la reserva tal y como se le dio')
+        numero = int(numero)
         if st.button('Buscar'):
             try:
-                rese = db_reservas.get(numero)
+                rese = db_reservas.fetch({'numero_reserva': int(numero)})
                 correo = rese['correo']
                 origen = rese['origen']
                 destino = rese['destino']
