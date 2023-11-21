@@ -417,7 +417,7 @@ if get_current_user() is not None:
         if st.button('Buscar'):
             try:
                 # Fetch the data
-                response = db_reservas.fetch({'key': numero})
+                response = db_reservas.fetch({'key': numero})[0]
                 st.write('LO ENCONTRE')
                 # Check if there are any items in the response
                 if response.count > 0:
