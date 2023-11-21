@@ -418,7 +418,7 @@ if get_current_user() is not None:
             try:
                 # Fetch the data
                 response = db_reservas.fetch({'key': numero})
-
+                st.write('LO ENCONTRE')
                 # Check if there are any items in the response
                 if response.count > 0:
                     # Access the first item (assuming only one item is fetched)
