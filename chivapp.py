@@ -450,20 +450,11 @@ if get_current_user() is not None:
             st.title('Todo esta andando de maravilla, Llevando Felicidad a cada destino')
 
         elif menu_option == 'Administrar chivas':
-            marcas = "Dodge"
-            chiva_data = db_chivas.get(marcas)
+            documentos = db_condu.fetch().items
 
-            try:
-                # Check if chiva_data is not None before processing
-                if chiva_data:
-                    chivas =[]
-                    for d in chiva_data:
-                        chivas.append(d['placa'])
-            except Exception as e:
-                # Print the exception to understand the error
-                st.write(f"Error: {e}")
-                # You can log the error or handle it appropriately based on your needs
-                chivas = []
+            # Extraer las placas de los documentos
+            placas = [documento["placa"] for documento in documentos]
+            st.write(placas)
             #st.selectbox("Seleccione la Chiva", chivas)
 
         
