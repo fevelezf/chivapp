@@ -427,6 +427,7 @@ def get_current_reserva():
     '''Esta funcion obtiene el numero actual despues del inicio de sesion
     '''
         
+    st.write(st.session_state.get('key'))
     return st.session_state.get('key')
 
 
