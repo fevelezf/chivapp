@@ -434,98 +434,104 @@ def administrar_viajes():
 
 
 if get_current_user() is not None:
-    
-    
-    # Sidebar menu options for logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
-                                                'Busqueda de chiva Rumbera','Pagar Reservas', 'Conductor',
-                                                'Administrar chivas', 'Verificar pagos',
-                                                'Administrar viajes'])
-    
+    admin = db_admin.fetch({"username": username})
+    condu = db_condu.fetch({"username": username})
+    if admin.count > 0:
+        st.write('Melo')
 
-    if menu_option == 'Busqueda de viajes':
-        st.write(get_current_user())
-        origen, destino, personas, fecha, correo_r = busqueda_de_viajes()
+    elif condu.count > 0:
+        st.write('Vamos a manejar')
 
-        #if origen is not None:
-            # Realizar acciones adicionales o llamar a otras funciones según sea necesario
-            #pagina_reserva(personas,origen,destino,correo_r)
-
-        #else:
-            # Manejar el caso en el que no se selecciona un viaje
-            #st.warning("Por favor, selecciona un viaje antes de continuar.")
-    
-
-    elif menu_option == 'Detalles de la reserva':
-        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-        if st.button('Buscar'):
-            try:
-                # Fetch the data
-                response = db_reservas.get(numero)
-                # Access the fields using the keys
-                correo = response['correo']
-                origen = response['origen']
-                destino = response['destino']
-                personas = int(response['personas'])
-                viajeros = response['viajeros']
-                costo = response['costo']
-
-                pagina_reserva(numero, personas, origen, destino, correo)
-
-            except Exception as e:
-                st.warning(f'Error: {e}')
-
-    elif menu_option == 'Pagar Reservas':
-        numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-        if st.button('Buscar'):
-            try:
-                # Fetch the data
-                response = db_reservas.get(numero)
-                # Access the fields using the keys
-                correo = response['correo']
-                origen = response['origen']
-                destino = response['destino']
-                personas = int(response['personas'])
-                viajeros = response['viajeros']
-                costo = response['costo']
-                pago(personas,origen,destino)
-
-            except Exception as e:
-                st.warning(f'Error: {e}')
-
-
-    elif menu_option == 'Busqueda de chiva Rumbera':
-        salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
+    else:
+        # Sidebar menu options for logged-in users
+        menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
+                                                    'Busqueda de chiva Rumbera','Pagar Reservas', 'Conductor',
+                                                    'Administrar chivas', 'Verificar pagos',
+                                                    'Administrar viajes'])
         
-        #if st.button('Reserva Right Now'):
-            #pagina_reserva()c
 
-        if st.button('Pagar'):
-            pago()
+        if menu_option == 'Busqueda de viajes':
+            origen, destino, personas, fecha, correo_r = busqueda_de_viajes()
 
-    elif menu_option == 'Conductor':
-        st.header('Sección de conductor')
-        col1,col2 = st.columns(2)
+            #if origen is not None:
+                # Realizar acciones adicionales o llamar a otras funciones según sea necesario
+                #pagina_reserva(personas,origen,destino,correo_r)
 
-        if col1.button('Ver itinerario'):
-            cargar_ruta()
+            #else:
+                # Manejar el caso en el que no se selecciona un viaje
+                #st.warning("Por favor, selecciona un viaje antes de continuar.")
+        
 
-        if col2.button('Cargar incapacidad'):
-            conductor()
+        elif menu_option == 'Detalles de la reserva':
+            numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+            if st.button('Buscar'):
+                try:
+                    # Fetch the data
+                    response = db_reservas.get(numero)
+                    # Access the fields using the keys
+                    correo = response['correo']
+                    origen = response['origen']
+                    destino = response['destino']
+                    personas = int(response['personas'])
+                    viajeros = response['viajeros']
+                    costo = response['costo']
 
-    elif menu_option == 'Administrar chivas':
-        st.header('ASIGNACIONES')
-        administrar_chivas()
+                    pagina_reserva(numero, personas, origen, destino, correo)
+
+                except Exception as e:
+                    st.warning(f'Error: {e}')
+
+        elif menu_option == 'Pagar Reservas':
+            numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+            if st.button('Buscar'):
+                try:
+                    # Fetch the data
+                    response = db_reservas.get(numero)
+                    # Access the fields using the keys
+                    correo = response['correo']
+                    origen = response['origen']
+                    destino = response['destino']
+                    personas = int(response['personas'])
+                    viajeros = response['viajeros']
+                    costo = response['costo']
+                    pago(personas,origen,destino)
+
+                except Exception as e:
+                    st.warning(f'Error: {e}')
 
 
-    elif menu_option == 'Verificar pagos':
-        st.header('PAGOS')
-        administrar_pagos()
+        elif menu_option == 'Busqueda de chiva Rumbera':
+            salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
+            
+            #if st.button('Reserva Right Now'):
+                #pagina_reserva()c
+
+            if st.button('Pagar'):
+                pago()
+
+        elif menu_option == 'Conductor':
+            st.header('Sección de conductor')
+            col1,col2 = st.columns(2)
+
+            if col1.button('Ver itinerario'):
+                cargar_ruta()
+
+            if col2.button('Cargar incapacidad'):
+                conductor()
+
+        elif menu_option == 'Administrar chivas':
+            st.header('ASIGNACIONES')
+            administrar_chivas()
 
 
-    elif menu_option == 'Administrar viajes':
-        st.header('ASIGNACIONES')
-        administrar_viajes()
+        elif menu_option == 'Verificar pagos':
+            st.header('PAGOS')
+            administrar_pagos()
+
+
+        elif menu_option == 'Administrar viajes':
+            st.header('ASIGNACIONES')
+            administrar_viajes()
     
 
 else:
