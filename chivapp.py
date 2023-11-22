@@ -452,7 +452,7 @@ if get_current_user() is not None:
 
             st.title('Todo esta andando de maravilla, Llevando Felicidad a cada destino')
 
-        elif menu_option == 'Administrar chivas':
+        #elif menu_option == 'Administrar chivas':
 
         
     #menu ferchos
