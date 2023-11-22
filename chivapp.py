@@ -451,6 +451,7 @@ if get_current_user() is not None:
 
         elif menu_option == 'Administrar chivas':
             documentos = db_condu.fetch().items
+            st.write(documentos)
 
             # Extraer las placas de los documentos
             placas = [documento["placa"] for documento in documentos if "placa" in documento]
