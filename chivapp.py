@@ -437,13 +437,15 @@ if get_current_user() is not None:
     username = get_current_user()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
+    #menu admin
     if admin.count > 0:
         menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes'])
         
-
+    #menu ferchos
     elif condu.count > 0:
         st.write('Vamos a manejar')
 
+    #menu usuarios
     else:
         # Sidebar menu options for logged-in users
         menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
