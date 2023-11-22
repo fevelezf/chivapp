@@ -435,6 +435,7 @@ def administrar_viajes():
 
 if get_current_user() is not None:
     
+    
     # Sidebar menu options for logged-in users
     menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
                                                 'Busqueda de chiva Rumbera','Pagar Reservas', 'Conductor',
@@ -443,6 +444,7 @@ if get_current_user() is not None:
     
 
     if menu_option == 'Busqueda de viajes':
+        st.write(get_current_user())
         origen, destino, personas, fecha, correo_r = busqueda_de_viajes()
 
         #if origen is not None:
