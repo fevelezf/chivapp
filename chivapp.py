@@ -454,7 +454,19 @@ if get_current_user() is not None:
 
             # Extraer las placas de los documentos
             placas = [documento["placa"] for documento in documentos if "placa" in documento]
-            st.selectbox("Seleccione la Chiva", placas)
+            sel_placa = st.selectbox("Seleccione la Chiva", placas)
+
+            conductores = db_condu.fetch().items
+
+            ferchos = [cond["username"] for cond in conductores if "username" in cond]
+            sel_fercho = st.selectbox("Seleccione el Conductor", ferchos)
+
+
+            response = db_chivas.fetch({"placa":str(sel_placa)})
+
+            st.write(response)
+
+
 
         
     #menu ferchos
