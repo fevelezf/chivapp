@@ -539,95 +539,95 @@ if get_current_user() is not None:
 else:
     # Sidebar menu options for non-logged-in users
     menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "IA","IC",
-                                                "Calculadora de Préstamos"])
+                                                "Calculadora de Préstamos","Registro"])
 
-# Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
-if menu_option == "Cerrar Sesión":
-    st.session_state.username = None
-    st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
+    # Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
+    if menu_option == "Cerrar Sesión":
+        st.session_state.username = None
+        st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
-elif menu_option == "IA":
-    st.write("Bienvenido al inicio de la aplicación.")
+    elif menu_option == "IA":
+        st.write("Bienvenido al inicio de la aplicación.")
 
-    # Campos de inicio de sesión
-    username = st.text_input("Nickname:")
-    password = st.text_input("Contraseña:", type="password")
-    
-    colum1, colum2 = st.columns(2)
-    if colum1.button("Iniciar Sesión"):
-        login_successful, message = verificar_credenciales_admin(username, password)
-        if login_successful:
-            st.success(message)
-            # Almacenar el nombre de usuario en la sesión
-            st.session_state.username = username  
+        # Campos de inicio de sesión
+        username = st.text_input("Nickname:")
+        password = st.text_input("Contraseña:", type="password")
+        
+        colum1, colum2 = st.columns(2)
+        if colum1.button("Iniciar Sesión"):
+            login_successful, message = verificar_credenciales_admin(username, password)
+            if login_successful:
+                st.success(message)
+                # Almacenar el nombre de usuario en la sesión
+                st.session_state.username = username  
 
-        elif not login_successful:
-            st.error(message)
-    
-    elif colum2.button("Olvidaste la contraseña"):
-        try:
-            if username is not None:
-                #user_info = db_users.get(User.username == username)
+            elif not login_successful:
+                st.error(message)
+        
+        elif colum2.button("Olvidaste la contraseña"):
+            try:
+                if username is not None:
+                    #user_info = db_users.get(User.username == username)
 
-                #email_recuperar = user_info['email']
-                #contraseña_recuperar = user_info['password']
-                #nombre = user_info['first_name']
-                #destinatario = email_recuperar  
-                #asunto = 'Recuperacion de Contraseña'
-                #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
+                    #email_recuperar = user_info['email']
+                    #contraseña_recuperar = user_info['password']
+                    #nombre = user_info['first_name']
+                    #destinatario = email_recuperar  
+                    #asunto = 'Recuperacion de Contraseña'
+                    #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
 
-                st.success('Mensaje enviado con exito al correo registrado')
+                    st.success('Mensaje enviado con exito al correo registrado')
 
-        except:
-            if username is None:
-                st.warning('Ingresa el nombre del usuario')
+            except:
+                if username is None:
+                    st.warning('Ingresa el nombre del usuario')
 
-            else:
-                st.warning('Debes registrarte')
+                else:
+                    st.warning('Debes registrarte')
 
-elif menu_option == "IC":
-    st.write("Bienvenido al inicio de la aplicación.")
+    elif menu_option == "IC":
+        st.write("Bienvenido al inicio de la aplicación.")
 
-    # Campos de inicio de sesión
-    username = st.text_input("Nickname:")
-    password = st.text_input("Contraseña:", type="password")
-    
-    colum1, colum2 = st.columns(2)
-    if colum1.button("Iniciar Sesión"):
-        login_successful, message = verificar_credenciales_condu(username, password)
-        if login_successful:
-            st.success(message)
-            # Almacenar el nombre de usuario en la sesión
-            st.session_state.username = username  
+        # Campos de inicio de sesión
+        username = st.text_input("Nickname:")
+        password = st.text_input("Contraseña:", type="password")
+        
+        colum1, colum2 = st.columns(2)
+        if colum1.button("Iniciar Sesión"):
+            login_successful, message = verificar_credenciales_condu(username, password)
+            if login_successful:
+                st.success(message)
+                # Almacenar el nombre de usuario en la sesión
+                st.session_state.username = username  
 
-        elif not login_successful:
-            st.error(message)
-    
-    elif colum2.button("Olvidaste la contraseña"):
-        try:
-            if username is not None:
-                #user_info = db_users.get(User.username == username)
+            elif not login_successful:
+                st.error(message)
+        
+        elif colum2.button("Olvidaste la contraseña"):
+            try:
+                if username is not None:
+                    #user_info = db_users.get(User.username == username)
 
-                #email_recuperar = user_info['email']
-                #contraseña_recuperar = user_info['password']
-                #nombre = user_info['first_name']
-                #destinatario = email_recuperar  
-                #asunto = 'Recuperacion de Contraseña'
-                #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
+                    #email_recuperar = user_info['email']
+                    #contraseña_recuperar = user_info['password']
+                    #nombre = user_info['first_name']
+                    #destinatario = email_recuperar  
+                    #asunto = 'Recuperacion de Contraseña'
+                    #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
 
-                st.success('Mensaje enviado con exito al correo registrado')
+                    st.success('Mensaje enviado con exito al correo registrado')
 
-        except:
-            if username is None:
-                st.warning('Ingresa el nombre del usuario')
+            except:
+                if username is None:
+                    st.warning('Ingresa el nombre del usuario')
 
-            else:
-                st.warning('Debes registrarte')
+                else:
+                    st.warning('Debes registrarte')
 
 
 
-else:
-    if menu_option == "Inicio de Sesion":
+
+    elif menu_option == "Inicio de Sesion":
         st.write("Bienvenido al inicio de la aplicación.")
 
         # Campos de inicio de sesión
