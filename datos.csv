@@ -1,7 +1,7 @@
-id_ruta, usuario, valor, fecha_pago
-2936,ernestino,35000,29/10/2023
-2934,miriam,39000,30/10/2023
-2933,juaco,46000,25/10/2023
-2932,camilin,55000,25/10/2023
-2936,petronila,35000,22/10/2023
-2936,rudesindo,35000,22/10/2023
+id_ruta, usuario, valor, fecha_pago,pago
+2936,ernestino,35000,29/10/2023,OK
+2934,miriam,39000,30/10/2023,PENDIENTE
+2933,juaco,46000,25/10/2023,OK
+2932,camilin,55000,25/10/2023,PENDIENTE
+2936,petronila,35000,22/10/2023,OK
+2936,rudesindo,35000,22/10/2023,OK

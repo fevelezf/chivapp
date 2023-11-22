@@ -503,7 +503,13 @@ if get_current_user() is not None:
             if st.button('Asignar'):
                 db_viajes.put({"origen":sel_origen,"destino":sel_destino,"duracion":sel_duracion})
                 st.success(f'El viaje con origen en {sel_origen}, y con destino en {sel_destino}, con duracion de {sel_duracion}, FUE ASIGNADO')
-        
+        elif menu_option == 'Verificar pagos':
+            df = pd.read_csv('datos.csv')
+
+            # Mostrar los datos en Streamlit
+            st.title("PAGOS HASTA EL MOMENTO")
+            st.write(df)
+
     #menu ferchos
     elif condu.count > 0:
         st.write('Vamos a manejar')
