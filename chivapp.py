@@ -443,7 +443,7 @@ if get_current_user() is not None:
     #menu admin
     if admin.count > 0:
         menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Administrar chivas','Administrar viajes',
-                                                    'Verificar pagos'])
+                                                    'Verificar pagos',"Cerrar Sesión"])
         if menu_option == "Pagina Principal":
             administra = db_admin.get(username)
             st.title(f'Buen dia señor Andministrador {username}')
@@ -510,6 +510,9 @@ if get_current_user() is not None:
             st.title("PAGOS HASTA EL MOMENTO")
             st.write(df)
 
+        elif menu_option == "Cerrar Sesión":
+            st.session_state.username = None
+            st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
     #menu ferchos
     elif condu.count > 0:
 
@@ -519,7 +522,7 @@ if get_current_user() is not None:
 
         st.title('¿Listo Para Conducir una vez Mas?... La Ruta te espera')
 
-        menu_option = st.sidebar.selectbox("Menú", ['Ver itinerario','Cargar incapacidad'])
+        menu_option = st.sidebar.selectbox("Menú", ['Ver itinerario','Cargar incapacidad',"Cerrar Sesión"])
 
         st.header('Sección de conductor')
 
@@ -528,6 +531,10 @@ if get_current_user() is not None:
 
         elif menu_option('Cargar incapacidad'):
             conductor()
+
+        elif menu_option == "Cerrar Sesión":
+            st.session_state.username = None
+            st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
     #menu usuarios
     else:
@@ -624,7 +631,7 @@ if get_current_user() is not None:
 else:
     # Sidebar menu options for non-logged-in users
     menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "Inicio Administrador","Inicio Conductor",
-                                                "Calculadora de Préstamos","Registro"])
+                                                "Registro"])
 
     # Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
     if menu_option == "Cerrar Sesión":
