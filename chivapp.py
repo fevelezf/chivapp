@@ -434,6 +434,7 @@ def administrar_viajes():
 
 
 if get_current_user() is not None:
+    username = get_current_user()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
     if admin.count > 0:
