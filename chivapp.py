@@ -17,7 +17,7 @@ db_users = deta.Base("usuarios")
 db_reservas = deta.Base("reservas")
 db_admin = deta.Base("db_admin")
 db_condu = deta.Base("db_condu")
-db_chivas = deta.Bate("chivas")
+db_chivas = deta.Base("chivas")
 
 db_chivas.put({ "key": "MTS450",
     "marca": "Dodge",
