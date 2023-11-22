@@ -453,7 +453,7 @@ def administrar_viajes():
                 st.success("Asigancion exitosa.")
         
 if get_current_reserva():
-    st.write('here')
+    menu_option = st.sidebar.selectbox("Menú", ["Inicio","Llenar datos de los pasajeros", "Pagar reserva"])
 
 elif get_current_user() is not None:
     username = get_current_user()
@@ -733,7 +733,8 @@ else:
             if login_successful:
                 st.success(message)
                 # Almacenar el nombre de usuario en la sesión
-                st.session_state.reserva = reserva  
+                st.session_state.reserva = reserva 
+                st.write(st.session_state.reserva)
 
             elif not login_successful:
                 st.error(message)
