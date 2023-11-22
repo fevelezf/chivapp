@@ -477,14 +477,13 @@ if get_current_user() is not None:
                 elegido = str(sel_fercho)
                 mionca = str(sel_placa)
                 db_chivas.update({'conductor':elegido}, key=clave)
-                db_condu.update({'chiva': mionca}, key=clave_c)
+                try:
+                    # Código problemático
+                    db_condu.update({'chiva': mionca}, key=clave_c)
+                except Exception as e:
+                    st.error(f'Error en la actualización de la base de datos: {e}')
 
                 st.success(f'El señor {elegido}, Se asigno a manejar el vehiculo {mionca}')
-
-            
-
-
-
         
     #menu ferchos
     elif condu.count > 0:
