@@ -123,7 +123,7 @@ def busqueda_de_viajes():
                 pago = 0
                 per=[]
                 st.success("Viaje seleccionado con exito")
-                reservas = db_reservas.put({'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
+                reservas = db_reservas.put({'usuario':get_current_user(),'correo':str(correo_r),'origen':origen,'destino':destino, 'personas': str(personas), 'viajeros': list(per), 'costo':int(pago)})
                 numero = reservas['key']
                 st.success(f'Reserva Guardada con exito con el numero {numero}')
                 st.warning('Conserva el numero de la reserva, en caso de perderlo, deberas contactarte con el area tecnica')
@@ -733,9 +733,6 @@ else:
                 st.success(message)
                 # Almacenar el nombre de usuario en la sesión
                 st.session_state.reserva = reserva 
-
-                if get_current_reserva(reserva) is not None:
-                    menu_option = st.sidebar.selectbox("Menú", ["Inicio","Llenar datos de los pasajeros", "Pagar reserva"])
 
             elif not login_successful:
                 st.error(message)
