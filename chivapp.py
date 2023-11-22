@@ -430,30 +430,6 @@ def administrar_viajes():
     )
             if st.form_submit_button("Registrar"):
                 st.success("Asigancion exitosa.")
-
-rol = 'nl'
-
-if rol == 'nl':
-    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal", "Inicio de Sesion",
-                 "Inicio de Sesion administrador", "Inicio de Sesion conductor", "Registro"])
-    
-    if menu_option == "Inicio de Sesion":
-        st.write("Bienvenido al inicio de la aplicación.")
-
-        # Campos de inicio de sesión
-        username = st.text_input("Nickname:")
-        password = st.text_input("Contraseña:", type="password")
-        
-        colum1, colum2 = st.columns(2)
-        if colum1.button("Iniciar Sesión"):
-            login_successful, message = verificar_credenciales(username, password)
-            if login_successful:
-                st.success(message)
-                # Almacenar el nombre de usuario en la sesión
-                st.session_state.username = username  
-
-            elif not login_successful:
-                st.error(message)
         
 
 
