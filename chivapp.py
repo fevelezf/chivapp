@@ -748,6 +748,7 @@ else:
             if login_successful:
                 st.success(message)
                 # Almacenar el nombre de usuario en la sesión
+                st.session_state.username = nombre
                 st.session_state.reserva = reserva
 
             elif not login_successful:
