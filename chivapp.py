@@ -453,7 +453,7 @@ if get_current_user() is not None:
             documentos = db_condu.fetch().items
 
             # Extraer las placas de los documentos
-            placas = [documento["placa"] for documento in documentos]
+            placas = [documento["placa"] for documento in documentos if "placa" in documento]
             st.write(placas)
             #st.selectbox("Seleccione la Chiva", chivas)
 
