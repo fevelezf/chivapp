@@ -445,7 +445,7 @@ if get_current_user() is not None:
         st.title(f'Buen dia señor {nombre_usuario}')
         st.write(f'Estas en la reserva numero : {num}, con origen en la ciudad de : {ori}, y con destino a: {des}')
 
-        menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cerrar Sesión"])
+        menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cancelar Reserva","Cerrar Sesión"])
 
         if menu_option == 'Completar Informacion':
             # Access the fields using the keys
@@ -485,6 +485,14 @@ if get_current_user() is not None:
             st.write(f'Personas: {personas}')
             st.write(f'Status del Pago: {pago}')
 
+        if menu_option == "Cancelar Reserva":
+            st.title('Cancelar la reserva')
+
+            st.write('Es una lastima que quiera cancelar la reserva, esperamos vuelva a viajar con nosotros')
+            if st.button('Cancelar Right Now'):
+                st.session_state.username = None
+                db_reservas.delete(num)
+                st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
     #menu ferchos
     elif condu.count > 0:
