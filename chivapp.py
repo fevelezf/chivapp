@@ -18,6 +18,7 @@ db_reservas = deta.Base("reservas")
 db_admin = deta.Base("db_admin")
 db_condu = deta.Base("db_condu")
 db_chivas = deta.Base("chivas")
+db_viajes = deta.Base("viajes")
 
 
 
@@ -484,6 +485,23 @@ if get_current_user() is not None:
                     st.error(f'Error en la actualización de la base de datos: {e}')
 
                 st.success(f'El señor {elegido}, Se asigno a manejar el vehiculo {mionca}')
+
+        elif menu_option == 'Administrar viajes':
+            ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
+
+            sel_origen = st.selectbox("Seleccione el Origen", ciudades)
+
+            sel_destino = st.selectbox("Seleccione el Destino", ciudades)
+
+            sel_duracion = st.number_input("Seleccione la Duracion",step=1)
+            
+            if sel_origen == sel_destino:
+                st.warning("EL ORIGEN ES IGUAL AL DESTINO")
+
+            elif sel_duracion < 1:
+                st.warning("LA DURACION ES SUPERIOR")
+            if st.button('Asignar'):
+                st.success(f'El viaje con origen en {sel_origen}, y con destino en {sel_destino}, con duracion de {sel_duracion}, FUE ASIGNADO')
         
     #menu ferchos
     elif condu.count > 0:
