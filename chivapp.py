@@ -451,12 +451,10 @@ if get_current_user() is not None:
 
         elif menu_option == 'Administrar chivas':
             documentos = db_chivas.fetch().items
-            st.write(documentos)
 
             # Extraer las placas de los documentos
             placas = [documento["placa"] for documento in documentos if "placa" in documento]
-            st.write(placas)
-            #st.selectbox("Seleccione la Chiva", chivas)
+            st.selectbox("Seleccione la Chiva", placas)
 
         
     #menu ferchos
