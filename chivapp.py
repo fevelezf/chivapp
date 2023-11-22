@@ -735,7 +735,6 @@ else:
                 st.session_state.reserva = reserva 
 
                 if get_current_reserva(reserva) is not None:
-                    reserva = get_current_reserva()
                     menu_option = st.sidebar.selectbox("Menú", ["Inicio","Llenar datos de los pasajeros", "Pagar reserva"])
 
             elif not login_successful:
