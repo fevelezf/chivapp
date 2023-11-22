@@ -275,115 +275,24 @@ def pagar(origen,destino):
 
 def pago(personas,origen,destino,numero):
 
-    with st.form('pago'):
-        st.header("Pago con codigo QR")
-        if origen == "Medellin":
-            if destino == "San Pedro":
-                pagar= 13000
-            elif destino == "Concepcion":
-                pagar= 12500
-            elif destino == "Abejorral":
-                pagar= 20000
-            elif destino == "La Ceja":
-                pagar= 12000
-            elif destino == "Venecia":
-                pagar= 12000
-            elif destino == "Rionegro": 
-                pagar= 12000
-        elif origen == "San Pedro":
-            if destino == "Medellin":
-                pagar= 13000
-            elif destino == "Concepcion":
-                pagar= 32000
-            elif destino == "Abejorral":
-                pagar= 20000
-            elif destino == "La Ceja":
-                pagar= 32000
-            elif destino == "Venecia":
-                pagar= 50000
-            elif destino == "Rionegro": 
-                pagar= 30000
-        elif origen == "Concepcion":
-            if destino == "San Pedro":
-                pagar= 32000
-            elif destino == "Medellin":
-                pagar= 13000
-            elif destino == "Abejorral":
-                pagar= 34000
-            elif destino == "La Ceja":
-                pagar= 20000
-            elif destino == "Venecia":
-                pagar= 34000
-            elif destino == "Rionegro": 
-                pagar= 12000
-        elif origen == "Abejorral":
-            if destino == "San Pedro":
-                pagar= 30000
-            elif destino == "Concepcion":
-                pagar= 12000
-            elif destino == "Medellin":
-                pagar= 13000
-            elif destino == "La Ceja":
-                pagar= 12700
-            elif destino == "Venecia":
-                pagar= 23200
-            elif destino == "Rionegro": 
-                pagar= 14750
-        elif origen =="La Ceja" :
-            if destino == "San Pedro":
-                pagar= 22340
-            elif destino == "Concepcion":
-                pagar= 15450
-            elif destino == "Abejorral":
-                pagar= 12000
-            elif destino == "Medellin":
-                pagar= 23000
-            elif destino == "Venecia":
-                pagar= 11000
-            elif destino == "Rionegro": 
-                pagar= 12300
-        elif origen =="Venecia":
-            if destino == "San Pedro":
-                pagar= 12400
-            elif destino == "Concepcion":
-                pagar= 15000
-            elif destino == "Abejorral":
-                pagar= 25000
-            elif destino == "La Ceja":
-                pagar= 23000
-            elif destino == "Medellin":
-                pagar= 23000
-            elif destino == "Rionegro": 
-                pagar= 12000
-        elif origen == "Rionegro":
-            if destino == "San Pedro":
-                pagar= 12000
-            elif destino == "Concepcion":
-                pagar= 13000
-            elif destino == "Abejorral":
-                pagar= 12000
-            elif destino == "La Ceja":
-                pagar= 24000
-            elif destino == "Venecia":
-                pagar= 34000
-            elif destino == "Medellin": 
-                pagar= 32000
+    st.header("Pago con codigo QR")
+    cost = pagar(origen,destino) 
 
-        st.write(f'El pago a efectuar es por el monto de {pagar*personas}')
-        st.title("Recuerda que si no cargas una foto, Se intuye que pagaras en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
+    st.write(f'El pago a efectuar es por el monto de {cost*personas}')
+    st.title("Recuerda que si no cargas una foto, Se intuye que pagaras en efectivo en nuestras taquillas, y debe ser 4 horas antes del viaje")
 
 
-        st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
-        st.title('Carga de Imágenes')
+    st.image("Qr_ChivApp.jpeg",caption="Consigna el valor de tu viaje aquí , Numero de cuenta : 912-210-16-772", use_column_width=True)
+    st.title('Carga de Imágenes')
 
-        uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
-        if uploaded_file is not None:
-            st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-        elif st.form_submit_button("Confirmación del viaje"):
-            st.success(f'Viaje confirmado desde {origen} con destino a {destino}')
-            st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
-            st.success('FELIZ VIAJE')
-            db_reservas.update({'pago':"CONFIRMADO"}, key=numero)
+    uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
+    elif st.button("Confirmación del viaje"):
+        st.success(f'Viaje confirmado desde {origen} con destino a {destino}')
+        st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
+        st.success('FELIZ VIAJE')
+        db_reservas.update({'pago':"CONFIRMADO"}, key=numero)
 ###db_data.put({'username': username, 'Fecha': str(fecha), 'Tipo': 'Gasto', 'Categoría': categoria_gastos, 'Monto': monto})
 
 def confirmacion(origen, destino):
