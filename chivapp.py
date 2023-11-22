@@ -445,7 +445,7 @@ if get_current_user() is not None:
         st.title(f'Buen dia señor {nombre_usuario}')
         st.write(f'Estas en la reserva numero : {num}, con origen en la ciudad de : {ori}, y con destino a: {des}')
 
-        menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cancelar Reserva","Cerrar Sesión"])
+        menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cerrar Sesión"])
 
         if menu_option == 'Completar Informacion':
             # Access the fields using the keys
@@ -458,7 +458,7 @@ if get_current_user() is not None:
 
             pagina_reserva(num, personas, origen, destino, correo)
 
-        if menu_option == "Pagar Reserva":
+        if menu_option == 'Pagar reserva':
             correo = r['correo']
             origen = r['origen']
             destino = r['destino']
@@ -485,14 +485,6 @@ if get_current_user() is not None:
             st.write(f'Personas: {personas}')
             st.write(f'Status del Pago: {pago}')
 
-        if menu_option == "Cancelar Reserva":
-            st.title('Cancelar la reserva')
-
-            st.write('Es una lastima que quiera cancelar la reserva, esperamos vuelva a viajar con nosotros')
-            if st.button('Cancelar Right Now'):
-                st.session_state.username = None
-                db_reservas.delete(num)
-                st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
     #menu ferchos
     elif condu.count > 0:
@@ -535,75 +527,9 @@ if get_current_user() is not None:
         if menu_option == 'Busqueda de viajes':
             origen, destino, personas, fecha, correo_r = busqueda_de_viajes()
 
-            #if origen is not None:
-                # Realizar acciones adicionales o llamar a otras funciones según sea necesario
-                #pagina_reserva(personas,origen,destino,correo_r)
-
-            #else:
-                # Manejar el caso en el que no se selecciona un viaje
-                #st.warning("Por favor, selecciona un viaje antes de continuar.")
         
-
         elif menu_option == 'Detalles de la reserva':
             numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-            if st.button('Buscar'):
-                try:
-                    # Fetch the data
-                    response = db_reservas.get(numero)
-                    # Access the fields using the keys
-                    correo = response['correo']
-                    origen = response['origen']
-                    destino = response['destino']
-                    personas = int(response['personas'])
-                    pago = response.get('pago')
-
-
-                    st.write(f'Destino: {destino}')
-                    st.write(f'Origen: {origen}')
-                    st.write(f'Personas: {personas}')
-                    st.write(f'Status del Pago: {pago}')
-                    st.write(f'Correo de quien Reservó: {correo}')
-
-
-
-                except:
-                    st.warning('Reserva no encontrada')
-                    
-
-
-        elif menu_option == 'Busqueda de chiva Rumbera':
-            salida, ruta, personas, fecha = busqueda_de_chiva_rumbera()
-            
-            #if st.button('Reserva Right Now'):
-                #pagina_reserva()c
-
-            if st.button('Pagar'):
-                pago()
-
-        elif menu_option == 'Conductor':
-            st.header('Sección de conductor')
-            col1,col2 = st.columns(2)
-
-            if col1.button('Ver itinerario'):
-                cargar_ruta()
-
-            if col2.button('Cargar incapacidad'):
-                conductor()
-
-        elif menu_option == 'Administrar chivas':
-            st.header('ASIGNACIONES')
-            administrar_chivas()
-
-
-        elif menu_option == 'Verificar pagos':
-            st.header('PAGOS')
-            administrar_pagos()
-
-
-        elif menu_option == 'Administrar viajes':
-            st.header('ASIGNACIONES')
-            administrar_viajes()
-    
 
 else:
     # Sidebar menu options for non-logged-in users
