@@ -458,6 +458,7 @@ if get_current_user() is not None:
                 if chiva_data:
                     # Filtrar datos de gastos e ingresos
                     chivas = [chiva["placa"] for chiva in chiva_data if isinstance(chiva, dict)]
+                    st.write(chivas)
                 else:
                     chivas = []
             except Exception as e:
