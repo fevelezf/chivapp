@@ -467,7 +467,21 @@ if get_current_user() is not None:
             documento = response.items[0]
             clave = documento.get("key")
 
-            st.write(clave)
+
+            response_c = db_condu.fetch({"placa":str(sel_fercho)})
+
+            documento_c = response.items[0]
+            clave_c = documento.get("key")
+
+            if st.button('Asignar'):
+                elegido = str(sel_fercho)
+                mionca = str(sel_placa)
+                db_chivas.update({'conductor':elegido}, key=clave)
+                db_condu.update({'chiva': mionca}, key=clave_c)
+
+                st.success(f'El señor {elegido}, Se asigno a manejar el vehiculo {mionca}')
+
+            
 
 
 
