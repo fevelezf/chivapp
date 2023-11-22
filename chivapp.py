@@ -564,7 +564,6 @@ if get_current_user() is not None:
             origen = r['origen']
             destino = r['destino']
             personas = int(r['personas'])
-            viajeros = r['viajeros']
             pago = r.get('pago')
 
             st.header('Seccion de reservas')
