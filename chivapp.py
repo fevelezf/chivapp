@@ -452,8 +452,10 @@ if get_current_user() is not None:
         elif menu_option == 'Administrar chivas':
             user_data = db_chivas.items
 
+            marcas = "Dodge"
+            chiva_data = db_chivas.fetch({"marca": marcas})
             # Filtrar datos de gastos e ingresos
-            chivas = [d['key'] for d in user_data]
+            chivas = [d['key'] for d in chiva_data]
 
             st.selectbox("Seleccione la Chiva",chivas)
 
