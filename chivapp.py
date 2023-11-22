@@ -464,7 +464,8 @@ if get_current_user() is not None:
 
             response = db_chivas.fetch({"placa":str(sel_placa)})
 
-            clave = response.get("key")
+            documento = response.items[0]
+            clave = documento.get("key")
 
             st.write(clave)
 
