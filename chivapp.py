@@ -444,6 +444,7 @@ if get_current_user() is not None:
         if menu_option == "Pagina Principal":
             administra = db_admin.get(username)
             st.write(administra)
+            #
 
             
             st.title(f'Buen dia señor')
