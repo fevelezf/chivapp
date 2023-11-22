@@ -501,6 +501,7 @@ if get_current_user() is not None:
             elif sel_duracion < 1:
                 st.warning("LA DURACION ES SUPERIOR")
             if st.button('Asignar'):
+                db_viajes.put({"origen":sel_origen,"destino":sel_destino,"duracion":sel_duracion})
                 st.success(f'El viaje con origen en {sel_origen}, y con destino en {sel_destino}, con duracion de {sel_duracion}, FUE ASIGNADO')
         
     #menu ferchos
