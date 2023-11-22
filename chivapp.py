@@ -19,10 +19,7 @@ db_admin = deta.Base("db_admin")
 db_condu = deta.Base("db_condu")
 db_chivas = deta.Base("chivas")
 
-db_chivas.put({ "key": "MTS450",
-    "marca": "Dodge",
-    "modelo": "1960",
-    "conductor": ""})
+
 
 
 def busqueda_de_chiva_rumbera():
