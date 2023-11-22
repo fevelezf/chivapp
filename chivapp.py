@@ -416,7 +416,7 @@ def administrar_chivas():
             vehiculos = st.selectbox("Seleccione la chiva:", ["ABC123", "DEF456", "GHI789", "JKL012", "MNO345", "PQR678", "STU901", "VWX234", "YZA567"])
             conductores = st.selectbox("Seleccione el conductor:",
     ["Don Ramón", "Chapulín Colorado", "La Chilindrina", "El Chavo del 8", "Doña Florinda", "El Profesor Jirafales", "Quico", "Ñoño"]
-)
+    )
             if st.form_submit_button("Registrar"):
                 st.success("Asigancion exitosa.")
 
@@ -427,9 +427,34 @@ def administrar_viajes():
             origen = st.selectbox("Seleccione el origen:", ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"])
             destino = st.selectbox("Seleccione el destino:",
     ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
-)
+    )
             if st.form_submit_button("Registrar"):
                 st.success("Asigancion exitosa.")
+
+rol = nl
+
+if rol == 'nl':
+    menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal", "Inicio de Sesion",
+                 "Inicio de Sesion administrador", "Inicio de Sesion conductor", "Registro"])
+    
+    if menu_option == "Inicio de Sesion":
+        st.write("Bienvenido al inicio de la aplicación.")
+
+        # Campos de inicio de sesión
+        username = st.text_input("Nickname:")
+        password = st.text_input("Contraseña:", type="password")
+        
+        colum1, colum2 = st.columns(2)
+        if colum1.button("Iniciar Sesión"):
+            login_successful, message = verificar_credenciales(username, password)
+            if login_successful:
+                st.success(message)
+                # Almacenar el nombre de usuario en la sesión
+                st.session_state.username = username  
+
+            elif not login_successful:
+                st.error(message)
+        
 
 
 if get_current_user() is not None:
@@ -534,28 +559,6 @@ if menu_option == "Cerrar Sesión":
     st.session_state.username = None
     st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
-# Si el usuario ya ha iniciado sesión, mostrar los botones
-if get_current_user() is not None:
-    username = st.session_state.username
-
-    if menu_option == "Inicio de Sesion":
-        st.write(f'<h4 style="font-size: 26px; font-weight: bold; text-align: center;">Hola {username}!</h4>', unsafe_allow_html=True)
-        st.write("Bienvenido al inicio de la aplicación.")
-
-        # Campos de inicio de sesión
-        username = st.text_input("Nickname:")
-        password = st.text_input("Contraseña:", type="password")
-        
-        colum1, colum2 = st.columns(2)
-        if colum1.button("Iniciar Sesión"):
-            login_successful, message = verificar_credenciales(username, password)
-            if login_successful:
-                st.success(message)
-                # Almacenar el nombre de usuario en la sesión
-                st.session_state.username = username  
-
-            elif not login_successful:
-                st.error(message)
 
 else:
     if menu_option == "Inicio de Sesion":
