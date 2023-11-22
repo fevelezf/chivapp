@@ -359,13 +359,7 @@ if get_current_user() is not None:
     rese = get_current_reserva()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
-    try:
-        res = db_reservas.fetch({"key": rese, "usuario": username})
-    except Exception as e:
-        # Capturar otras excepciones aquí si es necesario
-        st.write(f"Otro tipo de error: {e}")
-    # Otros manejadores de errores o acciones que puedas necesitar
-
+    #res = db_reservas.fetch({"key":rese,"usuario": username})
 
     #menu admin
     if admin.count > 0:
@@ -441,55 +435,6 @@ if get_current_user() is not None:
             st.session_state.username = None
             st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
-    #menu reservas
-    elif res.count>0:
-        r = res.items[0]
-        nombre_usuario = r.get("usuario")
-        ori = r.get('origen')
-        des = r.get('destino')
-        num = r.get('key')
-        st.title(f'Buen dia señor {nombre_usuario}')
-        st.write(f'Estas en la reserva numero : {num}, con origen en la ciudad de : {ori}, y con destino a: {des}')
-
-        menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cerrar Sesión"])
-
-        if menu_option == 'Completar Informacion':
-            # Access the fields using the keys
-            correo = r['correo']
-            origen = r['origen']
-            destino = r['destino']
-            personas = int(r['personas'])
-            viajeros = r['viajeros']
-            costo = r['costo']
-
-            pagina_reserva(num, personas, origen, destino, correo)
-
-        if menu_option == 'Pagar reserva':
-            correo = r['correo']
-            origen = r['origen']
-            destino = r['destino']
-            personas = int(r['personas'])
-            viajeros = r['viajeros']
-            costo = r['costo']
-
-            pago(personas,origen,destino,num)
-
-        if menu_option == "Inicio":
-            correo = r['correo']
-            origen = r['origen']
-            destino = r['destino']
-            personas = int(r['personas'])
-            pago = r.get('pago')
-
-            st.header('Seccion de reservas')
-
-            st.title('Informacion de la reserva:')
-
-            
-            st.write(f'Destino: {destino}')
-            st.write(f'Origen: {origen}')
-            st.write(f'Personas: {personas}')
-            st.write(f'Status del Pago: {pago}')
 
 
     #menu ferchos
