@@ -17,7 +17,12 @@ db_users = deta.Base("usuarios")
 db_reservas = deta.Base("reservas")
 db_admin = deta.Base("db_admin")
 db_condu = deta.Base("db_condu")
+db_chivas = deta.Bate("chivas")
 
+db_chivas.put({ "key": "MTS450",
+    "marca": "Dodge",
+    "modelo": "1960",
+    "conductor": ""})
 
 
 def busqueda_de_chiva_rumbera():
@@ -446,6 +451,9 @@ if get_current_user() is not None:
             st.title(f'Buen dia señor Andministrador {username}')
 
             st.title('Todo esta andando de maravilla, Llevando Felicidad a cada destino')
+
+        elif menu_option == 'Administrar chivas':
+
         
     #menu ferchos
     elif condu.count > 0:
