@@ -423,12 +423,11 @@ def get_current_user():
     '''
     return st.session_state.get('username')
 
-def get_current_reserva():
+def get_current_reserva(reserva):
     '''Esta funcion obtiene el numero actual despues del inicio de sesion
     '''
-        
-    st.write(st.session_state.get('key'))
-    return st.session_state.get('key')
+
+    return db_reservas.fetch({"key":reserva})
 
 
 def administrar_chivas():
@@ -452,14 +451,13 @@ def administrar_viajes():
     )
             if st.form_submit_button("Registrar"):
                 st.success("Asigancion exitosa.")
-        
-if get_current_reserva() is not None:
-    menu_option = st.sidebar.selectbox("Menú", ["Inicio","Llenar datos de los pasajeros", "Pagar reserva"])
 
-elif get_current_user() is not None:
+
+if get_current_user() is not None:
     username = get_current_user()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
+
     #menu admin
     if admin.count > 0:
         menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Administrar chivas','Administrar viajes',
@@ -735,6 +733,10 @@ else:
                 st.success(message)
                 # Almacenar el nombre de usuario en la sesión
                 st.session_state.reserva = reserva 
+
+                if get_current_reserva(reserva) is not None:
+                    reserva = get_current_reserva()
+                    menu_option = st.sidebar.selectbox("Menú", ["Inicio","Llenar datos de los pasajeros", "Pagar reserva"])
 
             elif not login_successful:
                 st.error(message)
