@@ -536,7 +536,8 @@ if get_current_user() is not None:
 
             if uploaded_file is not None:
                 st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-            st.button("Incapacidad recibida")
+            if st.button("Cargar"):
+                st.success("Incapacidad recibida, Pronto lo contactaremos")
 
         elif menu_option == "Cerrar Sesión":
             st.session_state.username = None
