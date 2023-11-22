@@ -407,7 +407,7 @@ def conductor():
 def get_current_user():
     '''Esta funcion obtiene el nombre del usuario actual despues del inicio de sesion
     '''
-    return st.session_state.get('username', None)
+    return st.session_state.get('username')
 
 def administrar_chivas():
         st.header("Administrar chivas y conductores")
@@ -458,6 +458,7 @@ if rol == 'nl':
 
 
 if get_current_user() is not None:
+    
     # Sidebar menu options for logged-in users
     menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
                                                 'Busqueda de chiva Rumbera','Pagar Reservas', 'Conductor',
