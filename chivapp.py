@@ -359,7 +359,7 @@ if get_current_user() is not None:
     rese = get_current_reserva()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
-    res = db_reservas.fetch({"key":rese,"username": username})
+    res = db_reservas.fetch({"key":rese,"usuario": username})
 
     #menu admin
     if admin.count > 0:
@@ -555,31 +555,20 @@ if get_current_user() is not None:
                     origen = response['origen']
                     destino = response['destino']
                     personas = int(response['personas'])
-                    viajeros = response['viajeros']
-                    costo = response['costo']
+                    pago = response.get('pago')
 
-                    pagina_reserva(numero, personas, origen, destino, correo)
 
-                except Exception as e:
-                    st.warning(f'Error: {e}')
+                    st.write(f'Destino: {destino}')
+                    st.write(f'Origen: {origen}')
+                    st.write(f'Personas: {personas}')
+                    st.write(f'Status del Pago: {pago}')
+                    st.write(f'Correo de quien Reservó: {correo}')
 
-        elif menu_option == 'Pagar Reservas':
-            numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-            if st.button('Buscar'):
-                try:
-                    # Fetch the data
-                    response = db_reservas.get(numero)
-                    # Access the fields using the keys
-                    correo = response['correo']
-                    origen = response['origen']
-                    destino = response['destino']
-                    personas = int(response['personas'])
-                    viajeros = response['viajeros']
-                    costo = response['costo']
-                    pago(personas,origen,destino)
 
-                except Exception as e:
-                    st.warning(f'Error: {e}')
+
+                except:
+                    st.warning('Reserva no encontrada')
+                    
 
 
         elif menu_option == 'Busqueda de chiva Rumbera':
