@@ -576,7 +576,7 @@ if get_current_user() is not None:
             st.write(f'Origen: {origen}')
             st.write(f'Viajeros: {viajeros}')
             st.write(f'Personas: {personas}')
-            st.write(f'Status del Pago:' {pago})
+            st.write(f'Status del Pago: {pago}')
 
 
     #menu ferchos
