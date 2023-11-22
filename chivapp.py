@@ -471,7 +471,7 @@ if get_current_user() is not None:
             response_c = db_condu.fetch({"placa":str(sel_fercho)})
 
             documento_c = response.items[0]
-            clave_c = documento.get("key")
+            clave_c = documento_c.get("key")
 
             if st.button('Asignar'):
                 elegido = str(sel_fercho)
