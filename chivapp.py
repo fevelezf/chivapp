@@ -75,6 +75,17 @@ def verificar_credenciales(username, password):
     else:
         return False, "Credenciales incorrectas. Por favor, verifique su nombre de usuario y contraseña."
 
+def verificar_reserva(reserva, correo):
+    '''Esta funcion recibe como argumento el username y el password y verifica que
+    sean inguales para permitir el ingreso al sistema
+    '''
+    # Busca el usuario en la base de datos
+    reserva_encontrada = db_reservas.fetch({"key": reserva, "correo": correo})
+    
+    if reserva_encontrada.count > 0:
+        return True, "Inicio de sesión exitoso."
+    else:
+        return False, "Credenciales incorrectas. No se encontro una reserva Con los datos ingresados"
 # Función para registrar un nuevo usuario
 def registro(username, password, first_name, last_name, email, confirm_password):
     '''Esta funcion usa la libreria tinydb para registrar un usuario en un archivo llamado
@@ -412,6 +423,13 @@ def get_current_user():
     '''
     return st.session_state.get('username')
 
+def get_current_reserva():
+    '''Esta funcion obtiene el numero actual despues del inicio de sesion
+    '''
+        
+    return st.session_state.get('key')
+
+
 def administrar_chivas():
         st.header("Administrar chivas y conductores")
         with st.form("registrar_gasto_form"):
@@ -434,9 +452,10 @@ def administrar_viajes():
             if st.form_submit_button("Registrar"):
                 st.success("Asigancion exitosa.")
         
+if get_current_reserva():
+    st.write('here')
 
-
-if get_current_user() is not None:
+elif get_current_user() is not None:
     username = get_current_user()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
@@ -637,7 +656,7 @@ if get_current_user() is not None:
 
 else:
     # Sidebar menu options for non-logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "Inicio Administrador","Inicio Conductor",
+    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion","Gestion de Reservas", "Inicio Administrador","Inicio Conductor",
                                                 "Registro"])
 
     # Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
@@ -663,27 +682,6 @@ else:
             elif not login_successful:
                 st.error(message)
         
-        elif colum2.button("Olvidaste la contraseña"):
-            try:
-                if username is not None:
-                    #user_info = db_users.get(User.username == username)
-
-                    #email_recuperar = user_info['email']
-                    #contraseña_recuperar = user_info['password']
-                    #nombre = user_info['first_name']
-                    #destinatario = email_recuperar  
-                    #asunto = 'Recuperacion de Contraseña'
-                    #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
-
-                    st.success('Mensaje enviado con exito al correo registrado')
-
-            except:
-                if username is None:
-                    st.warning('Ingresa el nombre del usuario')
-
-                else:
-                    st.warning('Debes registrarte')
-
     elif menu_option == "Inicio Conductor":
         st.write("Bienvenido al inicio de la aplicación.")
 
@@ -702,29 +700,6 @@ else:
             elif not login_successful:
                 st.error(message)
         
-        elif colum2.button("Olvidaste la contraseña"):
-            try:
-                if username is not None:
-                    #user_info = db_users.get(User.username == username)
-
-                    #email_recuperar = user_info['email']
-                    #contraseña_recuperar = user_info['password']
-                    #nombre = user_info['first_name']
-                    #destinatario = email_recuperar  
-                    #asunto = 'Recuperacion de Contraseña'
-                    #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
-
-                    st.success('Mensaje enviado con exito al correo registrado')
-
-            except:
-                if username is None:
-                    st.warning('Ingresa el nombre del usuario')
-
-                else:
-                    st.warning('Debes registrarte')
-
-
-
 
     elif menu_option == "Inicio de Sesion":
         st.write("Bienvenido al inicio de la aplicación.")
@@ -743,27 +718,26 @@ else:
 
             elif not login_successful:
                 st.error(message)
+
+
+    elif menu_option == "Gestion de Reservas":
+        st.write("Bienvenido a la Seccion de Gestion de Reservas")
+
+        # Campos de inicio de sesión
+        reserva = st.text_input("Reserva N°")
+        correo = st.text_input("Correo de quien reservó")
+
+        colum1, colum2 = st.columns(2)
+        if colum1.button("Iniciar Sesión"):
+            login_successful, message = verificar_reserva(reserva, correo)
+            if login_successful:
+                st.success(message)
+                # Almacenar el nombre de usuario en la sesión
+                st.session_state.reserva = reserva  
+
+            elif not login_successful:
+                st.error(message)
         
-        elif colum2.button("Olvidaste la contraseña"):
-            try:
-                if username is not None:
-                    #user_info = db_users.get(User.username == username)
-
-                    #email_recuperar = user_info['email']
-                    #contraseña_recuperar = user_info['password']
-                    #nombre = user_info['first_name']
-                    #destinatario = email_recuperar  
-                    #asunto = 'Recuperacion de Contraseña'
-                    #cuerpo = (f'Hola {nombre} ,  Te enviamos este correo para recordarte la contraseña\n\n Usuario : {username} \n\n Contraseña : {contraseña_recuperar}  ')
-
-                    st.success('Mensaje enviado con exito al correo registrado')
-
-            except:
-                if username is None:
-                    st.warning('Ingresa el nombre del usuario')
-
-                else:
-                    st.warning('Debes registrarte')
 
     elif menu_option == "Registro":
         st.write("Registro de Usuario")
