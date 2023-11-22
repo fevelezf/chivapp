@@ -526,12 +526,12 @@ if get_current_user() is not None:
 
         st.header('Sección de conductor')
 
-        if menu_option('Ver itinerario'):
+        if menu_option == 'Ver itinerario':
             st.markdown('<h2 style="text-align: left; color: Black;">Revisar viajes</h2>',\
             unsafe_allow_html=True)
             st.image("Ruta.png",caption="Esta es su ruta: Medellín-Abejorral", use_column_width=True)
 
-        elif menu_option('Cargar incapacidad'):
+        elif menu_option == 'Cargar incapacidad':
             uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
 
             if uploaded_file is not None:
