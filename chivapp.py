@@ -173,15 +173,10 @@ def pagina_reserva(numero, personas, origen, destino, correo_r):
     pago = cost * personas
 
     # Utilizar st.form_submit_button en lugar de st.form
-    with st.form(key='my_form'):
+    with st.form_submit_button('Guardar Datos'):
         st.success(f'Reserva Guardada con éxito con el número {numero} , por un costo de {pago}')
         st.warning('Conserva el número de la reserva, en caso de perderlo, deberás contactarte con el área técnica')
-
-    # Verificar si el formulario fue enviado
-    if st.form_submit_button('Guardar Reserva'):
-        # Guardar automáticamente cuando se envía el formulario
         db_reservas.update({'viajeros': per, 'costo': pago}, key=numero)
-            
 def pagar(origen,destino):
     if origen == "Medellin":
         if destino == "San Pedro":
