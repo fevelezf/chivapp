@@ -454,8 +454,12 @@ if get_current_user() is not None:
             chiva_data = db_chivas.get(marcas)
 
             try:
-                # Filtrar datos de gastos e ingresos
-                chivas = [chiva["placa"] for chiva in chiva_data] if chiva_data else []
+                # Check if chiva_data is not None before processing
+                if chiva_data:
+                    # Filtrar datos de gastos e ingresos
+                    chivas = [chiva["placa"] for chiva in chiva_data if isinstance(chiva, dict)]
+                else:
+                    chivas = []
             except Exception as e:
                 # Print the exception to understand the error
                 st.write(f"Error: {e}")
