@@ -452,9 +452,15 @@ if get_current_user() is not None:
         elif menu_option == 'Administrar chivas':
             marcas = "Dodge"
             chiva_data = db_chivas.get(marcas)
-            # Filtrar datos de gastos e ingresos
-            chivas = [chiva["placa"] for chiva in chiva_data] if chiva_data else []
-            st.write(chivas)
+
+            try:
+                # Filtrar datos de gastos e ingresos
+                chivas = [chiva["placa"] for chiva in chiva_data] if chiva_data else []
+            except Exception as e:
+                # Print the exception to understand the error
+                st.write(f"Error: {e}")
+                # You can log the error or handle it appropriately based on your needs
+                chivas = []
             #st.selectbox("Seleccione la Chiva", chivas)
 
         
