@@ -450,8 +450,6 @@ if get_current_user() is not None:
             st.title('Todo esta andando de maravilla, Llevando Felicidad a cada destino')
 
         elif menu_option == 'Administrar chivas':
-            user_data = db_chivas.items
-
             marcas = "Dodge"
             chiva_data = db_chivas.fetch({"marca": marcas})
             # Filtrar datos de gastos e ingresos
