@@ -512,7 +512,22 @@ if get_current_user() is not None:
 
     #menu ferchos
     elif condu.count > 0:
-        st.write('Vamos a manejar')
+
+        ci = condu.items[0]
+        nombre_conductor = ci.get("username")
+        st.title(f'Buen dia señor Conductor {nombre_conductor}')
+
+        st.title('¿Listo Para Conducir una vez Mas?... La Ruta te espera')
+
+        menu_option = st.sidebar.selectbox("Menú", ['Ver itinerario','Cargar incapacidad'])
+
+        st.header('Sección de conductor')
+
+        if menu_option('Ver itinerario'):
+            cargar_ruta()
+
+        elif menu_option('Cargar incapacidad'):
+            conductor()
 
     #menu usuarios
     else:
@@ -608,7 +623,7 @@ if get_current_user() is not None:
 
 else:
     # Sidebar menu options for non-logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "IA","IC",
+    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "Inicio Administrador","Inicio Conductor",
                                                 "Calculadora de Préstamos","Registro"])
 
     # Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
@@ -616,7 +631,7 @@ else:
         st.session_state.username = None
         st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
-    elif menu_option == "IA":
+    elif menu_option == "Inicio Administrador":
         st.write("Bienvenido al inicio de la aplicación.")
 
         # Campos de inicio de sesión
@@ -655,7 +670,7 @@ else:
                 else:
                     st.warning('Debes registrarte')
 
-    elif menu_option == "IC":
+    elif menu_option == "Inicio Conductor":
         st.write("Bienvenido al inicio de la aplicación.")
 
         # Campos de inicio de sesión
