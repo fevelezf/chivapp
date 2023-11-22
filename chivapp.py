@@ -726,7 +726,7 @@ else:
         # Campos de inicio de sesión
         reserva = st.text_input("Reserva N°")
         correo = st.text_input("Correo de quien reservó")
-        correo = st.text_input("Nombre de la reserva")
+        nombre = st.text_input("Nombre de quien hizo la reserva")
 
         colum1, colum2 = st.columns(2)
         if colum1.button("Iniciar Sesión"):
