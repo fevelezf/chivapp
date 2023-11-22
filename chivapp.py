@@ -453,9 +453,9 @@ if get_current_user() is not None:
             marcas = "Dodge"
             chiva_data = db_chivas.get(marcas)
             # Filtrar datos de gastos e ingresos
-            chivas = [d.get('key', '') for d in chiva_data]
+            st.write(chiva_data)
 
-            st.selectbox("Seleccione la Chiva", chivas)
+            #st.selectbox("Seleccione la Chiva", chivas)
 
         
     #menu ferchos
