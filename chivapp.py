@@ -361,9 +361,6 @@ if get_current_user() is not None:
     condu = db_condu.fetch({"username": username})
     try:
         res = db_reservas.fetch({"key": rese, "usuario": username})
-    except urllib.error.HTTPError as e:
-        st.write(f"HTTPError: {e.code} - {e.reason}")
-        # Otros manejadores de errores o acciones que puedas necesitar
     except Exception as e:
         # Capturar otras excepciones aquí si es necesario
         st.write(f"Otro tipo de error: {e}")
