@@ -458,7 +458,7 @@ if get_current_user() is not None:
 
             pagina_reserva(num, personas, origen, destino, correo)
 
-        if menu_option == 'Pagar reserva':
+        if menu_option == "Pagar Reserva":
             correo = r['correo']
             origen = r['origen']
             destino = r['destino']
