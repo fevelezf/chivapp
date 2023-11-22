@@ -451,10 +451,10 @@ if get_current_user() is not None:
 
         elif menu_option == 'Administrar chivas':
             marcas = "Dodge"
-            chiva_data = db_chivas.get("MTS450")
+            chiva_data = db_chivas.get(marcas)
             # Filtrar datos de gastos e ingresos
-            st.write(chiva_data)
-
+            chivas = [chiva["placa"] for chiva in chiva_data] if chiva_data else []
+            st.write(chivas)
             #st.selectbox("Seleccione la Chiva", chivas)
 
         
