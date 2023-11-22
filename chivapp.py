@@ -468,7 +468,7 @@ if get_current_user() is not None:
             clave = documento.get("key")
 
 
-            response_c = db_condu.fetch({"placa":str(sel_fercho)})
+            response_c = db_condu.fetch({"username":str(sel_fercho)})
 
             documento_c = response_c.items[0]
             clave_c = documento_c.get("key")
