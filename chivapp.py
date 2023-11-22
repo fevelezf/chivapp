@@ -449,7 +449,13 @@ if get_current_user() is not None:
 
             st.title('Todo esta andando de maravilla, Llevando Felicidad a cada destino')
 
-        #elif menu_option == 'Administrar chivas':
+        elif menu_option == 'Administrar chivas':
+            user_data = db_chivas.items
+
+            # Filtrar datos de gastos e ingresos
+            chivas = [d['key'] for d in user_data]
+
+            st.selectbox("Seleccione la Chiva",chivas)
 
         
     #menu ferchos
