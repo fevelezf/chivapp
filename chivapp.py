@@ -137,7 +137,7 @@ def busqueda_de_viajes():
 
             
 def pagina_reserva(numero, personas, origen, destino, correo_r):
-    st.header("Reserva para personas:")
+    st.header("Datos de los Viajeros:")
     reserva_data = db_reservas.get(numero)
     # Verifica que 'personas' sea un número antes de continuar
     if not isinstance(personas, int):
@@ -542,9 +542,20 @@ if get_current_user() is not None:
         des = r.get('destino')
         num = r.get('key')
         st.title(f'Buen dia señor {nombre_usuario}')
-        st.title(f'Estas en la reserva numero : {num}, con origen en la ciudad de : {ori}, y con destino a: {des}')
+        st.write(f'Estas en la reserva numero : {num}, con origen en la ciudad de : {ori}, y con destino a: {des}')
 
         menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cerrar Sesión"])
+
+        if menu_option == 'Completar Informacion':
+            # Access the fields using the keys
+            correo = r['correo']
+            origen = r['origen']
+            destino = r['destino']
+            personas = int(r['personas'])
+            viajeros = r['viajeros']
+            costo = r['costo']
+
+            pagina_reserva(num, personas, origen, destino, correo)
 
     #menu ferchos
     elif condu.count > 0:
