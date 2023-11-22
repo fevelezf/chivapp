@@ -423,11 +423,11 @@ def get_current_user():
     '''
     return st.session_state.get('username')
 
-def get_current_reserva(reserva):
+def get_current_reserva():
     '''Esta funcion obtiene el numero actual despues del inicio de sesion
     '''
 
-    return db_reservas.fetch({"key":reserva})
+    return st.session_state.get('reserva')
 
 
 def administrar_chivas():
@@ -455,6 +455,7 @@ def administrar_viajes():
 
 if get_current_user() is not None:
     username = get_current_user()
+    rese = get_current_reserva()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
 
@@ -725,6 +726,7 @@ else:
         # Campos de inicio de sesión
         reserva = st.text_input("Reserva N°")
         correo = st.text_input("Correo de quien reservó")
+        correo = st.text_input("Nombre de la reserva")
 
         colum1, colum2 = st.columns(2)
         if colum1.button("Iniciar Sesión"):
@@ -732,7 +734,8 @@ else:
             if login_successful:
                 st.success(message)
                 # Almacenar el nombre de usuario en la sesión
-                st.session_state.reserva = reserva 
+                st.session_state.reserva = reserva
+                st.write(get_current_reserva())
 
             elif not login_successful:
                 st.error(message)
