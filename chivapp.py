@@ -273,7 +273,7 @@ def pagar(origen,destino):
     
     return pagar
 
-def pago(personas,origen,destino):
+def pago(personas,origen,destino,numero):
 
     with st.form('pago'):
         st.header("Pago con codigo QR")
@@ -377,17 +377,13 @@ def pago(personas,origen,destino):
         st.title('Carga de Imágenes')
 
         uploaded_file = st.file_uploader("Selecciona una imagen", type=["jpg", "jpeg", "png"])
-        st.success(f'Viaje confirmado desde {origen} con destino a {destino}')
-        st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
-        st.success('FELIZ VIAJE')
-
         if uploaded_file is not None:
             st.image(uploaded_file, caption='Imagen seleccionada', use_column_width=True)
-
-        
-        
         elif st.form_submit_button("Confirmación del viaje"):
-            st.success('confirmado')
+            st.success(f'Viaje confirmado desde {origen} con destino a {destino}')
+            st.warning('Acercate a nuestras taquillas para Recibir tus tiquetes')
+            st.success('FELIZ VIAJE')
+            db_reservas.update({'pago':"CONFIRMADO"}, key=numero)
 ###db_data.put({'username': username, 'Fecha': str(fecha), 'Tipo': 'Gasto', 'Categoría': categoria_gastos, 'Monto': monto})
 
 def confirmacion(origen, destino):
@@ -552,6 +548,36 @@ if get_current_user() is not None:
             costo = r['costo']
 
             pagina_reserva(num, personas, origen, destino, correo)
+
+        if menu_option == 'Pagar reserva':
+            correo = r['correo']
+            origen = r['origen']
+            destino = r['destino']
+            personas = int(r['personas'])
+            viajeros = r['viajeros']
+            costo = r['costo']
+
+            pago(personas,origen,destino,num)
+
+        if menu_option == "Inicio":
+            correo = r['correo']
+            origen = r['origen']
+            destino = r['destino']
+            personas = int(r['personas'])
+            viajeros = r['viajeros']
+            pago = r['pago']
+
+            st.header('Seccion de reservas')
+
+            st.title('Informacion de la reserva:')
+
+            
+            st.write(f'Destino: {destino}')
+            st.write(f'Origen: {origen}')
+            st.write(f'Viajeros: {viajeros}')
+            st.write(f'Personas: {personas}')
+            st.write(f'Status del Pago:' {pago})
+
 
     #menu ferchos
     elif condu.count > 0:
