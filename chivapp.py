@@ -450,7 +450,7 @@ if get_current_user() is not None:
             st.title('Todo esta andando de maravilla, Llevando Felicidad a cada destino')
 
         elif menu_option == 'Administrar chivas':
-            documentos = db_condu.fetch().items
+            documentos = db_chivas.fetch().items
             st.write(documentos)
 
             # Extraer las placas de los documentos
