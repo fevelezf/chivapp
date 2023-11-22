@@ -359,7 +359,7 @@ if get_current_user() is not None:
     rese = get_current_reserva()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
-    res = db_reservas.fetch({"key":rese,"usuario": username})
+    res = db_reservas.fetch({"key":rese,"username": username})
 
     #menu admin
     if admin.count > 0:
