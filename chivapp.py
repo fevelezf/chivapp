@@ -431,7 +431,7 @@ def administrar_viajes():
             if st.form_submit_button("Registrar"):
                 st.success("Asigancion exitosa.")
 
-rol = nl
+rol = 'nl'
 
 if rol == 'nl':
     menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal", "Inicio de Sesion",
