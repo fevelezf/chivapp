@@ -359,7 +359,16 @@ if get_current_user() is not None:
     rese = get_current_reserva()
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
-    res = db_reservas.fetch({"key":rese,"usuario": username})
+    try:
+        res = db_reservas.fetch({"key": rese, "usuario": username})
+    except urllib.error.HTTPError as e:
+        st.write(f"HTTPError: {e.code} - {e.reason}")
+        # Otros manejadores de errores o acciones que puedas necesitar
+    except Exception as e:
+        # Capturar otras excepciones aquí si es necesario
+        st.write(f"Otro tipo de error: {e}")
+    # Otros manejadores de errores o acciones que puedas necesitar
+
 
     #menu admin
     if admin.count > 0:
