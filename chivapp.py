@@ -443,11 +443,9 @@ if get_current_user() is not None:
                                                     'Verificar pagos'])
         if menu_option == "Pagina Principal":
             administra = db_admin.get(username)
-            st.write(administra)
-            #
+            st.title(f'Buen dia señor Andministrador {username}')
 
-            
-            st.title(f'Buen dia señor')
+            st.title('Todo esta andando de maravilla, Llevando Felicidad a cada destino')
         
     #menu ferchos
     elif condu.count > 0:
