@@ -537,7 +537,7 @@ if get_current_user() is not None:
 
 else:
     # Sidebar menu options for non-logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", " IA","IC",
+    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion", "IA","IC",
                                                 "Calculadora de Préstamos"])
 
 # Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
