@@ -358,7 +358,7 @@ if get_current_reserva() is not None:
     rese = get_current_reserva()
     username = get_current_user()
     res = db_reservas.fetch({"key":rese})
-    
+
     if res.count>0:
             r = res.items[0]
             nombre_usuario = r.get("usuario")
@@ -368,7 +368,7 @@ if get_current_reserva() is not None:
             st.title(f'Buen dia señor {nombre_usuario}')
             st.write(f'Estas en la reserva numero : {num}, con origen en la ciudad de : {ori}, y con destino a: {des}')
 
-            menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cerrar Sesión"])
+            menu_option = st.sidebar.selectbox("Menú", ['Inicio','Completar Informacion',"Pagar Reserva","Cancelar Reserva","Cerrar Sesión"])
 
             if menu_option == 'Completar Informacion':
                 # Access the fields using the keys
@@ -407,6 +407,31 @@ if get_current_reserva() is not None:
                 st.write(f'Origen: {origen}')
                 st.write(f'Personas: {personas}')
                 st.write(f'Status del Pago: {pago}')
+
+            elif menu_option == "Cancelar Reserva":
+                st.header('Es una Lastima Que Quieras Cancelar')
+                r = res.items[0]
+                correo = r['correo']
+                origen = r['origen']
+                destino = r['destino']
+                personas = int(r['personas'])
+                pago = r.get('pago')
+                st.title('Informacion de la reserva:')
+
+
+                
+                st.write(f'Destino: {destino}')
+                st.write(f'Origen: {origen}')
+                st.write(f'Personas: {personas}')
+                st.write(f'Status del Pago: {pago}')
+
+                st.title('Esperamos Vuelvas a viajar con nosotros')
+                if st.button("Cancelar Right Now"):
+                    st.session_state.reserva = None
+                    st.session_state.username = None
+                    st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
+                    db_reservas.delete(num)
+
 
 elif get_current_user() is not None:
     username = get_current_user()
@@ -521,9 +546,8 @@ elif get_current_user() is not None:
     #menu usuarios
     elif use.count > 0:
         # Sidebar menu options for logged-in users
-        menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
-                                                    'Busqueda de chiva Rumbera','Pagar Reservas', 'Conductor',
-                                                    ])
+        menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva',
+                                                    "Cancelar Reserva"])
 
 
         if menu_option == 'Busqueda de viajes':
@@ -532,6 +556,49 @@ elif get_current_user() is not None:
         
         elif menu_option == 'Detalles de la reserva':
             numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+            if st.button('Buscar'):
+                res = db_reservas.fetch({"key":numero})
+
+                r = res.items[0]
+                correo = r['correo']
+                origen = r['origen']
+                destino = r['destino']
+                personas = int(r['personas'])
+                pago = r.get('pago')
+
+                st.header('Seccion de reservas')
+
+                st.title('Informacion de la reserva:')
+
+                
+                st.write(f'Destino: {destino}')
+                st.write(f'Origen: {origen}')
+                st.write(f'Personas: {personas}')
+                st.write(f'Status del Pago: {pago}')
+
+        elif menu_option == "Cancelar Reserva":
+            numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
+            res = db_reservas.fetch({"key":numero})
+
+            r = res.items[0]
+            correo = r['correo']
+            origen = r['origen']
+            destino = r['destino']
+            personas = int(r['personas'])
+            pago = r.get('pago')
+
+            st.header('Seccion de reservas')
+
+            st.title('Informacion de la reserva:')
+
+            
+            st.write(f'Destino: {destino}')
+            st.write(f'Origen: {origen}')
+            st.write(f'Personas: {personas}')
+            st.write(f'Status del Pago: {pago}')
+
+
+
 
 else:
     # Sidebar menu options for non-logged-in users
