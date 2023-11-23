@@ -354,15 +354,19 @@ def administrar_viajes():
                 st.success("Asigancion exitosa.")
 
 
-if get_current_user() is not None:
-    username = get_current_user()
+if get_current_reserva() is not None:
     rese = get_current_reserva()
+    username = get_current_user()
     res = db_reservas.fetch({"key":rese,"usuario": username})
+    st.write(res.count)
+elif get_current_user() is not None:
+    username = get_current_user()
+
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
     use = db_users.fetch({"username":username})
 
-    st.write(res.count)
+    
     st.write(admin.count)
     st.write(condu.count)
     st.write(use.count)
