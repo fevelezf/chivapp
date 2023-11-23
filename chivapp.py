@@ -574,7 +574,7 @@ elif get_current_user() is not None:
     elif use.count > 0:
         # Sidebar menu options for logged-in users
         menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva',
-                                                    "Cancelar Reserva","Cerrar Sesión"])
+                                                    "Cerrar Sesión"])
 
 
         if menu_option == 'Busqueda de viajes':
@@ -603,26 +603,6 @@ elif get_current_user() is not None:
                 st.write(f'Personas: {personas}')
                 st.write(f'Status del Pago: {pago}')
 
-        elif menu_option == "Cancelar Reserva":
-            numero = st.text_input('Ingrese el número de la reserva tal y como se le dio')
-            res = db_reservas.fetch({"key":numero})
-
-            r = res.items[0]
-            correo = r['correo']
-            origen = r['origen']
-            destino = r['destino']
-            personas = int(r['personas'])
-            pago = r.get('pago')
-
-            st.header('Seccion de reservas')
-
-            st.title('Informacion de la reserva:')
-
-            
-            st.write(f'Destino: {destino}')
-            st.write(f'Origen: {origen}')
-            st.write(f'Personas: {personas}')
-            st.write(f'Status del Pago: {pago}')
 
 
         elif menu_option == "Cerrar Sesión":
