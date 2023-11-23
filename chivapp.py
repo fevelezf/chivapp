@@ -145,7 +145,6 @@ def busqueda_de_viajes_inicial():
         destino = st.selectbox("Destino:", ciudades)
         personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
         fecha = st.date_input("Selecciona la fecha:")
-        correo_r = st.text_input("Correo de quien Reserva")
         if st.form_submit_button('Busca el Viaje Right Now'):
             if origen != destino:
                 st.success("TENEMOS DISPONIBILIDAD")
@@ -645,7 +644,7 @@ else:
 
     elif menu_option == "Inicio":
         st.header("Bienvenido a chivapp aca puedes viajar como y cuando quieras")
-        
+
     elif menu_option == "Busqueda":
         busqueda_de_viajes_inicial()
 
