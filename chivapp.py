@@ -360,6 +360,12 @@ if get_current_user() is not None:
     res = db_reservas.fetch({"key":rese,"usuario": username})
     admin = db_admin.fetch({"username": username})
     condu = db_condu.fetch({"username": username})
+    use = db_users.fetch({"username":username})
+
+    st.write(res)
+    st.write(admin)
+    st.write(condu)
+
     
 
     #menu admin
@@ -517,12 +523,12 @@ if get_current_user() is not None:
             st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
     #menu usuarios
-    else:
+    elif use.count > 0:
         # Sidebar menu options for logged-in users
         menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva', 
                                                     'Busqueda de chiva Rumbera','Pagar Reservas', 'Conductor',
                                                     ])
-        
+
 
         if menu_option == 'Busqueda de viajes':
             origen, destino, personas, fecha, correo_r = busqueda_de_viajes()
