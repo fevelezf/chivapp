@@ -135,6 +135,29 @@ def busqueda_de_viajes():
     return None, None, None, None,None
 
 
+def busqueda_de_viajes_inicial():
+    ciudades = ["Medellin", "San Pedro", "Concepcion", "Abejorral", "La Ceja", "Venecia", "Rionegro"]
+
+    st.title("¡Bienvenido a tu Agencia de Viajes!")
+    st.write("Selecciona tu origen y destino para encontrar tu próximo viaje.")
+    with st.form('busqueda'):
+        origen = st.selectbox("Origen:", ciudades)
+        destino = st.selectbox("Destino:", ciudades)
+        personas = st.number_input("¿Cuántas personas viajan?", min_value=1, max_value=15, step=1)
+        fecha = st.date_input("Selecciona la fecha:")
+        correo_r = st.text_input("Correo de quien Reserva")
+        if st.form_submit_button('Busca el Viaje Right Now'):
+            if origen != destino:
+                st.success("TENEMOS DISPONIBILIDAD")
+                st.warning('Accede a tu Cuenta o crea una para reservar')
+
+            else:
+                st.warning("El destino no puede ser igual al origen. Por favor, selecciona una ciudad diferente.")
+
+    
+
+
+
             
 def pagina_reserva(numero, personas, origen, destino, correo_r):
     st.header("Datos de los Viajeros:")
@@ -612,13 +635,19 @@ elif get_current_user() is not None:
 
 else:
     # Sidebar menu options for non-logged-in users
-    menu_option = st.sidebar.selectbox("Menú", ["Inicio", "Inicio de Sesion","Gestion de Reservas", "Inicio Administrador","Inicio Conductor",
+    menu_option = st.sidebar.selectbox("Menú", ["Inicio","Busqueda", "Inicio de Sesion","Gestion de Reservas", "Inicio Administrador","Inicio Conductor",
                                                 "Registro"])#
 
     # Si el usuario elige "Cerrar Sesión", restablecer la variable de sesión a None
     if menu_option == "Cerrar Sesión":
         st.session_state.username = None
         st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
+
+    elif menu_option == "Inicio":
+        st.header("Bienvenido a chivapp aca puedes viajar como y cuando quieras")
+        
+    elif menu_option == "Busqueda":
+        busqueda_de_viajes_inicial()
 
     elif menu_option == "Inicio Administrador":
         st.write("Bienvenido al inicio de la aplicación.")
