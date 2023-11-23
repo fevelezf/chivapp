@@ -645,6 +645,15 @@ else:
     elif menu_option == "Inicio":
         st.header("Bienvenido a chivapp aca puedes viajar como y cuando quieras")
 
+        st.write('<h4 style="font-size: 26px; color: #000000; font-family: cursive; font-weight: bold; text-align: center;">Asi se viaja en Chiva</h4>', unsafe_allow_html=True)
+
+        st.video("https://www.youtube.com/watch?v=waTe8zl8kWE&ab_channel=ImagenColombia")
+
+        st.write('<h4 style="font-size: 26px; color: #000000; font-family: cursive; font-weight: bold; text-align: center;">Aca una cancion conmemorativa a todos nuestros Camiones y chivas</h4>', unsafe_allow_html=True)
+
+        st.video("https://www.youtube.com/watch?v=qO3dDYa2XIY&ab_channel=MarioAndresCeballosGonzalez")
+
+
     elif menu_option == "Busqueda":
         busqueda_de_viajes_inicial()
 
