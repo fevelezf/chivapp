@@ -432,6 +432,11 @@ if get_current_reserva() is not None:
                     st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
                     db_reservas.delete(num)
 
+            elif menu_option == "Cerrar Sesión":
+                st.session_state.reserva = None
+                st.session_state.username = None
+                st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
+
 
 elif get_current_user() is not None:
     username = get_current_user()
@@ -547,7 +552,7 @@ elif get_current_user() is not None:
     elif use.count > 0:
         # Sidebar menu options for logged-in users
         menu_option = st.sidebar.selectbox("Menú", ["Pagina Principal",'Busqueda de viajes','Detalles de la reserva',
-                                                    "Cancelar Reserva"])
+                                                    "Cancelar Reserva","Cerrar Sesión"])
 
 
         if menu_option == 'Busqueda de viajes':
@@ -596,6 +601,11 @@ elif get_current_user() is not None:
             st.write(f'Origen: {origen}')
             st.write(f'Personas: {personas}')
             st.write(f'Status del Pago: {pago}')
+
+
+        elif menu_option == "Cerrar Sesión":
+            st.session_state.username = None
+            st.success("Sesión cerrada con éxito. Por favor, inicie sesión nuevamente.")
 
 
 
