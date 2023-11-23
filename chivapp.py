@@ -362,9 +362,10 @@ if get_current_user() is not None:
     condu = db_condu.fetch({"username": username})
     use = db_users.fetch({"username":username})
 
-    st.write(res)
-    st.write(admin)
-    st.write(condu)
+    st.write(res.count)
+    st.write(admin.count)
+    st.write(condu.count)
+    st.write(use.count)
 
     
 
