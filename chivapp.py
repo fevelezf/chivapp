@@ -357,7 +357,7 @@ def administrar_viajes():
 if get_current_reserva() is not None:
     rese = get_current_reserva()
     username = get_current_user()
-    res = db_reservas.fetch({"key":rese,"usuario": username})
+    res = db_reservas.fetch({"key":rese})
     st.write(res.count)
 elif get_current_user() is not None:
     username = get_current_user()
